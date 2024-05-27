@@ -1,0 +1,90 @@
+{
+  "project_info": {
+    "project_number": "963157051833",
+    "project_id": "note-firebase-6366d",
+    "storage_bucket": "note-firebase-6366d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963157051833:android:187c50a493468bc8d4ce68",
+        "android_client_info": {
+          "package_name": "com.chicmicapps.notetaking"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963157051833-gu56ol8ut09e2dsp3s1mcd43abdp8ifb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.chicmicapps.notetaking",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "963157051833-a1elv0njn1tu58p9fjnfe8277bi2aj6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoTQcBB8GIu1GIRuEyEjIZJunHTSXOBrM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963157051833-a1elv0njn1tu58p9fjnfe8277bi2aj6c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "963157051833-ho4i4r2frmlsat63dk0s9mqvjectpku3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.Note"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963157051833:android:e601487d87884392d4ce68",
+        "android_client_info": {
+          "package_name": "com.note"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963157051833-a1elv0njn1tu58p9fjnfe8277bi2aj6c.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoTQcBB8GIu1GIRuEyEjIZJunHTSXOBrM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963157051833-a1elv0njn1tu58p9fjnfe8277bi2aj6c.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "963157051833-ho4i4r2frmlsat63dk0s9mqvjectpku3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.reactjs.native.example.Note"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
