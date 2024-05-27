@@ -20,7 +20,8 @@ export const styles = StyleSheet.create({
       fontFamily:'Nunito',
     },
     richBar: {
-      backgroundColor:LIGHT_THEME_COLOR.BACKGROUND1
+      backgroundColor:LIGHT_THEME_COLOR.BACKGROUND1,
+      // paddingBottom:0
     },
     tib: {
       textAlign: 'center',

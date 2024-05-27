@@ -6,6 +6,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import {
   FlatList,
   Image,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   SafeAreaView,
@@ -260,6 +261,24 @@ const Note = ({route, theme}) => {
   };
   const headerHeight = useHeaderHeight();
   const THEME = theme;
+  const [keyboardVerticalOffset, setKeyboardVerticalOffset] = useState(0);
+
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
+      setKeyboardVerticalOffset(heightPercentageToDP('5.9%'));
+    });
+
+    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
+      setKeyboardVerticalOffset(0);
+    });
+
+    // Cleanup the event listeners on component unmount
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
   return (
     <SafeAreaView
       style={[
@@ -270,9 +289,7 @@ const Note = ({route, theme}) => {
       ]}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        keyboardVerticalOffset={
-          Platform.OS === 'ios' ? 0 : heightPercentageToDP('5.9%')
-        }
+        keyboardVerticalOffset={keyboardVerticalOffset}
         // keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : keyboardOffset}
         style={styles.subContainer}>
         <View>

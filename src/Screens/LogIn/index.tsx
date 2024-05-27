@@ -115,7 +115,7 @@ function LogIn({navigation, theme}) {
                   </Text>
                   <Text
                     style={{
-                      color:THEME.FOOTER,
+                      color:THEME.TEXT1,
                     }}>
                     {STRINGS.SIGN_UP_CONDITIONS}
                   </Text>
