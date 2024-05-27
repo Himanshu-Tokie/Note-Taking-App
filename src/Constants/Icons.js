@@ -1,7 +1,5 @@
 import React from 'react'
 import { RFValue } from 'react-native-responsive-fontsize'
-import BOOK from '../Assets/Svg/book.svg'
-import DAIRY from '../Assets/Svg/diary.svg'
 import ACADEMIC from '../Assets/Svg/academic.svg'
 import ADD from '../Assets/Svg/add.svg'
 import BACK from '../Assets/Svg/back.svg'
@@ -9,11 +7,14 @@ import BELL from '../Assets/Svg/bell.svg'
 import BELL_BLACK from '../Assets/Svg/bell_black.svg'
 import BELL_BLACK_DARK from '../Assets/Svg/bell_black_dark.svg'
 import BELL_DARK from '../Assets/Svg/bell_dark.svg'
+import BOOK from '../Assets/Svg/book.svg'
+import CAMERA from '../Assets/Svg/camera.svg'
 import CHECKS_BLACK from '../Assets/Svg/check_black.svg'
 import CHECKS_BLACK_DARK from '../Assets/Svg/check_black_dark.svg'
 import CHECKS_DARK from '../Assets/Svg/check_dark.svg'
 import CHECKS from '../Assets/Svg/checks.svg'
 import CROSS from '../Assets/Svg/cross-svgrepo-com.svg'
+import DAIRY from '../Assets/Svg/diary.svg'
 import DOC from '../Assets/Svg/doc.svg'
 import DOC_BLACK from '../Assets/Svg/doc_Black.svg'
 import DOC_BLACK_DARK from '../Assets/Svg/doc_black_dark.svg'
@@ -34,6 +35,7 @@ import SETTING_BLACK from '../Assets/Svg/setting_black.svg'
 import SETTINGS_BLACK_DARK from '../Assets/Svg/setting_black_dark.svg'
 import SETTINGS_DARK from '../Assets/Svg/setting_dark.svg'
 import WORK from '../Assets/Svg/work.svg'
+
 const iconStyle = (
   width = 0,
   height = 0,
@@ -81,5 +83,6 @@ export const ICONS = {
   CHECKS_DARK: (...params) => <CHECKS_DARK {...iconStyle(...params)} />,
   DOC_BLACK_DARK: (...params) => <DOC_BLACK_DARK {...iconStyle(...params)} />,
   PIECHART_BLACK: (...params) => <PIECHART_BLACK {...iconStyle(...params)} />,
+  CAMERA: (...params) => <CAMERA {...iconStyle(...params)} />,
 
 }

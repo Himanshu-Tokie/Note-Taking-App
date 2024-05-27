@@ -27,7 +27,7 @@ export default function UserImage({photo,setPhoto}) {
   return (
     <>
     <TouchableOpacity onPress={handleImagePicker}>
-      {ICONS.BELL(
+      {ICONS.CAMERA(
         heightPercentageToDP('2.8%'),
         heightPercentageToDP('2.8%'),
         'none',
