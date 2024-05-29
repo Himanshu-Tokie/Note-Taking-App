@@ -68,6 +68,8 @@ export default function Google() {
             // operation (eg. sign in) already in progress
             break;
           case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            console.log('service error');
+            
             // play services not available or outdated
             break;
           default:

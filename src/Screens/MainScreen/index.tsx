@@ -38,7 +38,7 @@ function Enter({ navigation,theme }) {
         <View style={styles.footer}>
           <CustomText text={STRINGS.HAVE_ACCOUNT} styles={[styles.simpleText,{color:THEME.TEXT1}]} />
           <Text onPress={logIn} style={[styles.simpleText, styles.colorText]}>
-            {STRINGS.LOG_IN}
+            {' ' +STRINGS.LOG_IN}
           </Text>
         </View>
       </View>

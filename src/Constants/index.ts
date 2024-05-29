@@ -1,9 +1,9 @@
 export const SCREEN_CONSTANTS={
     Home:'home',
-    Login:'login',
+    Login:'Login',
     Enter:'enter',
     Note:'note',
-    SignUp:'signup',
+    SignUp:'SignUp',
     ForgotPassword:'forgotPassword',
     Formik:'formik',
     Label:'label',

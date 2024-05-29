@@ -35,16 +35,15 @@ const image = createSlice({
     getFromAsyncStorage: (state, action) => {
       state.imageUri = action.payload ?? {};
       // console.log(action.payload,67);
-      
     },
   },
 });
-export const loadImageFromStorage = () => async dispatch => {
-  const savedImage = await AsyncStorage.getItem('Images');
-  if (savedImage) {
-    dispatch(getFromAsyncStorage(savedImage));
-  }
-};
+// export const loadImageFromStorage = () => async dispatch => {
+//   const savedImage = await AsyncStorage.getItem('Images');
+//   if (savedImage) {
+//     dispatch(getFromAsyncStorage(savedImage));
+//   }
+// };
 
 export const {loadImage, getFromAsyncStorage,setConnectionStatus} = image.actions;
 

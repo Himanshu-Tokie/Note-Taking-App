@@ -12,9 +12,7 @@ import { styles } from './style';
     data.forEach((label)=>{
         labelData.push({'label':label.id})
     })
-    const THEME = theme 
-    console.log(THEME.NOTETEXT,90);
-    
+    const THEME = theme     
     return (
       <View style={[styles.container,{backgroundColor:THEME.BACKGROUND}]}>
         <Dropdown

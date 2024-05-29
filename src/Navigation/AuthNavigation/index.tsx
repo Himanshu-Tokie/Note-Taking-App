@@ -1,20 +1,21 @@
+import NetInfo from '@react-native-community/netinfo';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { useEffect } from "react";
+import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { useDispatch, useSelector } from "react-redux";
-import Label from "../../Screens/Labels";
-import Note from "../../Screens/Note";
-import Enter from "../../Screens/MainScreen";
+import withTheme from "../../Components/HOC";
+import { SCREEN_CONSTANTS } from "../../Constants";
 import ForgotPassword from "../../Screens/ForgotPassword";
+import Label from "../../Screens/Labels";
 import LogIn from "../../Screens/LogIn";
+import Enter from "../../Screens/MainScreen";
+import Note from "../../Screens/Note";
 import SignUp from "../../Screens/SignUp";
 import Splash from "../../Screens/SplashScreen";
-import withTheme from "../../Components/HOC";
+import { setConnectionStatus } from "../../Store/Image";
 import { loadThemeFromStorage } from "../../Store/Theme";
 import HomeNavigation from "../HomeNavigation";
-import NetInfo from '@react-native-community/netinfo';
-import { setConnectionStatus } from "../../Store/Image";
-import { SCREEN_CONSTANTS } from "../../Constants";
 
 function AuthNavigation({theme}) {
     const isConnected = useSelector(state=>state.image.isConnected)
@@ -50,12 +51,15 @@ function AuthNavigation({theme}) {
             <NavigationContainer>
                 <Stack.Navigator initialRouteName={SCREEN_CONSTANTS.Splash1}
                     screenOptions={{
-                        headerStyle: { backgroundColor: theme.BACKGROUND },
+                        headerStyle: { backgroundColor: theme.BACKGROUND ,
+                            
+                        },
+                        headerTitleAlign:'center',
                         headerTintColor: 'rgb(107, 78, 253)',
                         headerTitleStyle: {
                             fontWeight: 'bold',
-                            color: '#000000',
-                            fontSize: 20
+                            color:theme.TEXT1,
+                            fontSize: heightPercentageToDP('3%')
                         },
                     }}>
                         {!isLoggedIn ? (

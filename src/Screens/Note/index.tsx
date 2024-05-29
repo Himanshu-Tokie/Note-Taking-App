@@ -1,8 +1,8 @@
-import { default as auth } from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import { useHeaderHeight } from '@react-navigation/elements';
-import * as htmlparser2 from 'htmlparser2';
-import React, { useEffect, useRef, useState } from 'react';
+import { default as auth } from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
+import { useHeaderHeight } from "@react-navigation/elements";
+import * as htmlparser2 from "htmlparser2";
+import React, { useEffect, useRef, useState } from "react";
 import {
   FlatList,
   Image,
@@ -11,36 +11,40 @@ import {
   Platform,
   SafeAreaView,
   TextInput,
-  View,
-} from 'react-native';
-import { RichEditor, RichToolbar, actions } from 'react-native-pell-rich-editor';
+  View
+} from "react-native";
+import {
+  RichEditor,
+  RichToolbar,
+  actions,
+} from "react-native-pell-rich-editor";
 import {
   heightPercentageToDP,
   widthPercentageToDP,
-} from 'react-native-responsive-screen';
-import { useDispatch, useSelector } from 'react-redux';
-import DateTime from '../../Components/DateTime';
-import DropdownComponent from '../../Components/Dropdown/dropdown';
-import withTheme from '../../Components/HOC';
-import Header from '../../Components/Header';
-import UserImage from '../../Components/Image';
-import { STRINGS } from '../../Constants/Strings';
-import { loadImage } from '../../Store/Image';
-import { imageCompressor } from '../../Utils';
-import { styles } from './styles';
+} from "react-native-responsive-screen";
+import { useDispatch, useSelector } from "react-redux";
+import DateTime from "../../Components/DateTime";
+import DropdownComponent from "../../Components/Dropdown/dropdown";
+import withTheme from "../../Components/HOC";
+import Header from "../../Components/Header";
+import UserImage from "../../Components/Image";
+import { STRINGS } from "../../Constants/Strings";
+import { loadImage } from "../../Store/Image";
+import { imageCompressor } from "../../Utils";
+import { styles } from "./styles";
 
-const Note = ({route, theme}) => {
+const Note = ({ route, theme }) => {
   // console.log(route, 87);
   const dispatch = useDispatch();
-  const imageInitData = useSelector(state => state.image.imageUri);
-  console.log(imageInitData,908);
-  
+  const imageInitData = useSelector((state) => state.image.imageUri);
+  console.log(imageInitData, 908);
+
   const user = auth().currentUser;
   let uid = user?.uid;
-  let initialTitle = '';
-  let noteId = '';
-  let data = '';
-  let lable = 'Others';
+  let initialTitle = "";
+  let noteId = "";
+  let data = "";
+  let lable = "Others";
   let imageInitialData = [];
   const reminder = useRef(false);
   const isNew = useRef(true);
@@ -85,20 +89,20 @@ const Note = ({route, theme}) => {
   const [imageData, setImageData] = useState(imageInitialData);
   const img = useRef([]);
   console.log(imageData, 34);
-  const noteNewId = useRef(null)
+  const noteNewId = useRef(null);
   useEffect(() => {
     if (!photo || !uid) {
-      console.log('no photo or uid; Note-Image-uploader');
+      console.log("no photo or uid; Note-Image-uploader");
       return;
     }
     console.log(photo, 78);
     const processImage = async () => {
       try {
         const newUri = await imageCompressor(photo);
-        setImageData(prevImageData => [...prevImageData, newUri]);
+        setImageData((prevImageData) => [...prevImageData, newUri]);
         img.current = [...img.current, newUri];
       } catch (error) {
-        console.log('Error compressing image:', error);
+        console.log("Error compressing image:", error);
       }
     };
     processImage();
@@ -117,7 +121,7 @@ const Note = ({route, theme}) => {
           timeStamp: dateRef.current,
         })
         .then(() => {
-          console.log('new reminder added successfully');
+          console.log("new reminder added successfully");
         });
     } catch (e) {
       console.log(e, STRINGS.FIREBASE.REMINDER);
@@ -136,17 +140,17 @@ const Note = ({route, theme}) => {
           timeStamp: dateRef.current,
         })
         .then(() => {
-          console.log('reminder updated successfully');
+          console.log("reminder updated successfully");
         });
     } catch (e) {
-      console.log(e, 'reminderrrr');
+      console.log(e, "reminderrrr");
     }
     // console.log(dateRef);
   };
   const updateData = async () => {
     try {
-      console.log(articleData.current, 'data tobe uppdated');
-      console.log(titleRef.current, 'updated title');
+      console.log(articleData.current, "data tobe uppdated");
+      console.log(titleRef.current, "updated title");
       console.log(uid, 123);
       console.log(noteId, 123);
 
@@ -159,7 +163,7 @@ const Note = ({route, theme}) => {
           title: titleRef.current,
           content: articleData.current,
         });
-      console.log('success updated');
+      console.log("success updated");
     } catch (e) {
       console.log(e);
     }
@@ -176,8 +180,8 @@ const Note = ({route, theme}) => {
       })
       .then((data) => {
         console.log(data._documentPath._parts[3]);
-        noteNewId.current = data._documentPath._parts[3]
-        console.log('new note added successfully');
+        noteNewId.current = data._documentPath._parts[3];
+        console.log("new note added successfully");
       });
     // console.log('asdfafasdfasg');
   };
@@ -191,7 +195,7 @@ const Note = ({route, theme}) => {
       // console.log(dom, 44444444);
       // stripHtml(articleData.current)
       // console.log(!regex.test(articleData.current), 34534534578678);
-      console.log(!regex.test(titleRef.current), 'title');
+      console.log(!regex.test(titleRef.current), "title");
       console.log(articleData);
       if (!regex.test(articleData.current) || !regex.test(titleRef.current)) {
         createN();
@@ -204,15 +208,15 @@ const Note = ({route, theme}) => {
         console.log(count, 123423435);
 
         let updatedcount = count.data();
-        updatedcount = updatedcount['count'] + 1;
+        updatedcount = updatedcount["count"] + 1;
         await firestore()
           .collection(STRINGS.FIREBASE.USER)
           .doc(uid)
           .collection(STRINGS.FIREBASE.LABELS)
           .doc(labelRef.current)
-          .set({count: updatedcount}, {merge: true})
-          .then(() => console.log('hurray'))
-          .catch(() => console.log('hurray error00'));
+          .set({ count: updatedcount }, { merge: true })
+          .then(() => console.log("hurray"))
+          .catch(() => console.log("hurray error00"));
         console.log(updatedcount, 98765);
       }
     } catch (e) {
@@ -228,35 +232,34 @@ const Note = ({route, theme}) => {
       if (!isNew.current) {
         if (reminder.current) {
           await updateReminder();
-          console.log('reminder updated success');
+          console.log("reminder updated success");
         } else {
           await updateData();
-          console.log('note updated success');
+          console.log("note updated success");
         }
       } else {
         if (reminder.current) {
           await createReminder();
-          console.log('reminder created success');
+          console.log("reminder created success");
         } else {
           await createNote();
-          console.log('note created success');
+          console.log("note created success");
         }
       }
       if (noteIdExist.current) {
-        console.log(noteIdExist,'hi');
-        dispatch(loadImage({noteId: noteId, uri: img.current}));
-      }
-      else if(noteNewId.current){
-        console.log(noteNewId.current,'please');
-        dispatch(loadImage({noteId: noteNewId.current, uri: img.current}));
+        console.log(noteIdExist, "hi");
+        dispatch(loadImage({ noteId: noteId, uri: img.current }));
+      } else if (noteNewId.current) {
+        console.log(noteNewId.current, "please");
+        dispatch(loadImage({ noteId: noteNewId.current, uri: img.current }));
       }
     };
     return fetchData;
   }, []);
   const scrollRef = useRef(null);
-  const onCursorPosition = scrollY => {
+  const onCursorPosition = (scrollY) => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTo({y: scrollY - 30, animated: true});
+      scrollRef.current.scrollTo({ y: scrollY - 30, animated: true });
     }
   };
   const headerHeight = useHeaderHeight();
@@ -264,13 +267,19 @@ const Note = ({route, theme}) => {
   const [keyboardVerticalOffset, setKeyboardVerticalOffset] = useState(0);
 
   useEffect(() => {
-    const keyboardDidShowListener = Keyboard.addListener('keyboardDidShow', () => {
-      setKeyboardVerticalOffset(heightPercentageToDP('5.9%'));
-    });
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVerticalOffset(heightPercentageToDP("5.9%"));
+      }
+    );
 
-    const keyboardDidHideListener = Keyboard.addListener('keyboardDidHide', () => {
-      setKeyboardVerticalOffset(0);
-    });
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVerticalOffset(0);
+      }
+    );
 
     // Cleanup the event listeners on component unmount
     return () => {
@@ -286,12 +295,14 @@ const Note = ({route, theme}) => {
         {
           backgroundColor: THEME.BACKGROUND,
         },
-      ]}>
+      ]}
+    >
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={keyboardVerticalOffset}
         // keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : keyboardOffset}
-        style={styles.subContainer}>
+        style={styles.subContainer}
+      >
         <View>
           <Header headerText={isCompleteNew ? value : label} />
         </View>
@@ -304,7 +315,7 @@ const Note = ({route, theme}) => {
         )}
         {/* <ScrollView style={styles.container} ref={scrollRef}> */}
         <TextInput
-          onChangeText={text => {
+          onChangeText={(text) => {
             titleRef.current = text;
             setTitle(text);
           }}
@@ -325,34 +336,38 @@ const Note = ({route, theme}) => {
             horizontal
             data={imageData}
             showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => (
-              <View style={{paddingHorizontal: widthPercentageToDP('0.5%')}}>
+            renderItem={({ item }) => (
+              <View style={{ paddingHorizontal: widthPercentageToDP("0.5%") }}>
                 <Image
-                  source={{uri: item}}
-                  height={heightPercentageToDP('20%')}
-                  width={heightPercentageToDP('20%')}></Image>
+                  source={{ uri: item }}
+                  height={heightPercentageToDP("20%")}
+                  width={heightPercentageToDP("20%")}
+                ></Image>
               </View>
-            )}></FlatList>
+            )}
+          ></FlatList>
         </View>
 
         {/* } */}
-        <RichEditor
-          disabled={false}
-          containerStyle={styles.editor}
-          ref={RichText}
-          initialContentHTML={articleData.current}
-          style={styles.rich}
-          editorStyle={{
-            backgroundColor: THEME.BACKGROUND,
-            color: THEME.NOTETEXT,
-          }}
-          placeholder={'Start Writing Here'}
-          onChange={text => {
-            articleData.current = text;
-          }}
-          scrollEnabled={true}
-          onCursorPosition={onCursorPosition}
-        />
+        {/* <ScrollView> */}
+          <RichEditor
+            disabled={false}
+            containerStyle={styles.editor}
+            ref={RichText}
+            initialContentHTML={articleData.current}
+            style={styles.rich}
+            editorStyle={{
+              backgroundColor: THEME.BACKGROUND,
+              color: THEME.NOTETEXT,
+            }}
+            placeholder={"Start Writing Here"}
+            onChange={(text) => {
+              articleData.current = text;
+            }}
+            scrollEnabled={true}
+            onCursorPosition={onCursorPosition}
+          />
+        {/* </ScrollView> */}
         {reminder.current && (
           <DateTime date={date} setDate={setDate}></DateTime>
         )}
@@ -360,9 +375,9 @@ const Note = ({route, theme}) => {
           style={[styles.richBar]}
           editor={RichText}
           disabled={false}
-          iconTint={'white'}
-          selectedIconTint={'black'}
-          disabledIconTint={'white'}
+          iconTint={"white"}
+          selectedIconTint={"black"}
+          disabledIconTint={"white"}
           // onPressAddImage={onPressAddImage}
           iconSize={25}
           actions={[
