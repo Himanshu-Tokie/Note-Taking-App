@@ -1,24 +1,73 @@
-import React from 'react';
-import { Text, View } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { Alert, Text, View } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSelector } from 'react-redux';
 import CustomButton from '../../Components/Button/customButton';
 import withTheme from '../../Components/HOC';
 import CustomText from '../../Components/Text';
 import { ICONS } from '../../Constants/Icons';
-import { SCREEN_CONSTANTS } from '../../Constants/index';
 import { STRINGS } from '../../Constants/Strings';
+import { SCREEN_CONSTANTS } from '../../Constants/index';
 import Google from './google';
 import { styles } from './style';
 
 function Enter({ navigation,theme }) {
+  const isLoggedIn = useSelector(state=>state.common.isLogedIn)   
+  console.log(isLoggedIn,0);
   const THEME = theme  
+  const isConnected = useSelector(state=>state.image.isConnected)
+  console.log(isConnected,97);
+  const isOffline = useRef(!isConnected)
   const onPress = () => {
     navigation.navigate(SCREEN_CONSTANTS.SignUp);
   };
   const logIn = () => {
     navigation.navigate(SCREEN_CONSTANTS.Login);
   };
+  // const checkConnection = ()=>{
+  //   if(isConnected)return                               
+  //   if(!isConnected)
+  //     Alert.alert(
+  //       "No Internet Connection",
+  //       "Please check your internet connection and try again.",
+  //       [{ text: "OK", onPress: ((isConnected)=> {if(isConnected)return checkConnection()}) }]
+  //     );
+  // }
+  // useEffect(()=>{
+  //   if(!isConnected){
+  //     checkConnection();
+  //   }
+  // },[isConnected])
+  const checkConnection = () => {
+    console.log(isConnected,98);
+    
+    if(isOffline.current){console.log('wow');
+     return}
+    else {
+      console.log('101');
+      console.log(isConnected,1011);
+      console.log(isOffline.current,1011);
+      
+      Alert.alert(
+        "No Internet Connection",
+        "Please check your internet connection and try again.",
+        [
+          {
+            text: "OK",
+            onPress: () => {
+              checkConnection()
+            },
+          },
+        ]
+      );
+    }
+  };
+  
+  useEffect(() => {
+    isOffline.current = !isOffline.current
+    checkConnection();
+  }, [isConnected]);
   return (
     <SafeAreaView style={[styles.container,{backgroundColor:THEME.BACKGROUND}]}>
       <View style={styles.subContainer}>

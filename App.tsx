@@ -32,6 +32,7 @@ export default function App() {
     listenToNotifications();
   }, []);
 
+
   return (
     <Provider store={store}>
       <AuthNavigation></AuthNavigation>

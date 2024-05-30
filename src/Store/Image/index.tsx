@@ -1,11 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createSlice } from '@reduxjs/toolkit';
+import { uploadPhoto } from '../../Utils/Images/image';
 
 const image = createSlice({
   name: 'image',
   initialState: {
     imageUri: {},
-    isConnected:false
+    isConnected:false,
+    queuedImage:{}
   },
   reducers: {
     setConnectionStatus: (state, action) => {
@@ -14,6 +16,7 @@ const image = createSlice({
     loadImage: (state, action) => {
       const noteId = action.payload.noteId;
       const uri = action.payload.uri;
+      const uid = action.payload.uid;
       console.log(uri, 8);
       console.log(noteId);
       if (state.imageUri.hasOwnProperty(noteId)) {
@@ -29,6 +32,7 @@ const image = createSlice({
       }
       AsyncStorage.setItem('Saved_Images', JSON.stringify(state.imageUri)).then(()=>{console.log('done');
       });
+      uploadPhoto(uri,uid,noteId)
       console.log(state.imageUri, 'all image saved');
     },
     deleteImage: (state, action) => {},

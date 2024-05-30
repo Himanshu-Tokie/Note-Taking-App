@@ -54,6 +54,7 @@ function Label({navigation, route, theme}) {
             noteId: doc.id,
             id: uid,
             label: label,
+            ImageUrl:doc.data().url??[],
           });
         });
 
@@ -73,12 +74,15 @@ function Label({navigation, route, theme}) {
       .collection(STRINGS.FIREBASE.NOTES)
       .where('label', '==', label)
       .onSnapshot(querySnapshot => {
+        
         const newData = []; // Temporary array to accumulate data
         querySnapshot.forEach(doc => {
+          console.log(doc.data().url,67);
           newData.push({
             title: doc.data().title,
             data: doc.data().content,
             noteId: doc.id,
+            ImageUrl:doc.data().url,
             id: uid,
             label: label,
           });

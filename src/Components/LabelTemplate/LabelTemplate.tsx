@@ -16,6 +16,15 @@ import { styles } from './style';
 
 function LabelTemplate({icon, text, files, note,theme}) {
   const nav = useNavigation();
+  const label = (text)=>{
+    if(!text.length)return ''
+    else {
+      if(text.length>8)
+        return text.slice(0,8)+'...'
+      else 
+      return text
+    }
+  }
   function navigationHandler() {
     nav.navigate(SCREEN_CONSTANTS.Label, {text, note});
   }
@@ -31,7 +40,7 @@ function LabelTemplate({icon, text, files, note,theme}) {
           <TouchableOpacity onPress={navigationHandler}>
             <View style={styles.inner}>
               {icon(heightPercentageToDP('6.2%'), heightPercentageToDP('6.2%'))}
-              <Text style={[styles.text,{color:THEME.TEXT1}]}>{text}</Text>
+              <Text style={[styles.text,{color:THEME.TEXT1}]}>{label(text)}</Text>
               <Text style={{color:THEME.TEXT1}}>{files} Files</Text>
             </View>
           </TouchableOpacity>

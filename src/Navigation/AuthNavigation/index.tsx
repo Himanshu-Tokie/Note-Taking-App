@@ -25,11 +25,8 @@ function AuthNavigation({theme}) {
     useEffect(() => {
         dispatch(loadThemeFromStorage());
         const unsubscribe = NetInfo.addEventListener(state => {
+            console.log(state,1);
             dispatch(setConnectionStatus(state.isConnected));
-            if (state.isConnected) {
-            //   syncPhotos(dispatch, photos);
-            console.log(state.isConnected,82);
-            }
           });
       
           return () => {
@@ -40,12 +37,10 @@ function AuthNavigation({theme}) {
         useEffect(() => {
             console.log('Network connection status:', isConnected);
             if (isConnected) {
-                // Sync photos if neede
-                // syncPhotos(dispatch, photos);
-                console.log(isConnected,98);
-                
+                console.log(isConnected,98); 
             }
         }, [isConnected]);
+        
     return (
         <>
             <NavigationContainer>

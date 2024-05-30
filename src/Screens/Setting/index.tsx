@@ -1,56 +1,78 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import auth from '@react-native-firebase/auth';
-import { GoogleSignin } from '@react-native-google-signin/google-signin';
-import React from 'react';
-import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import ToggleSwitch from 'toggle-switch-react-native';
-import withTheme from '../../Components/HOC';
-import Search from '../../Components/Header';
-import { SCREEN_CONSTANTS } from '../../Constants';
-import { STRINGS } from '../../Constants/Strings';
-import { logIn, updateUser } from '../../Store/Common';
-import { toggleTheme } from '../../Store/Theme';
-import { styles } from './style';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import auth from "@react-native-firebase/auth";
+import { GoogleSignin } from "@react-native-google-signin/google-signin";
+import React, { useState } from "react";
+import {
+  Alert,
+  SafeAreaView,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import ToggleSwitch from "toggle-switch-react-native";
+import withTheme from "../../Components/HOC";
+import Search from "../../Components/Header";
+import { SCREEN_CONSTANTS } from "../../Constants";
+import { STRINGS } from "../../Constants/Strings";
+import { logIn, updateUser } from "../../Store/Common";
+import { toggleTheme } from "../../Store/Theme";
+import { styles } from "./style";
 
- function Setting({navigation,theme}) {
+function Setting({ navigation, theme }) {
   const user = auth().currentUser;
   const dispatch = useDispatch();
-  const THEME = theme
-  const isThemeOn = useSelector(state=>state.theme.theme)
+  const THEME = theme;
+  const [show, setShow] = useState(false);
+  const isThemeOn = useSelector((state) => state.theme.theme);
   const signOut = async () => {
     try {
-      if (user?.providerData[0].providerId !== 'google.com') {
+      if (user?.providerData[0].providerId !== "google.com") {
         await auth()
           .signOut()
-          .then(() => console.log('User signed out!'))
-          .catch(e => console.log(e));
+          .then(() => console.log("User signed out!"))
+          .catch((e) => console.log(e));
         dispatch(logIn(false));
         dispatch(updateUser(null));
         await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(false));
-        AsyncStorage.clear()
+        AsyncStorage.clear();
         navigation.navigate(SCREEN_CONSTANTS.Enter);
       } else {
         try {
-          await GoogleSignin.signOut().catch(e => console.log(e));
+          await GoogleSignin.signOut().catch((e) => console.log(e));
           dispatch(logIn(false));
           dispatch(updateUser(null));
-          console.log('google log out');
+          console.log("google log out");
           await AsyncStorage.setItem(
             STRINGS.IS_LOGGED_IN,
-            JSON.stringify(false),
-          ).then(() => console.log('success remove async'));
-          AsyncStorage.clear()
+            JSON.stringify(false)
+          ).then(() => console.log("success remove async"));
+          AsyncStorage.clear();
           navigation.navigate(SCREEN_CONSTANTS.Enter);
         } catch (error) {
           console.error(error);
         }
       }
-      console.log('data removed to storage logout');
+      console.log("data removed to storage logout");
     } catch (e) {
       console.log(e);
     }
   };
+
+  const SignOutAlert = () => {
+    Alert.alert("Sign Out", "Are you sure?", [
+      {
+        text: "CANCEL",
+      },
+      {
+        text: "OK",
+        onPress: () => {
+          signOut();
+        },
+      },
+    ]);
+  };
+
   return (
     <>
       <SafeAreaView
@@ -59,7 +81,8 @@ import { styles } from './style';
           {
             backgroundColor: THEME.BACKGROUND,
           },
-        ]}>
+        ]}
+      >
         <View>
           <Search headerText={STRINGS.SETTINGS} />
         </View>
@@ -70,7 +93,8 @@ import { styles } from './style';
               {
                 backgroundColor: THEME.SETTING_BOX,
               },
-            ]}>
+            ]}
+          >
             <View style={styles.view}>
               <View>
                 <Text
@@ -79,7 +103,8 @@ import { styles } from './style';
                     {
                       color: THEME.TEXT1,
                     },
-                  ]}>
+                  ]}
+                >
                   Profile
                 </Text>
               </View>
@@ -92,17 +117,18 @@ import { styles } from './style';
                     {
                       color: THEME.TEXT1,
                     },
-                  ]}>
+                  ]}
+                >
                   {STRINGS.THEME}
                 </Text>
               </View>
               <View>
                 <ToggleSwitch
-                  isOn={isThemeOn === 'dark'}
+                  isOn={isThemeOn === "dark"}
                   onColor="black"
                   circleColor={THEME.BACKGROUND1}
                   offColor="white"
-                  labelStyle={{color: 'black', fontWeight: '900'}}
+                  labelStyle={{ color: "black", fontWeight: "900" }}
                   size="medium"
                   onToggle={() => dispatch(toggleTheme())}
                 />
@@ -116,14 +142,15 @@ import { styles } from './style';
                     {
                       color: THEME.TEXT1,
                     },
-                  ]}>
+                  ]}
+                >
                   Change Password
                 </Text>
               </View>
             </View>
           </View>
           {/* Other settings items */}
-          <TouchableOpacity onPress={signOut}>
+          <TouchableOpacity onPress={SignOutAlert}>
             <View
               style={[
                 styles.box1,
@@ -131,7 +158,8 @@ import { styles } from './style';
                 {
                   backgroundColor: THEME.SETTING_BOX,
                 },
-              ]}>
+              ]}
+            >
               <Text
                 style={[
                   styles.text,
@@ -139,7 +167,8 @@ import { styles } from './style';
                     color: THEME.TEXT1,
                   },
                   styles.textBold,
-                ]}>
+                ]}
+              >
                 {STRINGS.SIGN_OUT}
               </Text>
               {/* </View> */}
@@ -150,4 +179,4 @@ import { styles } from './style';
     </>
   );
 }
-export default withTheme(Setting)
+export default withTheme(Setting);

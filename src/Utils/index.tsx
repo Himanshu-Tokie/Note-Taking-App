@@ -12,22 +12,26 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
       {
         label: STRINGS.TEMP_LABEL_1,
         title: STRINGS.TEMP_TITLE,
-        content: STRINGS.TEMP_CONTENT
+        content: STRINGS.TEMP_CONTENT,
+        url:[]
       },
       {
         label: STRINGS.TEMP_LABEL_2,
         title: STRINGS.TEMP_TITLE,
-        content: STRINGS.TEMP_CONTENT
+        content: STRINGS.TEMP_CONTENT,
+        url:[]
       },
       {
         label: STRINGS.TEMP_LABEL_3,
         title: STRINGS.TEMP_TITLE,
-        content: STRINGS.TEMP_CONTENT
+        content: STRINGS.TEMP_CONTENT,
+        url:[]
       },
       {
         label: STRINGS.TEMP_LABEL_4,
         title: STRINGS.TEMP_TITLE,
-        content: STRINGS.TEMP_CONTENT
+        content: STRINGS.TEMP_CONTENT,
+        url:[]
       },
     ];
     const label = [STRINGS.TEMP_LABEL_1, STRINGS.TEMP_LABEL_2, STRINGS.TEMP_LABEL_3, STRINGS.TEMP_LABEL_4];

@@ -3,38 +3,58 @@ import storage from '@react-native-firebase/storage';
 import { Alert } from 'react-native';
 import { STRINGS } from '../../Constants/Strings';
 
+import firestore from '@react-native-firebase/firestore';
 
 export const uploadPhoto = async(photo,uid,noteId) => {
     try {
-        const photoName = photo?.split('/').pop();
-        console.log(photoName, 90);
-        const reference = storage().ref(`${uid}/${photoName}`);
-        const uploadTask = await reference.putFile(photo);
+        if(!photo.length)
+            return
+        console.log(photo,90);
+        
+        let photoUrls = [];
+        for (const item of photo) {
+            const photoName = item.split('/').pop();
+            const folder = `${uid}/${noteId}/${photoName}`;
+            const reference = storage().ref(folder);
+      
+            await reference.putFile(item);
+            const url = await reference.getDownloadURL();
+            photoUrls.push(url);
+          }
+        // uploadTask.on('state_changed',
+        //     taskSnapshot => {
+        //         console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
+        //     },
+        //     error => {
+        //         console.log(error, 'image error');
+        //         Alert.alert('Photo upload failed', error.message);
+        //     },
+        //     () => {
+        //         console.log('Image uploaded to the bucket!');
+        //         Alert.alert('Photo uploaded successfully');
+        //     }
+        // );
 
-        uploadTask.on('state_changed',
-            taskSnapshot => {
-                console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
-            },
-            error => {
-                console.log(error, 'image error');
-                Alert.alert('Photo upload failed', error.message);
-            },
-            () => {
-                console.log('Image uploaded to the bucket!');
-                Alert.alert('Photo uploaded successfully');
-            }
-        );
+                
+        // update image data
+        const ImageUrls = await firestore()
+        .collection(STRINGS.FIREBASE.USER)
+        .doc(uid)
+        .collection(STRINGS.FIREBASE.NOTES)
+        .doc(noteId)
+        .get()
+        // console.log(ImageUrls.doc());
+        photoUrls = [...ImageUrls.data().url,...photoUrls]
 
-        const url = await reference.getDownloadURL();
         await firestore()
         .collection(STRINGS.FIREBASE.USER)
         .doc(uid)
         .collection(STRINGS.FIREBASE.NOTES)
         .doc(noteId)
-        .add({
-            url: url
+        .update({
+            url: photoUrls
           });
-          console.log('All done image');
+          console.log('All image uploaded to firebase');
           
     } catch (e) {
         console.log(e, 'image error');

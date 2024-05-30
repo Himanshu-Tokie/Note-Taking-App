@@ -28,6 +28,15 @@ function ListTemplate({note, nav, maxHeight, label, theme}) {
     hour12: false,
   };
   const formattedDate = date.toLocaleString('en-US', options);
+  const title = ()=>{
+    if(!note.title.length)return ''
+    else {
+      if(note.title.length>8)
+        return note.title.slice(0,8)+'...'
+      else 
+      return note.title
+    }
+  }
   return (
     <>
       {!label && (
@@ -51,7 +60,7 @@ function ListTemplate({note, nav, maxHeight, label, theme}) {
                       color: THEME.TEXT1,
                     },
                   ]}>
-                  {note.title}
+                  {title()}
                 </Text>
               )}
             </View>

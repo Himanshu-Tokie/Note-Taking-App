@@ -7,8 +7,8 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
-import { ICONS } from '../../Constants/Icons';
 import { LIGHT_THEME_COLOR } from '../../Constants/Colors';
+import { ICONS } from '../../Constants/Icons';
 import withTheme from '../HOC';
 import Icon from '../Icon';
 import { styles } from './style';
@@ -25,6 +25,12 @@ import { styles } from './style';
   // console.log(isFocussed);
   const [value,setValue] = useState('')
   const THEME = theme
+  const label = ()=>{
+      if(headerText.length>8)
+        return headerText.slice(0,10)+'...'
+      else 
+      return headerText
+  }
   return (
     <>
       <View style={styles.container}>
@@ -37,7 +43,7 @@ import { styles } from './style';
         </Pressable>
         {!isFocussed && (
           <View>
-            <Text style={[styles.headerText,{color:THEME.TEXT4}]}>{headerText}</Text>
+            <Text style={[styles.headerText,{color:THEME.TEXT4}]}>{label()}</Text>
           </View>
         )}
         <View

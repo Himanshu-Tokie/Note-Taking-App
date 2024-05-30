@@ -34,7 +34,7 @@ import { imageCompressor } from "../../Utils";
 import { styles } from "./styles";
 
 const Note = ({ route, theme }) => {
-  // console.log(route, 87);
+  console.log(route.params.note, 87);
   const dispatch = useDispatch();
   const imageInitData = useSelector((state) => state.image.imageUri);
   console.log(imageInitData, 908);
@@ -177,6 +177,7 @@ const Note = ({ route, theme }) => {
         label: labelRef.current,
         title: titleRef.current,
         content: articleData.current,
+        url:[]
       })
       .then((data) => {
         console.log(data._documentPath._parts[3]);
@@ -197,7 +198,7 @@ const Note = ({ route, theme }) => {
       // console.log(!regex.test(articleData.current), 34534534578678);
       console.log(!regex.test(titleRef.current), "title");
       console.log(articleData);
-      if (!regex.test(articleData.current) || !regex.test(titleRef.current)) {
+      if (!regex.test(articleData.current) || !regex.test(titleRef.current) || img.current.length) {
         createN();
         const count = await firestore()
           .collection(STRINGS.FIREBASE.USER)
@@ -248,10 +249,10 @@ const Note = ({ route, theme }) => {
       }
       if (noteIdExist.current) {
         console.log(noteIdExist, "hi");
-        dispatch(loadImage({ noteId: noteId, uri: img.current }));
+        dispatch(loadImage({ uid:uid, noteId: noteId, uri: img.current }));
       } else if (noteNewId.current) {
         console.log(noteNewId.current, "please");
-        dispatch(loadImage({ noteId: noteNewId.current, uri: img.current }));
+        dispatch(loadImage({ uid:uid, noteId: noteNewId.current, uri: img.current }));
       }
     };
     return fetchData;
@@ -371,7 +372,28 @@ const Note = ({ route, theme }) => {
         {reminder.current && (
           <DateTime date={date} setDate={setDate}></DateTime>
         )}
-        <RichToolbar
+        {
+          reminder.current ?
+          <RichToolbar
+          style={[styles.richBar]}
+          editor={RichText}
+          disabled={false}
+          iconTint={"white"}
+          selectedIconTint={"black"}
+          disabledIconTint={"white"}
+          // onPressAddImage={onPressAddImage}
+          iconSize={25}
+          actions={[
+            actions.setBold,
+            actions.setItalic,
+            actions.insertBulletsList,
+            actions.insertOrderedList,
+            actions.insertLink,
+            actions.setStrikethrough,
+            actions.setUnderline,
+          ]}
+          />:
+          <RichToolbar
           style={[styles.richBar]}
           editor={RichText}
           disabled={false}
@@ -395,7 +417,8 @@ const Note = ({ route, theme }) => {
               <UserImage photo={photo} setPhoto={setPhoto} />
             ),
           }}
-        />
+          />
+        }
         {/* <UserImage photo={photo} setPhoto={setPhoto}/> */}
         {/* </ScrollView> */}
       </KeyboardAvoidingView>
