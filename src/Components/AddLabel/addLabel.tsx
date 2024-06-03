@@ -2,8 +2,9 @@ import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import DialogInput from 'react-native-dialog-input';
 import { STRINGS } from '../../Constants/Strings';
+import withTheme from "../../Components/HOC";
 
-export default function AddLabel({uid,show,setShow}) {
+function AddLabel({uid,show,setShow,theme}) {
   // const [show, setShow] = useState(false)
   const [newLabel, setNewLabel] = useState('');
   useEffect(() => {
@@ -39,6 +40,9 @@ export default function AddLabel({uid,show,setShow}) {
         isDialogVisible={show}
         title={STRINGS.ADD_LABEL}
         hintInput={STRINGS.LABEL_NAME}
+        hintTextColor={theme.TEXT1}
+        // dialogStyle={{}}
+        modalStyle={{}}
         submitInput={input => {          
           setNewLabel(input);
         }}
@@ -48,3 +52,5 @@ export default function AddLabel({uid,show,setShow}) {
     </>
   );
 }
+
+export default withTheme(AddLabel)

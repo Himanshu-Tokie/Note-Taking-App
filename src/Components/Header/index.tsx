@@ -26,7 +26,7 @@ import { styles } from './style';
   const [value,setValue] = useState('')
   const THEME = theme
   const label = ()=>{
-      if(headerText.length>8)
+      if(headerText.length>12)
         return headerText.slice(0,10)+'...'
       else 
       return headerText

@@ -81,7 +81,7 @@ const Note = ({ route, theme }) => {
   const [label, setLable] = useState(lable);
   const labelRef = useRef(lable);
   const titleRef = useRef(initialTitle);
-  const [value, setValue] = useState(null);
+  const [value, setValue] = useState('');
   useEffect(() => {
     labelRef.current = value;
   }, [value]);
@@ -305,7 +305,7 @@ const Note = ({ route, theme }) => {
         style={styles.subContainer}
       >
         <View>
-          <Header headerText={isCompleteNew ? value : label} />
+          <Header headerText={isCompleteNew.current ? value : label} />
         </View>
         {isCompleteNew.current && (
           <DropdownComponent

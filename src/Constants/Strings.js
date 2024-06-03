@@ -27,7 +27,7 @@ export const STRINGS = {
   SUBMIT: 'Submit',
   SIGN_UP_CONDITIONS:
     'By continuing, you agree to our Terms of Service and Privacy Policy.',
-  FORGOT_PASSWORD: 'Forget Password?',
+  FORGOT_PASSWORD: 'Forgot Password?',
   INVALID_CREDENTIALS: 'Invalid Credentials',
   TEMP_LABEL_1: 'Personal',
   TEMP_LABEL_2: 'Academic',

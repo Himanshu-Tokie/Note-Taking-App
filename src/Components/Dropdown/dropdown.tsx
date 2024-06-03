@@ -20,6 +20,9 @@ import { styles } from './style';
           placeholderStyle={[styles.placeholderStyle,{color:THEME.NOTETEXT}]}
           selectedTextStyle={[styles.selectedTextStyle,{color:THEME.NOTETEXT}]}
           data={labelData}
+          itemTextStyle={{color:THEME.TEXT1}}
+          containerStyle={{backgroundColor:THEME.BACKGROUND}}
+          activeColor={THEME.BACKGROUND}
           maxHeight={heightPercentageToDP('30%')}
           labelField="label"
           valueField="label"
