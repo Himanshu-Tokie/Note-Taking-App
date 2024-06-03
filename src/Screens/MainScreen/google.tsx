@@ -5,7 +5,7 @@ import {
   statusCodes,
 } from '@react-native-google-signin/google-signin';
 import { useNavigation } from '@react-navigation/native';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Platform, Text, TouchableOpacity, View } from 'react-native';
 import {
   heightPercentageToDP
 } from 'react-native-responsive-screen';
@@ -94,8 +94,8 @@ export default function Google() {
         <TouchableOpacity onPress={_signIn}>
           <View style={styles.googleContainer}>
             {ICONS.GOOGLE(
-              heightPercentageToDP('2%'),
-              heightPercentageToDP('2%'),
+              Platform.OS == 'ios'?heightPercentageToDP('2%'):heightPercentageToDP('2.5%'),
+              Platform.OS == 'ios'?heightPercentageToDP('2%'):heightPercentageToDP('2.5%'),
               'none',
             )}
             <Text style={styles.text}>{STRINGS.GOOGLE_SIGN_IN}</Text>

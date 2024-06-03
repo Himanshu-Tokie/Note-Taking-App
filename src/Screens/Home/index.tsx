@@ -1,41 +1,41 @@
-import { default as auth } from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import { useEffect, useState } from 'react';
+import { default as auth } from "@react-native-firebase/auth";
+import firestore from "@react-native-firebase/firestore";
+import { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
-  Image,
   ImageBackground,
   SafeAreaView,
   Text,
-  View,
-} from 'react-native';
+  View
+} from "react-native";
+import DeviceInfo from "react-native-device-info";
+import ImageModal from "react-native-image-modal";
 import {
   heightPercentageToDP,
   widthPercentageToDP,
-} from 'react-native-responsive-screen';
-import { ScrollView } from 'react-native-virtualized-view';
-import { useSelector } from 'react-redux';
-import withTheme from '../../Components/HOC';
-import LabelTemplate from '../../Components/LabelTemplate/LabelTemplate';
-import { ICONS } from '../../Constants/Icons';
-import { STRINGS } from '../../Constants/Strings';
-import { styles } from './style';
-import { IMAGES } from '../../Constants/Images';
+} from "react-native-responsive-screen";
+import { ScrollView } from "react-native-virtualized-view";
+import { useSelector } from "react-redux";
+import withTheme from "../../Components/HOC";
+import LabelTemplate from "../../Components/LabelTemplate/LabelTemplate";
+import { ICONS } from "../../Constants/Icons";
+import { IMAGES } from "../../Constants/Images";
+import { STRINGS } from "../../Constants/Strings";
+import { styles } from "./style";
 
-function Home({theme}) {
+function Home({ theme, navigation }) {
   // const userRedux = useSelector(state=>state.common.user)
-  const THEME =  theme;
+  const THEME = theme;
   const user = auth().currentUser;
 
-  const colorScheme = useSelector(state => state.theme.theme);
-
+  const colorScheme = useSelector((state) => state.theme.theme);
   const defaultImage = IMAGES.DEFAULTUSER;
   const photoURL = user?.photoURL
-    ? {uri: {uri: user.photoURL}}
-    : {uri: defaultImage};
+    ? { uri: { uri: user.photoURL } }
+    : { uri: defaultImage };
 
-  const [label, setLabel] = useState('');
+  const [label, setLabel] = useState("");
   useEffect(() => {
     getLabel();
     if (user) {
@@ -43,17 +43,17 @@ function Home({theme}) {
         .collection(STRINGS.FIREBASE.USER)
         .doc(user.uid)
         .collection(STRINGS.FIREBASE.LABELS)
-        .onSnapshot(querySnapshot => {
+        .onSnapshot((querySnapshot) => {
           const newData = []; // Temporary array to accumulate data
-          querySnapshot.forEach(doc => {
-            newData.push({id: doc.id, count: doc.data().count});
+          querySnapshot.forEach((doc) => {
+            newData.push({ id: doc.id, count: doc.data().count });
           });
           setLabel(newData);
         });
 
       // Stop listening for updates when no longer required
       return () => {
-        console.log('home unsubcribe');
+        console.log("home unsubcribe");
         unsubscribe();
       };
     }
@@ -65,7 +65,7 @@ function Home({theme}) {
         .doc(user.uid)
         .get()
         .then(() => {
-          console.log('all data fetched successfully');
+          console.log("all data fetched successfully");
         });
     } catch (e) {
       console.log(e, 91);
@@ -82,40 +82,70 @@ function Home({theme}) {
           .collection(STRINGS.FIREBASE.LABELS)
           .get();
         const labelData = [];
-        snapShot.forEach(doc => {
-          labelData.push({id: doc.id, count: doc.data().count});
+        snapShot.forEach((doc) => {
+          labelData.push({ id: doc.id, count: doc.data().count });
         });
         setLabel(labelData);
         // console.log(label, 70);}
       }
     } catch (error) {
-      console.error('Error retrieving notes:', error);
+      console.error("Error retrieving notes:", error);
     }
   };
+  // const bytesToGB = (bytes)=>{
+  //   return (bytes/(1024*1024*1024))%100
+  // }
+  const [usedSpace, setUsedSpace] = useState(0);
+  const [freeSpace, setFreeSpace] = useState(0);
+  // DeviceInfo.getFreeDiskStorage().then((freeDiskStorage) => {
+  //   // console.log(freeDiskStorage,'free');
+  //   setFreeSpace(freeDiskStorage)
+  // });
+  // DeviceInfo.getUsedMemory().then((usedMemory) => {
+  //   setUsedSpace(usedMemory)
+  // });
+  useEffect(() => {
+    const fetchStorageInfo = async () => {
+      try {
+        const freeDiskStorage = await DeviceInfo.getFreeDiskStorage();
+        const usedMemory = await DeviceInfo.getUsedMemory();
+        setFreeSpace(freeDiskStorage);
+        setUsedSpace(usedMemory);
+      } catch (error) {
+        console.error("Error fetching storage info:", error);
+      }
+    };
+
+    fetchStorageInfo();
+  }, [user]);
+
+  const bytesToGB = (bytes) => (bytes / (1024 * 1024 * 1024)).toFixed(2);
   if (user) {
     return (
       <>
         <SafeAreaView
-          style={[styles.container, {backgroundColor: THEME.BACKGROUND}]}>
+          style={[styles.container, { backgroundColor: THEME.BACKGROUND }]}
+        >
           <View style={styles.subcontainer}>
             <View style={styles.header}>
               <View>
-                <Text style={[styles.welcome, {color: THEME.TEXT3}]}>
-                  {'Welcome' + ', ' + user?.displayName + '!'}
+                <Text style={[styles.welcome, { color: THEME.TEXT3 }]}>
+                  {"Welcome" + ", " + user?.displayName + "!"}
                 </Text>
-                <Text style={[styles.NoteTaking, {color: THEME.TEXT1}]}>
+                <Text style={[styles.NoteTaking, { color: THEME.TEXT1 }]}>
                   {STRINGS.NOTE}
                 </Text>
               </View>
               <View style={styles.innerHeader}>
-                {/* <View style={styles.icon}>{ICONS.BELL(heightPercentageToDP('2.5%'), heightPercentageToDP('2.5%'), 'white')}</View> */}
-                <Image
-                  source={photoURL.uri}
+                <ImageModal
+                  resizeMode="contain"
+                  imageBackgroundColor={THEME.BACKGROUND}
                   style={{
-                    borderRadius: 10,
-                    height: heightPercentageToDP('6.6%'),
-                    width: heightPercentageToDP('6.6%'),
+                    borderRadius: 50,
+                    height: heightPercentageToDP("6.8%"),
+                    width: heightPercentageToDP("6.8%"),
                   }}
+                  source={photoURL.uri}
                 />
               </View>
             </View>
@@ -123,28 +153,30 @@ function Home({theme}) {
               <View style={styles.imageContainer}>
                 <ImageBackground
                   source={
-                    colorScheme === 'light' ? IMAGES.HOME : IMAGES.HOME_DARK
+                    colorScheme === "light" ? IMAGES.HOME : IMAGES.HOME_DARK
                   }
                   // resizeMode="cover"
-                  style={styles.image}>
+                  style={styles.image}
+                >
                   <View style={styles.imageInner}>
-                    {colorScheme === 'light'
+                    {colorScheme === "light"
                       ? ICONS.PIECHART(
-                          heightPercentageToDP('8.2%'),
-                          heightPercentageToDP('8.2%'),
-                          'none',
+                          heightPercentageToDP("8.2%"),
+                          heightPercentageToDP("8.2%"),
+                          "none"
                         )
                       : ICONS.PIECHART_BLACK(
-                          heightPercentageToDP('8.2%'),
-                          heightPercentageToDP('8.2%'),
-                          'none',
+                          heightPercentageToDP("8.2%"),
+                          heightPercentageToDP("8.2%"),
+                          "none"
                         )}
-                    <View style={{paddingLeft: widthPercentageToDP('7%')}}>
+                    <View style={{ paddingLeft: widthPercentageToDP("7%") }}>
                       <Text style={[styles.text]}>
                         {STRINGS.AVAILABLE_SPACE}
                       </Text>
-                      <Text style={[styles.size, {color: THEME.HOMESIZE}]}>
-                        {STRINGS.STORAGE}
+                      <Text style={[styles.size, { color: THEME.HOMESIZE }]}>
+                        {bytesToGB(usedSpace)} GB of {bytesToGB(freeSpace)} GB
+                        Used
                       </Text>
                     </View>
                   </View>
@@ -157,10 +189,10 @@ function Home({theme}) {
                     data={label}
                     showsVerticalScrollIndicator={false}
                     numColumns={2}
-                    renderItem={({item}) => (
+                    renderItem={({ item }) => (
                       <LabelTemplate
                         icon={
-                          colorScheme === 'light'
+                          colorScheme === "light"
                             ? ICONS.OTHERS
                             : ICONS.INTEL_BLACK
                         }

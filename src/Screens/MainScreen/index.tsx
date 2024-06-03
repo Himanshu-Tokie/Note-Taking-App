@@ -45,9 +45,8 @@ function Enter({ navigation,theme }) {
     if(isOffline.current){console.log('wow');
      return}
     else {
-      console.log('101');
       console.log(isConnected,1011);
-      console.log(isOffline.current,1011);
+      console.log(isOffline.current,1012);
       
       Alert.alert(
         "No Internet Connection",
@@ -87,7 +86,7 @@ function Enter({ navigation,theme }) {
         <View style={styles.footer}>
           <CustomText text={STRINGS.HAVE_ACCOUNT} styles={[styles.simpleText,{color:THEME.TEXT1}]} />
           <Text onPress={logIn} style={[styles.simpleText, styles.colorText]}>
-            {' ' +STRINGS.LOG_IN}
+            {'  ' +STRINGS.LOG_IN}
           </Text>
         </View>
       </View>

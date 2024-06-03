@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
 import { Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
+import { LIGHT_THEME_COLOR } from '../../Constants/Colors';
 import { ICONS } from '../../Constants/Icons';
 import { STRINGS } from '../../Constants/Strings';
 import { styles } from './style';
@@ -42,10 +43,16 @@ export default function FormikTemplate({
           onChangeText={onChangeText}
           onBlur={onBlur}
           secureTextEntry={secureTextEntry}
-          style={{flex:1}}
+          style={{flex:1,color:LIGHT_THEME_COLOR.TEXT1}}
         />
         {(placeholder === STRINGS.PASSWORD || placeholder === STRINGS.CONFIRM_PASSWORD) && ( 
-          <TouchableOpacity onPress={onPress}>{ICONS.EYE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none')}</TouchableOpacity>
+          <TouchableOpacity onPress={onPress}>
+            {
+              secureTextEntry ?
+            ICONS.EYE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none'):ICONS.EYE_CLOSE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none')
+            }
+          
+          </TouchableOpacity>
         )}
       </View>
       {touched && error &&(logIn)&& <Text style={styles.error}>*{error}</Text>}

@@ -4,7 +4,7 @@ export const SCREEN_CONSTANTS={
     Enter:'enter',
     Note:'note',
     SignUp:'SignUp',
-    ForgotPassword:'forgotPassword',
+    ForgotPassword:'Forgot Password',
     Formik:'formik',
     Label:'label',
     Setting:'setting',

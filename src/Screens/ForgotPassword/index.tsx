@@ -1,6 +1,6 @@
 import auth from '@react-native-firebase/auth';
 import { Formik } from 'formik';
-import { Alert, SafeAreaView, View } from 'react-native';
+import { Alert, Keyboard, SafeAreaView, View } from 'react-native';
 import * as Yup from 'yup';
 import CustomButton from '../../Components/Button/customButton';
 import FormikTemplate from '../../Components/FormikTemplate';
@@ -46,7 +46,9 @@ export default function ResetPassword() {
                     values={values.email}
                     touched={touched.email}
                     onChangeText={handleChange('email')}
-                    onBlur={() => setFieldTouched('email')}
+                    onBlur={() => {setFieldTouched('email');
+                    Keyboard.dismiss();}
+                    }
                     error={errors.email}
                   />
                   <CustomButton

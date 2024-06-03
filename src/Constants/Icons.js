@@ -20,6 +20,7 @@ import DOC_BLACK from '../Assets/Svg/doc_Black.svg'
 import DOC_BLACK_DARK from '../Assets/Svg/doc_black_dark.svg'
 import DOC_DARK from '../Assets/Svg/doc_dark.svg'
 import EYE from '../Assets/Svg/eye.svg'
+import EYE_CLOSE from '../Assets/Svg/eye_close.svg'
 import GOOGLE from '../Assets/Svg/google.svg'
 import TICK from '../Assets/Svg/icons8-tick.svg'
 import INTEL from '../Assets/Svg/intel.svg'
@@ -84,5 +85,6 @@ export const ICONS = {
   DOC_BLACK_DARK: (...params) => <DOC_BLACK_DARK {...iconStyle(...params)} />,
   PIECHART_BLACK: (...params) => <PIECHART_BLACK {...iconStyle(...params)} />,
   CAMERA: (...params) => <CAMERA {...iconStyle(...params)} />,
+  EYE_CLOSE: (...params) => <EYE_CLOSE {...iconStyle(...params)} />,
 
 }

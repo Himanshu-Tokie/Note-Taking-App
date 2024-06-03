@@ -56,7 +56,8 @@ const Note = ({ route, theme }) => {
     if (route.params?.labelData != undefined) {
       // console.log(route.params?.labelData, 90);
       isCompleteNew.current = true;
-    } else if (route.params?.note != undefined) {
+    } 
+    else if (route.params?.note != undefined) {
       if (route.params.note.noteId == undefined) {
         lable = route.params.note.label;
       } else {
@@ -67,7 +68,7 @@ const Note = ({ route, theme }) => {
         isNew.current = false;
         noteIdExist.current = true;
         if (imageInitData[noteId]) imageInitialData = imageInitData[noteId];
-      }
+      }      
       if (route.params.note.timestamp !== undefined) {
         // dateRef.current = route.params.note.timestamp
         reminder.current = true;
@@ -80,8 +81,10 @@ const Note = ({ route, theme }) => {
   const [title, setTitle] = useState(initialTitle);
   const [label, setLable] = useState(lable);
   const labelRef = useRef(lable);
+  // console.log(labelRef.current,'labelRef');
+  
   const titleRef = useRef(initialTitle);
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState(lable);
   useEffect(() => {
     labelRef.current = value;
   }, [value]);
