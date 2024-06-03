@@ -23,7 +23,7 @@ export const styles = StyleSheet.create({
       fontFamily: 'Nunito',
       fontWeight: 'bold',
       fontSize: heightPercentageToDP('2.2%'),
-      marginLeft: 10,
+      marginLeft: widthPercentageToDP('9%'),
       color: LIGHT_THEME_COLOR.TEXT1,
       // marginHorizontal:60
     },
@@ -32,8 +32,6 @@ export const styles = StyleSheet.create({
     },
     rightHeader: {
       width: widthPercentageToDP('25%'),
-      // flex:()
-      // flex:1,
     },
     text: {
       fontSize: heightPercentageToDP('2%'),

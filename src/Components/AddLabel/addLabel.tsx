@@ -18,6 +18,7 @@ function AddLabel({uid,show,setShow,theme}) {
             .doc(newLabel)
             .set({
               count: 0,
+              time_stamp: firestore.FieldValue.serverTimestamp(),
             })
             .then(() => setShow(false))
             .catch(e => console.log(e));

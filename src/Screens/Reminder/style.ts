@@ -7,14 +7,14 @@ export const styles = StyleSheet.create({
         flex: 1,
     backgroundColor: LIGHT_THEME_COLOR.BACKGROUND,
     },
-    subContainer:{
+    searchContainer:{
         // maxWidth:RFPercentage(50),
         // width:"50%",
         // width:100
         paddingTop:heightPercentageToDP('2.4%')
     },
-    list:{
-        
+    subContainer:{
+       paddingBottom:heightPercentageToDP('14%') 
     },
     addNotes:{
         position:'absolute',

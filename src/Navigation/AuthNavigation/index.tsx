@@ -62,7 +62,7 @@ function AuthNavigation({theme}) {
                         <Stack.Screen name={SCREEN_CONSTANTS.Splash1} component={Splash} options={{ headerShown: false }} />
                         <Stack.Screen name={SCREEN_CONSTANTS.Enter} component={Enter} options={{ headerShown: false }} />
                         <Stack.Screen name={SCREEN_CONSTANTS.Login} component={LogIn} />
-                        <Stack.Screen name={SCREEN_CONSTANTS.SignUp} component={SignUp} />
+                        <Stack.Screen name={SCREEN_CONSTANTS.SignUp} component={SignUp} options={{headerTitle:'Create Account'}} />
                         <Stack.Screen name={SCREEN_CONSTANTS.ForgotPassword} component={ForgotPassword} />
                     </>
                 ) : (

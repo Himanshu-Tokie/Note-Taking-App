@@ -11,7 +11,6 @@ import { STRINGS } from '../../Constants/Strings';
 import { SCREEN_CONSTANTS } from '../../Constants/index';
 import Google from './google';
 import { styles } from './style';
-
 function Enter({ navigation,theme }) {
   const isLoggedIn = useSelector(state=>state.common.isLogedIn)   
   console.log(isLoggedIn,0);
@@ -39,6 +38,7 @@ function Enter({ navigation,theme }) {
   //     checkConnection();
   //   }
   // },[isConnected])
+  
   const checkConnection = () => {
     console.log(isConnected,98);
     

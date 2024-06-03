@@ -43,11 +43,14 @@ function Label({navigation, route, theme}) {
           .doc(uid)
           .collection(STRINGS.FIREBASE.NOTES)
           .where('label', '==', label)
+          .orderBy('time_stamp', 'asc')
           .get();
 
         const newData = []; // Temporary array to accumulate data
 
         data.forEach(doc => {
+          console.log(doc);
+          
           newData.push({
             title: doc.data().title,
             data: doc.data().content,
@@ -73,7 +76,9 @@ function Label({navigation, route, theme}) {
       .doc(uid)
       .collection(STRINGS.FIREBASE.NOTES)
       .where('label', '==', label)
+      .orderBy('time_stamp', 'asc')
       .onSnapshot(querySnapshot => {
+        console.log(querySnapshot,'querySnapshot');
         
         const newData = []; // Temporary array to accumulate data
         querySnapshot.forEach(doc => {

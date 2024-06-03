@@ -13,30 +13,32 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
         label: STRINGS.TEMP_LABEL_1,
         title: STRINGS.TEMP_TITLE,
         content: STRINGS.TEMP_CONTENT,
-        url:[]
+        url:[],
+        time_stamp: firestore.FieldValue.serverTimestamp(),
       },
       {
         label: STRINGS.TEMP_LABEL_2,
         title: STRINGS.TEMP_TITLE,
         content: STRINGS.TEMP_CONTENT,
-        url:[]
+        url:[],
+        time_stamp: firestore.FieldValue.serverTimestamp(),
       },
       {
         label: STRINGS.TEMP_LABEL_3,
         title: STRINGS.TEMP_TITLE,
         content: STRINGS.TEMP_CONTENT,
-        url:[]
+        url:[],
+        time_stamp: firestore.FieldValue.serverTimestamp(),
       },
       {
         label: STRINGS.TEMP_LABEL_4,
         title: STRINGS.TEMP_TITLE,
         content: STRINGS.TEMP_CONTENT,
-        url:[]
+        url:[],
+        time_stamp: firestore.FieldValue.serverTimestamp(),
       },
     ];
     const label = [STRINGS.TEMP_LABEL_1, STRINGS.TEMP_LABEL_2, STRINGS.TEMP_LABEL_3, STRINGS.TEMP_LABEL_4];
-    const reminder = [];
-
     const batch = firestore().batch();
     const collectionRef = firestore().collection(STRINGS.FIREBASE.USER);
 
@@ -54,7 +56,7 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
         .doc(user.uid)
         .collection(STRINGS.FIREBASE.LABELS)
         .doc(doc); // Automatically generates a new document ID
-      batch.set(newDocRef, { count: 1 });
+      batch.set(newDocRef, { count: 1,time_stamp: firestore.FieldValue.serverTimestamp()});
     });
     await batch.commit();
     dispatch(logIn(true));

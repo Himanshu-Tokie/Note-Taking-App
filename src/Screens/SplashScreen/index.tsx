@@ -11,6 +11,7 @@ import { ICONS } from '../../Constants/Icons';
 import { STRINGS } from '../../Constants/Strings';
 import { logIn } from '../../Store/Common';
 import { getFromAsyncStorage } from '../../Store/Image';
+import { changeApprearance } from '../../Store/Theme';
 import { styles } from './style';
 
 function Splash({ theme }) {
@@ -19,6 +20,7 @@ function Splash({ theme }) {
   const isLogedIn = useSelector(state => state.common.isLogedIn);
   const [visible, setVisible] = useState(false);
   const THEME = theme;
+  dispatch(changeApprearance())
   
   useEffect(() => {
     setVisible(true);

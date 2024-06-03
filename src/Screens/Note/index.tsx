@@ -24,6 +24,7 @@ import {
 } from "react-native-responsive-screen";
 import { useDispatch, useSelector } from "react-redux";
 import DateTime from "../../Components/DateTime";
+import CustomDialogInput from "../../Components/DialogInput";
 import DropdownComponent from "../../Components/Dropdown/dropdown";
 import withTheme from "../../Components/HOC";
 import Header from "../../Components/Header";
@@ -82,7 +83,8 @@ const Note = ({ route, theme }) => {
   const [label, setLable] = useState(lable);
   const labelRef = useRef(lable);
   // console.log(labelRef.current,'labelRef');
-  
+  const [isDialogVisible, setIsDialogVisible] = useState(false);
+  const [dialogContent, setDialogContent] = useState('');
   const titleRef = useRef(initialTitle);
   const [value, setValue] = useState(lable);
   useEffect(() => {
@@ -165,6 +167,7 @@ const Note = ({ route, theme }) => {
         .update({
           title: titleRef.current,
           content: articleData.current,
+          time_stamp: firestore.FieldValue.serverTimestamp(),
         });
       console.log("success updated");
     } catch (e) {
@@ -180,6 +183,7 @@ const Note = ({ route, theme }) => {
         label: labelRef.current,
         title: titleRef.current,
         content: articleData.current,
+        time_stamp: firestore.FieldValue.serverTimestamp(),
         url:[]
       })
       .then((data) => {
@@ -218,7 +222,7 @@ const Note = ({ route, theme }) => {
           .doc(uid)
           .collection(STRINGS.FIREBASE.LABELS)
           .doc(labelRef.current)
-          .set({ count: updatedcount }, { merge: true })
+          .set({ count: updatedcount ,time_stamp: firestore.FieldValue.serverTimestamp()}, { merge: true })
           .then(() => console.log("hurray"))
           .catch(() => console.log("hurray error00"));
         console.log(updatedcount, 98765);
@@ -291,7 +295,17 @@ const Note = ({ route, theme }) => {
       keyboardDidHideListener.remove();
     };
   }, []);
+  const handleInsertLink = () => {
+    setIsDialogVisible(true);
+  };
+  const handleCancel = () => {
+    setIsDialogVisible(false);
+  };
 
+  const handleSubmit = (link) => {
+    RichText.current?.insertLink(link, link); // Adjust as per your requirement
+    setIsDialogVisible(false);
+  };
   return (
     <SafeAreaView
       style={[
@@ -395,6 +409,7 @@ const Note = ({ route, theme }) => {
             actions.setStrikethrough,
             actions.setUnderline,
           ]}
+          onInsertLink={handleInsertLink}
           />:
           <RichToolbar
           style={[styles.richBar]}
@@ -415,6 +430,7 @@ const Note = ({ route, theme }) => {
             actions.setStrikethrough,
             actions.setUnderline,
           ]}
+          onInsertLink={handleInsertLink}
           iconMap={{
             [actions.insertImage]: () => (
               <UserImage photo={photo} setPhoto={setPhoto} />
@@ -425,6 +441,11 @@ const Note = ({ route, theme }) => {
         {/* <UserImage photo={photo} setPhoto={setPhoto}/> */}
         {/* </ScrollView> */}
       </KeyboardAvoidingView>
+      <CustomDialogInput
+        isVisible={isDialogVisible}
+        onCancel={handleCancel}
+        onSubmit={handleSubmit}
+      />
     </SafeAreaView>
   );
 };

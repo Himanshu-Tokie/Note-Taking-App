@@ -36,7 +36,7 @@ export default function FormikTemplate({
       {placeholder && <Text style={styles.label}>{placeholder}</Text>}
       <View style={styles.eye}>
         <TextInput
-          placeholder={placeholder}
+          placeholder={(placeholder == STRINGS.CONFIRM_PASSWORD) ? placeholder : ('Enter your ' + placeholder)}
           placeholderTextColor='#000000'
           autoCapitalize="none"
           value={values}
@@ -45,15 +45,17 @@ export default function FormikTemplate({
           secureTextEntry={secureTextEntry}
           style={{flex:1,color:LIGHT_THEME_COLOR.TEXT1}}
         />
+        <View style={styles.icon}>
         {(placeholder === STRINGS.PASSWORD || placeholder === STRINGS.CONFIRM_PASSWORD) && ( 
           <TouchableOpacity onPress={onPress}>
             {
               secureTextEntry ?
-            ICONS.EYE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none'):ICONS.EYE_CLOSE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none')
+              ICONS.EYE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none'):ICONS.EYE_CLOSE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none')
             }
           
           </TouchableOpacity>
         )}
+        </View>
       </View>
       {touched && error &&(logIn)&& <Text style={styles.error}>*{error}</Text>}
     </View>

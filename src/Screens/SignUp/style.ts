@@ -1,6 +1,6 @@
 // signup
 import { StyleSheet } from "react-native";
-import { heightPercentageToDP } from "react-native-responsive-screen";
+import { heightPercentageToDP, widthPercentageToDP } from "react-native-responsive-screen";
 import { LIGHT_THEME_COLOR } from "../../Constants/Colors";
 
 export const styles = StyleSheet.create({
@@ -12,7 +12,8 @@ export const styles = StyleSheet.create({
     subContainer:{
         paddingTop:heightPercentageToDP('3%'),
         alignItems:'center',
-        paddingBottom:heightPercentageToDP('3%')
+        paddingBottom:heightPercentageToDP('3%'),
+        paddingHorizontal:widthPercentageToDP('0.1%')
         // marginHorizontal:0
         // alignContent:'center',
         // justifyContent:'center'

@@ -41,7 +41,7 @@ function LabelTemplate({icon, text, files, note,theme}) {
             <View style={styles.inner}>
               {icon(heightPercentageToDP('6.2%'), heightPercentageToDP('6.2%'))}
               <Text style={[styles.text,{color:THEME.TEXT1}]}>{label(text)}</Text>
-              <Text style={{color:THEME.TEXT1}}>{files} Files</Text>
+              <Text style={{color:THEME.TEXT1}}>{files}{files<=1? ' File':' Files'}</Text>
             </View>
           </TouchableOpacity>
         </ImageBackground>

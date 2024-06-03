@@ -3,22 +3,16 @@ import firestore from '@react-native-firebase/firestore';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { useSelector } from 'react-redux';
-import Home from '../../Screens/Home';
-import Note from '../../Screens/Note';
-import Setting from '../../Screens/Setting';
-import Extar1 from '../../Screens/AddLabels';
-import Extar2 from '../../Screens/Reminder';
 import AddLabel from '../../Components/AddLabel/addLabel';
 import withTheme from '../../Components/HOC';
-import Icon from '../../Components/Icon';
-import Plus from '../../Components/Plus/Plus';
-import { SCREEN_CONSTANTS } from '../../Constants';
-import { ICONS } from '../../Constants/Icons';
-import { STRINGS } from '../../Constants/Strings';
-import { styles } from './style';
 import MyTabBar from '../../Components/TabBar';
+import { SCREEN_CONSTANTS } from '../../Constants';
+import { STRINGS } from '../../Constants/Strings';
+import Extar1 from '../../Screens/AddLabels';
+import Home from '../../Screens/Home';
+import Note from '../../Screens/Note';
+import Extar2 from '../../Screens/Reminder';
+import Setting from '../../Screens/Setting';
 
  function HomeNavigation({theme}) {
   const parentNavigation = useNavigation();
@@ -35,6 +29,7 @@ import MyTabBar from '../../Components/TabBar';
           .collection(STRINGS.FIREBASE.USER)
           .doc(uid)
           .collection(STRINGS.FIREBASE.LABELS)
+          .orderBy('time_stamp', 'asc')
           .get()
           .then(labelData => setLabelData(labelData));
       } catch (e) {
@@ -46,6 +41,7 @@ import MyTabBar from '../../Components/TabBar';
     .collection(STRINGS.FIREBASE.USER)
     .doc(uid)
     .collection(STRINGS.FIREBASE.LABELS)
+    .orderBy('time_stamp', 'asc')
     .onSnapshot(querySnapshot => {
       setLabelData(querySnapshot)
     });

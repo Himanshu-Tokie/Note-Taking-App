@@ -36,7 +36,6 @@ function SignUp({ navigation,theme }) {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <ScrollView>
-
             <View style={styles.subContainer}>
               <Formik
                 initialValues={{

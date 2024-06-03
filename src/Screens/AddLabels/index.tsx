@@ -21,6 +21,7 @@ function ADD_LABELS({theme}) {
           .collection(STRINGS.FIREBASE.USER)
           .doc(uid)
           .collection(STRINGS.FIREBASE.LABELS)
+          .orderBy('time_stamp', 'asc')
           .get();
         const newData = []; // Temporary array to accumulate data
         data.forEach(doc => {
@@ -39,6 +40,7 @@ function ADD_LABELS({theme}) {
       .collection(STRINGS.FIREBASE.USER)
       .doc(uid)
       .collection(STRINGS.FIREBASE.LABELS)
+      .orderBy('time_stamp', 'asc')
       .onSnapshot(querySnapshot => {
         const newData = []; // Temporary array to accumulate data
         querySnapshot.forEach(doc => {

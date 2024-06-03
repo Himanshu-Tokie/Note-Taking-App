@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   },
   subcontainer: {
     paddingTop: heightPercentageToDP('4.5%'),
-    paddingBottom: heightPercentageToDP('8.5%'),
+    marginBottom: heightPercentageToDP('10%'),
     // flex:1
   },
   welcome: {

@@ -166,7 +166,7 @@ function Setting({ navigation, theme }) {
                   {
                     color: THEME.TEXT1,
                   },
-                  styles.textBold,
+                  // styles.textBold,
                 ]}
               >
                 {STRINGS.SIGN_OUT}

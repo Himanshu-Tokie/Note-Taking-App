@@ -43,6 +43,7 @@ function Home({ theme, navigation }) {
         .collection(STRINGS.FIREBASE.USER)
         .doc(user.uid)
         .collection(STRINGS.FIREBASE.LABELS)
+        .orderBy('time_stamp', 'asc')
         .onSnapshot((querySnapshot) => {
           const newData = []; // Temporary array to accumulate data
           querySnapshot.forEach((doc) => {
@@ -63,6 +64,7 @@ function Home({ theme, navigation }) {
       await firestore()
         .collection(STRINGS.FIREBASE.USER)
         .doc(user.uid)
+        // .orderBy('time_stamp', 'asc')
         .get()
         .then(() => {
           console.log("all data fetched successfully");
@@ -80,6 +82,7 @@ function Home({ theme, navigation }) {
           .collection(STRINGS.FIREBASE.USER)
           .doc(user.uid)
           .collection(STRINGS.FIREBASE.LABELS)
+          .orderBy('time_stamp', 'asc')
           .get();
         const labelData = [];
         snapShot.forEach((doc) => {
