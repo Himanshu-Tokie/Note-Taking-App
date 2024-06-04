@@ -35,7 +35,7 @@ function SignUp({ navigation,theme }) {
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
-          <ScrollView>
+          <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.subContainer}>
               <Formik
                 initialValues={{

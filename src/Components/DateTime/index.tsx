@@ -4,14 +4,13 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import withTheme from '../HOC';
 import { styles } from './style';
 
-function DateTime({date, setDate,theme}) {
+function DateTime({date, setDate,theme,dateRef}) {
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
 
   const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
     setShow(false);
-    setDate(currentDate);
+    setDate(selectedDate);
   };
 
   const showMode = currentMode => {
