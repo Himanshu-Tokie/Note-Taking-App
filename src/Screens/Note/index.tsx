@@ -5,7 +5,6 @@ import * as htmlparser2 from "htmlparser2";
 import React, { useEffect, useRef, useState } from "react";
 import {
   FlatList,
-  Image,
   Keyboard,
   KeyboardAvoidingView,
   Platform,
@@ -13,6 +12,7 @@ import {
   TextInput,
   View
 } from "react-native";
+import ImageModal from "react-native-image-modal";
 import {
   RichEditor,
   RichToolbar,
@@ -51,8 +51,8 @@ const Note = ({ route, theme }) => {
   const isNew = useRef(true);
   const isCompleteNew = useRef(false);
   const noteIdExist = useRef(false);
-  const [date, setDate] = useState(new Date());
-  const dateRef = useRef(date);
+  const dateRef = useRef(new Date());
+  
   if (route.params != undefined) {
     if (route.params?.labelData != undefined) {
       // console.log(route.params?.labelData, 90);
@@ -71,20 +71,26 @@ const Note = ({ route, theme }) => {
         if (imageInitData[noteId]) imageInitialData = imageInitData[noteId];
       }      
       if (route.params.note.timestamp !== undefined) {
-        // dateRef.current = route.params.note.timestamp
+        console.log(route.params.note.timestamp,'timestamp'); 
+        // console.log(dateRef.current.toISOString(),'dateRef');   
+        const formatDate = route.params.note.timestamp.seconds * 1000 + Math.floor(route.params.note.timestamp.nanoseconds / 1000000); 
+        dateRef.current = new Date(formatDate)
+        // setDate(route.params.note.timestamp)
         reminder.current = true;
-        if (route.params.note.newReminder !== undefined) isNew.current = true;
+        if (route.params.note.newReminder !== undefined) {isNew.current = true;dateRef.current = new Date()}
       }
     }
   }
+  const [date, setDate] = useState(dateRef.current);
+
+// Create a JavaScript Date object
+
   const RichText = useRef();
   const articleData = useRef(data);
   const [title, setTitle] = useState(initialTitle);
   const [label, setLable] = useState(lable);
   const labelRef = useRef(lable);
-  // console.log(labelRef.current,'labelRef');
   const [isDialogVisible, setIsDialogVisible] = useState(false);
-  const [dialogContent, setDialogContent] = useState('');
   const titleRef = useRef(initialTitle);
   const [value, setValue] = useState(lable);
   useEffect(() => {
@@ -231,8 +237,13 @@ const Note = ({ route, theme }) => {
       console.log(e);
     }
   };
+  useEffect(()=>{
+
+    setDate(dateRef.current)
+  },[])
   useEffect(() => {
     dateRef.current = date;
+    console.log(dateRef,'90'); 
   }, [date]);
 
   useEffect(() => {
@@ -278,7 +289,7 @@ const Note = ({ route, theme }) => {
     const keyboardDidShowListener = Keyboard.addListener(
       "keyboardDidShow",
       () => {
-        setKeyboardVerticalOffset(heightPercentageToDP("5.9%"));
+        setKeyboardVerticalOffset(heightPercentageToDP("5%"));
       }
     );
 
@@ -288,8 +299,6 @@ const Note = ({ route, theme }) => {
         setKeyboardVerticalOffset(0);
       }
     );
-
-    // Cleanup the event listeners on component unmount
     return () => {
       keyboardDidShowListener.remove();
       keyboardDidHideListener.remove();
@@ -356,11 +365,15 @@ const Note = ({ route, theme }) => {
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
               <View style={{ paddingHorizontal: widthPercentageToDP("0.5%") }}>
-                <Image
+                <ImageModal
+                  resizeMode="contain"
+                  imageBackgroundColor={THEME.BACKGROUND}
+                  style={{
+                    height: heightPercentageToDP("20%%"),
+                    width: heightPercentageToDP("20%"),
+                  }}
                   source={{ uri: item }}
-                  height={heightPercentageToDP("20%")}
-                  width={heightPercentageToDP("20%")}
-                ></Image>
+                />
               </View>
             )}
           ></FlatList>
@@ -377,17 +390,25 @@ const Note = ({ route, theme }) => {
             editorStyle={{
               backgroundColor: THEME.BACKGROUND,
               color: THEME.NOTETEXT,
+              contentCSSText: `
+            font-family: Nunito; 
+            font-size: 14px;  
+            display: flex; 
+            flex-direction: column; 
+            min-height: 200px; 
+            position: absolute; 
+            top: 0; right: 0; bottom: 0; left: 0;`,
             }}
             placeholder={"Start Writing Here"}
             onChange={(text) => {
               articleData.current = text;
             }}
-            scrollEnabled={true}
             onCursorPosition={onCursorPosition}
+            useContainer
           />
         {/* </ScrollView> */}
         {reminder.current && (
-          <DateTime date={date} setDate={setDate}></DateTime>
+          <DateTime date={date} setDate={setDate} dateRef={dateRef}></DateTime>
         )}
         {
           reminder.current ?
