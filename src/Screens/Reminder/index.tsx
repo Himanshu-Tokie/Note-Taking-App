@@ -85,7 +85,7 @@ function Extar2({ theme, route }) {
   // console.log(searchData,19191);
 
   return (
-    <>
+    
       <SafeAreaView
         style={[
           styles.container,
@@ -129,7 +129,7 @@ function Extar2({ theme, route }) {
           )}
         </View>
       </SafeAreaView>
-    </>
+    
   );
 }
 

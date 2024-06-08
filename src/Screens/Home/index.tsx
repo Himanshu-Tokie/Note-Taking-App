@@ -125,7 +125,7 @@ function Home({ theme, navigation }) {
   const bytesToGB = (bytes) => (bytes / (1024 * 1024 * 1024)).toFixed(2);
   if (user) {
     return (
-      <>
+      
         <SafeAreaView
           style={[styles.container, { backgroundColor: THEME.BACKGROUND }]}
         >
@@ -210,7 +210,7 @@ function Home({ theme, navigation }) {
             </ScrollView>
           </View>
         </SafeAreaView>
-      </>
+      
     );
   } else {
     return <></>;

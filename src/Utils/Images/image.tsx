@@ -1,4 +1,3 @@
-
 import storage from '@react-native-firebase/storage';
 import { Alert } from 'react-native';
 import { STRINGS } from '../../Constants/Strings';

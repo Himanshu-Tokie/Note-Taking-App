@@ -6,7 +6,7 @@ import { styles } from "./style";
 
 export default function EditLables({onChangeText}) {
     return (
-        <>
+        
             <View style={styles.container}>
                 <View style={styles.icon}>
                     <TouchableOpacity>
@@ -22,7 +22,7 @@ export default function EditLables({onChangeText}) {
                     </TouchableOpacity>
                 </View>
             </View>
-        </>
+        
     )
 }
 

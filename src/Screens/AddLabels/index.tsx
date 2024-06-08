@@ -54,7 +54,7 @@ function ADD_LABELS({theme}) {
   }, []);
   // console.log(newLabel.current);
   return (
-    <>
+    
       <SafeAreaView
         style={[styles.container, {backgroundColor: THEME.BACKGROUND}]}>
         <View style={styles.subContainer}>
@@ -80,7 +80,7 @@ function ADD_LABELS({theme}) {
           </View>
         </View>
       </SafeAreaView>
-    </>
+    
   );
 }
 

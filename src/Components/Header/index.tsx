@@ -34,7 +34,7 @@ import { styles } from './style';
       return headerText
   }
   return (
-    <>
+    
       <View style={styles.container}>
         <Pressable onPress={() => navigation.goBack()}>
           <View style={styles.leftHeader}>
@@ -82,7 +82,7 @@ import { styles } from './style';
           )}
         </View>
       </View>
-    </>
+    
   );
 }
 

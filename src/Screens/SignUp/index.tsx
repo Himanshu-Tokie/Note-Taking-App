@@ -30,7 +30,7 @@ function SignUp({ navigation,theme }) {
   const THEME = theme 
 
   return (
-    <>
+    
       <SafeAreaView style={[styles.container,{backgroundColor:THEME.BACKGROUND}]}>
         <KeyboardAvoidingView
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -121,7 +121,7 @@ function SignUp({ navigation,theme }) {
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </>
+    
   );
 }
 

@@ -105,7 +105,7 @@ function Label({navigation, route, theme}) {
     navigation.navigate(SCREEN_CONSTANTS.Note, {note});
   };
   return (
-    <>
+    
       <SafeAreaView
         style={[styles.container, {backgroundColor: THEME.BACKGROUND}]}>
         <View>
@@ -125,7 +125,7 @@ function Label({navigation, route, theme}) {
           />
         </View>
       </SafeAreaView>
-    </>
+    
   );
 }
 

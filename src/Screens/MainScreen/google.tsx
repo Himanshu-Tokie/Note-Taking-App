@@ -82,14 +82,6 @@ export default function Google() {
   };
 
   return (
-    <>
-      {/* <GoogleSigninButton
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Light}
-        onPress={_signIn}
-        disabled={false}
-        style={styles.google}
-  /> */}
       <View style={styles.google}>
         <TouchableOpacity onPress={_signIn}>
           <View style={styles.googleContainer}>
@@ -102,7 +94,7 @@ export default function Google() {
           </View>
         </TouchableOpacity>
       </View>
-    </>
+    
   );
 }
 

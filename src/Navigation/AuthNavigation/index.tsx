@@ -42,7 +42,7 @@ function AuthNavigation({theme}) {
         }, [isConnected]);
         
     return (
-        <>
+        
             <NavigationContainer>
                 <Stack.Navigator initialRouteName={SCREEN_CONSTANTS.Splash1}
                     screenOptions={{
@@ -74,7 +74,7 @@ function AuthNavigation({theme}) {
                 )}
                 </Stack.Navigator>
             </NavigationContainer>
-        </>
+        
     )
 }
 export default withTheme(AuthNavigation)

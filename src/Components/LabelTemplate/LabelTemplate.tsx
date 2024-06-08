@@ -31,7 +31,7 @@ function LabelTemplate({icon, text, files, note,theme}) {
   const colorScheme = useSelector(state=>state.theme.theme)
   const THEME = theme ;
   return (
-    <>
+    
       <View style={styles.sub}>
         <ImageBackground
           source={colorScheme==='light'? IMAGES.LABEL:IMAGES.DARK_LABEL}
@@ -46,7 +46,7 @@ function LabelTemplate({icon, text, files, note,theme}) {
           </TouchableOpacity>
         </ImageBackground>
       </View>
-    </>
+    
   );
 }
 export default withTheme(LabelTemplate)

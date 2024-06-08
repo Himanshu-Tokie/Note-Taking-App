@@ -25,7 +25,7 @@ export default function UserImage({photo,setPhoto}) {
   };
 
   return (
-    <>
+    
     <TouchableOpacity onPress={handleImagePicker}>
       {ICONS.CAMERA(
         heightPercentageToDP('2.8%'),
@@ -33,7 +33,7 @@ export default function UserImage({photo,setPhoto}) {
         'none',
       )}
       </TouchableOpacity>
-    </>
+    
   );
 }
 

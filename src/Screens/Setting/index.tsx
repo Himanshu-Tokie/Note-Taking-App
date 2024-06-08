@@ -74,7 +74,7 @@ function Setting({ navigation, theme }) {
   };
 
   return (
-    <>
+    
       <SafeAreaView
         style={[
           styles.container,
@@ -176,7 +176,7 @@ function Setting({ navigation, theme }) {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-    </>
+    
   );
 }
 export default withTheme(Setting);
