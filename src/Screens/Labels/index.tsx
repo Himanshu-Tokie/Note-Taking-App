@@ -48,9 +48,7 @@ function Label({navigation, route, theme}) {
 
         const newData = []; // Temporary array to accumulate data
 
-        data.forEach(doc => {
-          console.log(doc);
-          
+        data.forEach(doc => {        
           newData.push({
             title: doc.data().title,
             data: doc.data().content,
@@ -82,7 +80,6 @@ function Label({navigation, route, theme}) {
         
         const newData = []; // Temporary array to accumulate data
         querySnapshot.forEach(doc => {
-          console.log(doc.data().url,67);
           newData.push({
             title: doc.data().title,
             data: doc.data().content,
@@ -117,13 +114,13 @@ function Label({navigation, route, theme}) {
           />
         </View>
         <StaggedLabel data={searchData} />
-        <View style={styles.addNotes}>
+        {/* <View style={styles.addNotes}>
           <CustomButton
             text="+  Add New Notes"
             style={[styles.customButton]}
             onPress={addNewNote}
           />
-        </View>
+        </View> */}
       </SafeAreaView>
     
   );

@@ -33,7 +33,6 @@ import Setting from '../../Screens/Setting';
           .get()
           .then(labelData => setLabelData(labelData));
       } catch (e) {
-        console.log(e, 12);
       }
     };
     fetchLabelData();

@@ -53,9 +53,9 @@ function Setting({ navigation, theme }) {
           console.error(error);
         }
       }
-      console.log("data removed to storage logout");
+      // console.log("data removed to storage logout");
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 

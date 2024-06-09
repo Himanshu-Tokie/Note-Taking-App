@@ -22,7 +22,6 @@ import { styles } from './style';
 }) {
   const navigation = useNavigation();
   const [isFocussed, setIsFocused] = useState(false);
-  // console.log(isFocussed);
   const [value,setValue] = useState('')
   const THEME = theme
   const label = ()=>{
@@ -69,12 +68,10 @@ import { styles } from './style';
                 onChangeText={text=>{onChangeText(text);setValue(text)}}
                 onFocus={() => {
                   setIsFocused(true);
-                  console.log('focus');
                 }}
                 onBlur={() => {
                   setIsFocused(false);
                   setSearchData(notesData);
-                  console.log('blur');
                   setValue('')
                 }}
               />

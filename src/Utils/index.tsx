@@ -7,7 +7,6 @@ import { STRINGS } from '../Constants/Strings';
 import { logIn, updateUser } from '../Store/Common';
 export const signUpUser = async (user, providerId,dispatch,navigation) => {
   try {
-    console.log('new user Alert');
     const notes = [
       {
         label: STRINGS.TEMP_LABEL_1,
@@ -68,7 +67,6 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
     );
     await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true))
         navigation.navigate(SCREEN_CONSTANTS.HomeNavigation);
-    console.log('User account created & signed in! Google');
   } catch (error) {
     console.error('Error creating initial database:', error.code, error.message);
   }
@@ -102,10 +100,9 @@ export const imageCompressor = async (photo) => {
       'JPEG', // format
       80, // quality (0 to 100)
     );
-    console.log('Compression complete');
-    return compressedImage.uri; // Return the URI of the compressed image
+    return compressedImage.uri; 
   } catch (error) {
-    console.log('Image compression error:', error);
+    // console.log('Image compression error:', error);
     throw error;
   }
 };

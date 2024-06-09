@@ -3,7 +3,6 @@ import { style } from "./style";
 
 export default function CustomText({text,styles}){
     const customstyles = styles??[]
-// console.log([style.container,...customstyles]);
 
     return(
         <View style={[style.container,...customstyles]}>

@@ -25,7 +25,6 @@ function AuthNavigation({theme}) {
     useEffect(() => {
         dispatch(loadThemeFromStorage());
         const unsubscribe = NetInfo.addEventListener(state => {
-            console.log(state,1);
             dispatch(setConnectionStatus(state.isConnected));
           });
       

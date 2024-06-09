@@ -10,9 +10,7 @@ function AddLabel({uid,show,setShow,theme}) {
   useEffect(() => {
     const addNewLabel = async () => {     
       try {
-        if (newLabel) {
-          console.log(newLabel,'new');
-          
+        if (newLabel) {        
           await firestore()
             .collection(STRINGS.FIREBASE.USER)
             .doc(uid)

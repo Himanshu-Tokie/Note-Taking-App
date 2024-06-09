@@ -54,7 +54,6 @@ function Home({ theme, navigation }) {
 
       // Stop listening for updates when no longer required
       return () => {
-        console.log("home unsubcribe");
         unsubscribe();
       };
     }

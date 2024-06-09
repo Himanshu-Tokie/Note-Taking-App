@@ -12,7 +12,7 @@ export const usePushNotification = () => {
           authStatus === messaging.AuthorizationStatus.PROVISIONAL;
   
         if (enabled) {
-          console.log('Authorization status:', authStatus);
+          // console.log('Authorization status:', authStatus);
         }
       } else if (Platform.OS === 'android') {
         //Request Android permission (For API level 33+, for 32 or below is not required)
@@ -25,18 +25,18 @@ export const usePushNotification = () => {
     const getFCMToken = async () => {
       const fcmToken = await messaging().getToken();
       if (fcmToken) {
-        console.log('Your Firebase Token is:', fcmToken);
+        // console.log('Your Firebase Token is:', fcmToken);
       } else {
-        console.log('Failed', 'No token received');
+        // console.log('Failed', 'No token received');
       }
     };
   
     const listenToForegroundNotifications = async () => {
       const unsubscribe = messaging().onMessage(async remoteMessage => {
-        console.log(
-          'A new message arrived! (FOREGROUND)',
-          JSON.stringify(remoteMessage),
-        );
+        // console.log(
+        //   'A new message arrived! (FOREGROUND)',
+        //   JSON.stringify(remoteMessage),
+        // );
       });
       return unsubscribe;
     }
@@ -44,10 +44,10 @@ export const usePushNotification = () => {
     const listenToBackgroundNotifications = async () => {
       const unsubscribe = messaging().setBackgroundMessageHandler(
         async remoteMessage => {
-          console.log(
-            'A new message arrived! (BACKGROUND)',
-            JSON.stringify(remoteMessage),
-          );
+          // console.log(
+          //   'A new message arrived! (BACKGROUND)',
+          //   JSON.stringify(remoteMessage),
+          // );
         },
       );
       return unsubscribe;
@@ -56,10 +56,10 @@ export const usePushNotification = () => {
     const onNotificationOpenedAppFromBackground = async () => {
       const unsubscribe = messaging().onNotificationOpenedApp(
         async remoteMessage => {
-          console.log(
-            'App opened from BACKGROUND by tapping notification:',
-            JSON.stringify(remoteMessage),
-          );
+          // console.log(
+          //   'App opened from BACKGROUND by tapping notification:',
+          //   JSON.stringify(remoteMessage),
+          // );
         },
       );
       return unsubscribe;
@@ -69,7 +69,7 @@ export const usePushNotification = () => {
       const message = await messaging().getInitialNotification();
   
       if(message) {
-        console.log('App opened from QUIT by tapping notification:', JSON.stringify(message));
+        // console.log('App opened from QUIT by tapping notification:', JSON.stringify(message));
       }
     };
   
