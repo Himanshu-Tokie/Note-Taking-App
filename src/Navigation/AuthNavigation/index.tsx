@@ -16,10 +16,11 @@ import Splash from "../../Screens/SplashScreen";
 import { setConnectionStatus } from "../../Store/Image";
 import { loadThemeFromStorage } from "../../Store/Theme";
 import HomeNavigation from "../HomeNavigation";
+import {imageState,commonState} from './types'
 
 function AuthNavigation({theme}) {
-    const isConnected = useSelector(state=>state.image.isConnected)
-    const isLoggedIn = useSelector(state=>state.common.isLogedIn)   
+    const isConnected = useSelector((state:imageState)=>state.image.isConnected)
+    const isLoggedIn = useSelector((state:commonState)=>state.common.isLogedIn)   
     const Stack = createNativeStackNavigator();
     const dispatch = useDispatch()
     useEffect(() => {

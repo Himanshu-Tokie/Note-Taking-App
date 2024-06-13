@@ -6,10 +6,11 @@ import Plus from "../Plus/Plus";
 import { useSelector } from "react-redux";
 import { styles } from "./styles";
 import withTheme from "../HOC";
+import { colorSchemeState } from "./types";
 
 function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setShow,labelData}) {
-    const colorScheme = useSelector(state=>state.theme.theme)
-    const iconSelection = index => {
+    const colorScheme = useSelector((state:colorSchemeState)=>state.theme.theme)
+    const iconSelection = (index:number) => {
       switch (index) {
         case 0:
           return ICONS.DOC;
@@ -21,7 +22,7 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
           return ICONS.SETTING;
       }
     };
-    const iconSelectionDark = index => {
+    const iconSelectionDark = (index:number) => {
       switch (index) {
         case 0:
           return ICONS.DOC_DARK;
@@ -33,7 +34,7 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
           return ICONS.SETTINGS_DARK;
       }
     };
-    const iconHover = index => {
+    const iconHover = (index:number) => {
       switch (index) {
         case 0:
           return ICONS.DOC_BLACK;
@@ -45,7 +46,7 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
           return ICONS.SETTING_BLACK;
       }
     };
-    const iconHoverDark = index => {
+    const iconHoverDark = (index:number) => {
       switch (index) {
         case 0:
           return ICONS.DOC_BLACK_DARK;
@@ -66,7 +67,7 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
               theme.FOOTER,
           },
         ]}>
-        {state.routes.map((route, index) => {
+        {state.routes.map((route, index:number) => {
           const {options} = descriptors[route.key];
           const label =
             options.tabBarLabel !== undefined

@@ -68,7 +68,7 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
     await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true))
         navigation.navigate(SCREEN_CONSTANTS.HomeNavigation);
   } catch (error) {
-    console.error('Error creating initial database:', error.code, error.message);
+    // console.error('Error creating initial database:', error.code, error.message);
   }
 };
 
@@ -91,14 +91,14 @@ export const SignupSchema = Yup.object().shape({
   .matches(/^\d{10}$/, 'Number must be exactly 10 digits')
   .required('Enter Number')});
 
-export const imageCompressor = async (photo) => {
+export const imageCompressor = async (photo:string) => {
   try {
     const compressedImage = await ImageResizer.createResizedImage(
       photo,
       600, // max width
       400, // max height
-      'JPEG', // format
-      80, // quality (0 to 100)
+      'JPEG',
+      80, 
     );
     return compressedImage.uri; 
   } catch (error) {

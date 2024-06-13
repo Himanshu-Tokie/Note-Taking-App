@@ -8,11 +8,12 @@ import withTheme from '../../Components/HOC';
 import { STRINGS } from '../../Constants/Strings';
 import { SignupSchema, signUpUser } from '../../Utils';
 import { styles } from './style';
+import { valuesTypes } from './types';
 
 // utils
 function SignUp({ navigation,theme }) {
   const dispatch = useDispatch()
-  const signUp = async values => {
+  const signUp = async (values:valuesTypes) => {
     try {
       let userCredentials = await auth().createUserWithEmailAndPassword(
         values.email,
@@ -24,7 +25,7 @@ function SignUp({ navigation,theme }) {
       // console.log(userCredentials,1)
       signUpUser(userCredentials.user,'firebase',dispatch,navigation)
     } catch (error) {
-      console.error('Error creating account:', error.code, error.message);
+      // console.error('Error creating account:', error.code, error.message);
     }
   };
   const THEME = theme 

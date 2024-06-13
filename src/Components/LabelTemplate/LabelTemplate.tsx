@@ -13,6 +13,7 @@ import { SCREEN_CONSTANTS } from '../../Constants';
 import { IMAGES } from '../../Constants/Images';
 import withTheme from '../HOC';
 import { styles } from './style';
+import { colorSchemeState } from './types';
 
 function LabelTemplate({icon, text, files, note,theme}) {
   const nav = useNavigation();
@@ -28,7 +29,7 @@ function LabelTemplate({icon, text, files, note,theme}) {
   function navigationHandler() {
     nav.navigate(SCREEN_CONSTANTS.Label, {text, note});
   }
-  const colorScheme = useSelector(state=>state.theme.theme)
+  const colorScheme = useSelector((state:colorSchemeState)=>state.theme.theme)
   const THEME = theme ;
   return (
     

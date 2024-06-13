@@ -11,12 +11,11 @@ import { STRINGS } from '../../Constants/Strings';
 import { SCREEN_CONSTANTS } from '../../Constants/index';
 import Google from './google';
 import { styles } from './style';
+import { isConnectedState } from './type';
 function Enter({ navigation,theme }) {
-  const isLoggedIn = useSelector(state=>state.common.isLogedIn)   
-  console.log(isLoggedIn,0);
+  // const isLoggedIn = useSelector(state=>state.common.isLogedIn)   
   const THEME = theme  
-  const isConnected = useSelector(state=>state.image.isConnected)
-  console.log(isConnected,97);
+  const isConnected = useSelector((state:isConnectedState)=>state.image.isConnected)
   const isOffline = useRef(!isConnected)
   const onPress = () => {
     navigation.navigate(SCREEN_CONSTANTS.SignUp);
