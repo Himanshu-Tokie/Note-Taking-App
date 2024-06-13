@@ -31,9 +31,6 @@ function Splash({ theme }) {
         const fetchedData = await AsyncStorage.multiGet(keys);
         const savedImage = await AsyncStorage.getItem('Saved_Images');
         const saved = JSON.parse(savedImage);
-        console.log(fetchedData, 7255);
-        console.log(savedImage, 7257);
-        console.log(saved, 7256);
         dispatch(getFromAsyncStorage(saved));
         setTimeout(() => {
           if (fetchedData.length) {
@@ -42,7 +39,6 @@ function Splash({ theme }) {
               try {
                 const isLoggedIn = JSON.parse(isLoggedInData[1]);
                 if (isLoggedIn) {
-                  console.log(isLoggedIn, 1341341234);
                   dispatch(logIn(true));
                   navigation.dispatch(
                     CommonActions.reset({
@@ -87,7 +83,6 @@ function Splash({ theme }) {
           }
         }, 100);
       } catch (e) {
-        console.log(e);
         navigation.dispatch(
           CommonActions.reset({
             index: 0,

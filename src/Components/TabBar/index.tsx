@@ -79,7 +79,6 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
 
           const onPress = () => {
             if (index === 2) {
-              // Check if the "Note" tab is clicked
               if (state.index == 3) {
                 const note = {
                   timestamp: '',
@@ -87,14 +86,10 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
                 };
                 parentNavigation.navigate(SCREEN_CONSTANTS.Note, {note});
               } else if (state.index == 1) {
-                // console.log('add label',234423);
                 setShow(true);
-                // console.log(uid);
-
-                // return (<AddLabel uid={uid} setShow={setShow} show={show}/>)
               } else {
                 parentNavigation.navigate(SCREEN_CONSTANTS.Note, {labelData});
-              } // Use the parent navigation to navigate to the "Note" screen
+              }
             } else {
               const event = navigation.emit({
                 type: 'tabPress',

@@ -3,7 +3,6 @@ import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { styles } from './style';
 
 export default function CustomButton({text, onPress, disabled = false, style}) {
-  // console.log(text);
   const customstyles = style ?? [];
   
   return (

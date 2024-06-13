@@ -54,7 +54,6 @@ function Home({ theme, navigation }) {
 
       // Stop listening for updates when no longer required
       return () => {
-        console.log("home unsubcribe");
         unsubscribe();
       };
     }
@@ -125,7 +124,7 @@ function Home({ theme, navigation }) {
   const bytesToGB = (bytes) => (bytes / (1024 * 1024 * 1024)).toFixed(2);
   if (user) {
     return (
-      <>
+      
         <SafeAreaView
           style={[styles.container, { backgroundColor: THEME.BACKGROUND }]}
         >
@@ -210,7 +209,7 @@ function Home({ theme, navigation }) {
             </ScrollView>
           </View>
         </SafeAreaView>
-      </>
+      
     );
   } else {
     return <></>;

@@ -9,23 +9,21 @@ export default function UserImage({photo,setPhoto}) {
   
 
   const handleImagePicker = () => {
-    // console.log(ImagePicker,'ImagePicker');
     async function launch() {
       const response = await launchImageLibrary();
       if (response.didCancel) {
-        console.log('User cancelled image picker', 1);
+        // console.log('User cancelled image picker', 1);
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error, 2);
+        // console.log('ImagePicker Error: ', response.error, 2);
       } else {
         setPhoto(response.assets[0].uri);
-        // console.log(response.assets);
       }
     }
     launch();
   };
 
   return (
-    <>
+    
     <TouchableOpacity onPress={handleImagePicker}>
       {ICONS.CAMERA(
         heightPercentageToDP('2.8%'),
@@ -33,7 +31,7 @@ export default function UserImage({photo,setPhoto}) {
         'none',
       )}
       </TouchableOpacity>
-    </>
+    
   );
 }
 

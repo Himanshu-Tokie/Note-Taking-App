@@ -53,9 +53,9 @@ function Setting({ navigation, theme }) {
           console.error(error);
         }
       }
-      console.log("data removed to storage logout");
+      // console.log("data removed to storage logout");
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
 
@@ -74,7 +74,7 @@ function Setting({ navigation, theme }) {
   };
 
   return (
-    <>
+    
       <SafeAreaView
         style={[
           styles.container,
@@ -176,7 +176,7 @@ function Setting({ navigation, theme }) {
           </TouchableOpacity>
         </View>
       </SafeAreaView>
-    </>
+    
   );
 }
 export default withTheme(Setting);

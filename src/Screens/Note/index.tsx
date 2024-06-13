@@ -35,10 +35,8 @@ import { imageCompressor } from "../../Utils";
 import { styles } from "./styles";
 
 const Note = ({ route, theme }) => {
-  console.log(route.params.note, 87);
   const dispatch = useDispatch();
   const imageInitData = useSelector((state) => state.image.imageUri);
-  console.log(imageInitData, 908);
 
   const user = auth().currentUser;
   let uid = user?.uid;
@@ -55,7 +53,6 @@ const Note = ({ route, theme }) => {
   
   if (route.params != undefined) {
     if (route.params?.labelData != undefined) {
-      // console.log(route.params?.labelData, 90);
       isCompleteNew.current = true;
     } 
     else if (route.params?.note != undefined) {
@@ -71,19 +68,14 @@ const Note = ({ route, theme }) => {
         if (imageInitData[noteId]) imageInitialData = imageInitData[noteId];
       }      
       if (route.params.note.timestamp !== undefined) {
-        console.log(route.params.note.timestamp,'timestamp'); 
-        // console.log(dateRef.current.toISOString(),'dateRef');   
         const formatDate = route.params.note.timestamp.seconds * 1000 + Math.floor(route.params.note.timestamp.nanoseconds / 1000000); 
         dateRef.current = new Date(formatDate)
-        // setDate(route.params.note.timestamp)
         reminder.current = true;
         if (route.params.note.newReminder !== undefined) {isNew.current = true;dateRef.current = new Date()}
       }
     }
   }
   const [date, setDate] = useState(dateRef.current);
-
-// Create a JavaScript Date object
 
   const RichText = useRef();
   const articleData = useRef(data);
@@ -99,14 +91,11 @@ const Note = ({ route, theme }) => {
   const [photo, setPhoto] = useState(null);
   const [imageData, setImageData] = useState(imageInitialData);
   const img = useRef([]);
-  console.log(imageData, 34);
   const noteNewId = useRef(null);
   useEffect(() => {
     if (!photo || !uid) {
-      console.log("no photo or uid; Note-Image-uploader");
       return;
     }
-    console.log(photo, 78);
     const processImage = async () => {
       try {
         const newUri = await imageCompressor(photo);
@@ -118,7 +107,6 @@ const Note = ({ route, theme }) => {
     };
     processImage();
   }, [photo, uid]);
-  console.log(img.current, 2002);
 
   const createReminder = async () => {
     try {
@@ -132,10 +120,10 @@ const Note = ({ route, theme }) => {
           timeStamp: dateRef.current,
         })
         .then(() => {
-          console.log("new reminder added successfully");
+          // console.log("new reminder added successfully");
         });
     } catch (e) {
-      console.log(e, STRINGS.FIREBASE.REMINDER);
+      // console.log(e, STRINGS.FIREBASE.REMINDER);
     }
   };
   const updateReminder = async () => {
@@ -151,20 +139,14 @@ const Note = ({ route, theme }) => {
           timeStamp: dateRef.current,
         })
         .then(() => {
-          console.log("reminder updated successfully");
+          // console.log("reminder updated successfully");
         });
     } catch (e) {
-      console.log(e, "reminderrrr");
+      // console.log(e, "reminderrrr");
     }
-    // console.log(dateRef);
   };
   const updateData = async () => {
     try {
-      console.log(articleData.current, "data tobe uppdated");
-      console.log(titleRef.current, "updated title");
-      console.log(uid, 123);
-      console.log(noteId, 123);
-
       await firestore()
         .collection(STRINGS.FIREBASE.USER)
         .doc(uid)
@@ -175,9 +157,8 @@ const Note = ({ route, theme }) => {
           content: articleData.current,
           time_stamp: firestore.FieldValue.serverTimestamp(),
         });
-      console.log("success updated");
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
   const createN = async () => {
@@ -193,11 +174,9 @@ const Note = ({ route, theme }) => {
         url:[]
       })
       .then((data) => {
-        console.log(data._documentPath._parts[3]);
         noteNewId.current = data._documentPath._parts[3];
-        console.log("new note added successfully");
+        // console.log("new note added successfully");
       });
-    // console.log('asdfafasdfasg');
   };
   const createNote = async () => {
     try {
@@ -206,11 +185,6 @@ const Note = ({ route, theme }) => {
       }
       const regex = /^[\s\r\n]*$/;
       const dom = htmlparser2.parseDocument(articleData.current);
-      // console.log(dom, 44444444);
-      // stripHtml(articleData.current)
-      // console.log(!regex.test(articleData.current), 34534534578678);
-      console.log(!regex.test(titleRef.current), "title");
-      console.log(articleData);
       if (!regex.test(articleData.current) || !regex.test(titleRef.current) || img.current.length) {
         createN();
         const count = await firestore()
@@ -219,7 +193,6 @@ const Note = ({ route, theme }) => {
           .collection(STRINGS.FIREBASE.LABELS)
           .doc(labelRef.current)
           .get();
-        console.log(count, 123423435);
 
         let updatedcount = count.data();
         updatedcount = updatedcount["count"] + 1;
@@ -229,12 +202,9 @@ const Note = ({ route, theme }) => {
           .collection(STRINGS.FIREBASE.LABELS)
           .doc(labelRef.current)
           .set({ count: updatedcount ,time_stamp: firestore.FieldValue.serverTimestamp()}, { merge: true })
-          .then(() => console.log("hurray"))
-          .catch(() => console.log("hurray error00"));
-        console.log(updatedcount, 98765);
       }
     } catch (e) {
-      console.log(e);
+      // console.log(e);
     }
   };
   useEffect(()=>{
@@ -243,7 +213,7 @@ const Note = ({ route, theme }) => {
   },[])
   useEffect(() => {
     dateRef.current = date;
-    console.log(dateRef,'90'); 
+
   }, [date]);
 
   useEffect(() => {
@@ -251,25 +221,23 @@ const Note = ({ route, theme }) => {
       if (!isNew.current) {
         if (reminder.current) {
           await updateReminder();
-          console.log("reminder updated success");
+          // console.log("reminder updated success");
         } else {
           await updateData();
-          console.log("note updated success");
+          // console.log("note updated success");
         }
       } else {
         if (reminder.current) {
           await createReminder();
-          console.log("reminder created success");
+          // console.log("reminder created success");
         } else {
           await createNote();
-          console.log("note created success");
+          // console.log("note created success");
         }
       }
       if (noteIdExist.current) {
-        console.log(noteIdExist, "hi");
         dispatch(loadImage({ uid:uid, noteId: noteId, uri: img.current }));
       } else if (noteNewId.current) {
-        console.log(noteNewId.current, "please");
         dispatch(loadImage({ uid:uid, noteId: noteNewId.current, uri: img.current }));
       }
     };
@@ -459,8 +427,6 @@ const Note = ({ route, theme }) => {
           }}
           />
         }
-        {/* <UserImage photo={photo} setPhoto={setPhoto}/> */}
-        {/* </ScrollView> */}
       </KeyboardAvoidingView>
       <CustomDialogInput
         isVisible={isDialogVisible}

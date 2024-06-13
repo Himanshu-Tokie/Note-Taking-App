@@ -22,7 +22,6 @@ import { styles } from './style';
 }) {
   const navigation = useNavigation();
   const [isFocussed, setIsFocused] = useState(false);
-  // console.log(isFocussed);
   const [value,setValue] = useState('')
   const THEME = theme
   const label = ()=>{
@@ -34,7 +33,7 @@ import { styles } from './style';
       return headerText
   }
   return (
-    <>
+    
       <View style={styles.container}>
         <Pressable onPress={() => navigation.goBack()}>
           <View style={styles.leftHeader}>
@@ -69,12 +68,10 @@ import { styles } from './style';
                 onChangeText={text=>{onChangeText(text);setValue(text)}}
                 onFocus={() => {
                   setIsFocused(true);
-                  console.log('focus');
                 }}
                 onBlur={() => {
                   setIsFocused(false);
                   setSearchData(notesData);
-                  console.log('blur');
                   setValue('')
                 }}
               />
@@ -82,7 +79,7 @@ import { styles } from './style';
           )}
         </View>
       </View>
-    </>
+    
   );
 }
 

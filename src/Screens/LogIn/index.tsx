@@ -73,7 +73,6 @@ function LogIn({ navigation, theme }) {
             initialValues={{ email: "", password: "" }}
             validationSchema={SignupSchema}
             onSubmit={(values) => {
-              console.log(values, 1);
               logInUser(values.email, values.password);
             }}
           >

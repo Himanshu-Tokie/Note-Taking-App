@@ -10,13 +10,12 @@ export default function Icon({
   style,
 }) {
   const iconContainer = style ?? [];
-  console.log(borderColor);
 
   return (
-    <>
+    
       <TouchableOpacity onPress={action} style={iconContainer}>
         {icon(width, height, color, borderColor)}
       </TouchableOpacity>
-    </>
+    
   );
 }

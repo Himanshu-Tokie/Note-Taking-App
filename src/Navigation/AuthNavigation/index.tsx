@@ -25,7 +25,6 @@ function AuthNavigation({theme}) {
     useEffect(() => {
         dispatch(loadThemeFromStorage());
         const unsubscribe = NetInfo.addEventListener(state => {
-            console.log(state,1);
             dispatch(setConnectionStatus(state.isConnected));
           });
       
@@ -42,7 +41,7 @@ function AuthNavigation({theme}) {
         }, [isConnected]);
         
     return (
-        <>
+        
             <NavigationContainer>
                 <Stack.Navigator initialRouteName={SCREEN_CONSTANTS.Splash1}
                     screenOptions={{
@@ -74,7 +73,7 @@ function AuthNavigation({theme}) {
                 )}
                 </Stack.Navigator>
             </NavigationContainer>
-        </>
+        
     )
 }
 export default withTheme(AuthNavigation)

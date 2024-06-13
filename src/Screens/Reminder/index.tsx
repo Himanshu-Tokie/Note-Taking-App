@@ -14,7 +14,6 @@ function Extar2({ theme, route }) {
   const THEME = theme;
   const [searchData, setSearchData] = useState([]);
   const [notesData, setNotesData] = useState([]);
-  console.log("reminder Page");
 
   const search = (e) => {
     let text = e.toLowerCase();
@@ -24,7 +23,6 @@ function Extar2({ theme, route }) {
         item.title.toLowerCase().match(text)
       );
     });
-    console.log(filteredData);
     setSearchData(filteredData);
   };
 
@@ -78,14 +76,11 @@ function Extar2({ theme, route }) {
         setNotesData(newData);
         setSearchData(newData);
       });
-
-    // Stop listening for updates when no longer required
     return () => unsubscribe();
   }, [uid]);
-  // console.log(searchData,19191);
 
   return (
-    <>
+    
       <SafeAreaView
         style={[
           styles.container,
@@ -129,7 +124,7 @@ function Extar2({ theme, route }) {
           )}
         </View>
       </SafeAreaView>
-    </>
+    
   );
 }
 

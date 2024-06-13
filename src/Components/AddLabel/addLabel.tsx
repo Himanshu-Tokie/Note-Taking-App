@@ -10,9 +10,7 @@ function AddLabel({uid,show,setShow,theme}) {
   useEffect(() => {
     const addNewLabel = async () => {     
       try {
-        if (newLabel) {
-          console.log(newLabel,'new');
-          
+        if (newLabel) {        
           await firestore()
             .collection(STRINGS.FIREBASE.USER)
             .doc(uid)
@@ -33,8 +31,6 @@ function AddLabel({uid,show,setShow,theme}) {
   }, [newLabel]);
   // setShow(true)
   return (
-    <>
-    {/* <Button title="Add Label" onPress={() => setShow(true)} /> */}
       <DialogInput
         isDialogVisible={show}
         title={STRINGS.ADD_LABEL}
@@ -48,7 +44,6 @@ function AddLabel({uid,show,setShow,theme}) {
         closeDialog={() => {
           setShow(false);
         }}></DialogInput>
-    </>
   );
 }
 

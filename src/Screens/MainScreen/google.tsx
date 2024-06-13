@@ -42,14 +42,11 @@ export default function Google() {
       );
       const ans = await auth().signInWithCredential(googleCredential);
       console.log(ans);
-      console.log('google sign in successful');
+      // console.log('google sign in successful');
 
       if (ans.additionalUserInfo?.isNewUser) {
-        console.log('welcome new user');
         signUpUser(ans.user, 'google.com', dispatch, navigation);
       } else {
-        console.log('your are not welcome');
-
         dispatch(logIn(true));
         dispatch(updateUser(ans.user.uid));
         await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true)).catch(e =>
@@ -82,14 +79,6 @@ export default function Google() {
   };
 
   return (
-    <>
-      {/* <GoogleSigninButton
-        size={GoogleSigninButton.Size.Wide}
-        color={GoogleSigninButton.Color.Light}
-        onPress={_signIn}
-        disabled={false}
-        style={styles.google}
-  /> */}
       <View style={styles.google}>
         <TouchableOpacity onPress={_signIn}>
           <View style={styles.googleContainer}>
@@ -102,7 +91,7 @@ export default function Google() {
           </View>
         </TouchableOpacity>
       </View>
-    </>
+    
   );
 }
 
