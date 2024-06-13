@@ -7,12 +7,13 @@ import Search from '../../Components/Header';
 import ListTemplate from '../../Components/ListTemplate/listTemplate';
 import { STRINGS } from '../../Constants/Strings';
 import { styles } from './style';
+import { newDataType } from './types';
 
 function ADD_LABELS({theme}) {
   const user = auth().currentUser;
   const THEME = theme;
   let uid = user?.uid;
-  const [notesData, setNotesData] = useState([]);
+  const [notesData, setNotesData] = useState<newDataType|null>();
   console.log('Label creater Page');
   useEffect(() => {
     const fetchData = async () => {
@@ -23,12 +24,11 @@ function ADD_LABELS({theme}) {
           .collection(STRINGS.FIREBASE.LABELS)
           .orderBy('time_stamp', 'asc')
           .get();
-        const newData = []; // Temporary array to accumulate data
+        const newData:newDataType =[]; // Temporary array to accumulate data
         data.forEach(doc => {
           newData.push({id: doc.id});
         });
-
-        setNotesData(newData);
+        setNotesData(newData);        
       } catch (error) {
         console.error('Error fetching data:', error);
       }
@@ -42,7 +42,7 @@ function ADD_LABELS({theme}) {
       .collection(STRINGS.FIREBASE.LABELS)
       .orderBy('time_stamp', 'asc')
       .onSnapshot(querySnapshot => {
-        const newData = []; // Temporary array to accumulate data
+        const newData:newDataType = []; // Temporary array to accumulate data
         querySnapshot.forEach(doc => {
           newData.push({id: doc.id});
         });
@@ -52,7 +52,6 @@ function ADD_LABELS({theme}) {
     // Stop listening for updates when no longer required
     return () => unsubscribe();
   }, []);
-  // console.log(newLabel.current);
   return (
     
       <SafeAreaView

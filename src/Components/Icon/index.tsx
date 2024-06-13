@@ -1,4 +1,5 @@
 import { TouchableOpacity } from 'react-native';
+import { iconType } from './types';
 
 export default function Icon({
   icon,
@@ -7,15 +8,14 @@ export default function Icon({
   color,
   action,
   borderColor,
-  style,
-}) {
-  const iconContainer = style ?? [];
+}:iconType) {
 
   return (
     
-      <TouchableOpacity onPress={action} style={iconContainer}>
+      <TouchableOpacity onPress={action}>
         {icon(width, height, color, borderColor)}
       </TouchableOpacity>
     
   );
 }
+

@@ -1,19 +1,21 @@
-import DateTimePicker from '@react-native-community/datetimepicker';
+import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import withTheme from '../HOC';
 import { styles } from './style';
+import { dateTimeProps } from './type';
 
-function DateTime({date, setDate,theme,dateRef}) {
-  const [mode, setMode] = useState('date');
+function DateTime({date, setDate,theme}:dateTimeProps) {
+  const [mode, setMode] = useState<"date"|"time">('date');
   const [show, setShow] = useState(false);
 
-  const onChange = (event, selectedDate) => {
+  const onChange = (event:DateTimePickerEvent,selectedDate:Date|undefined) => {
     setShow(false);
+    if(selectedDate)
     setDate(selectedDate);
   };
 
-  const showMode = currentMode => {
+  const showMode = (currentMode:'date'|'time') => {
     setShow(true);
     setMode(currentMode);
   };

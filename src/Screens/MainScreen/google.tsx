@@ -17,9 +17,9 @@ import { logIn, updateUser } from '../../Store/Common';
 import { signUpUser } from '../../Utils';
 import { styles } from './style';
 
-function isErrorWithCode(error) {
-  return error.code !== undefined;
-}
+// function isErrorWithCode(error) {
+//   return error.code !== undefined;
+// }
 
 export default function Google() {
   const dispatch = useDispatch();
@@ -33,65 +33,58 @@ export default function Google() {
   const _signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
-      const userInfo = await GoogleSignin.signIn().catch(e => {
-        console.log(e);
-      });
-      // console.log(userInfo);
-      const googleCredential = auth.GoogleAuthProvider.credential(
-        userInfo.idToken,
-      );
-      const ans = await auth().signInWithCredential(googleCredential);
-      console.log(ans);
-      // console.log('google sign in successful');
+      const userInfo = await GoogleSignin.signIn();
+      
+      if (userInfo) {
+        const googleCredential = auth.GoogleAuthProvider.credential(userInfo.idToken);
+        const ans = await auth().signInWithCredential(googleCredential);
+        console.log(ans);
 
-      if (ans.additionalUserInfo?.isNewUser) {
-        signUpUser(ans.user, 'google.com', dispatch, navigation);
-      } else {
-        dispatch(logIn(true));
-        dispatch(updateUser(ans.user.uid));
-        await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true)).catch(e =>
-          console.log(e),
-        );
-        console.log('data added to storage google');
-        navigation.navigate(SCREEN_CONSTANTS.HomeNavigation);
-      }
-    } catch (error) {
-      if (isErrorWithCode(error)) {
-        switch (error.code) {
-          case statusCodes.SIGN_IN_CANCELLED:
-            // user cancelled the login flow
-            break;
-          case statusCodes.IN_PROGRESS:
-            // operation (eg. sign in) already in progress
-            break;
-          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-            console.log('service error');
-            
-            // play services not available or outdated
-            break;
-          default:
-          // some other error happened
+        if (ans.additionalUserInfo?.isNewUser) {
+          signUpUser(ans.user, 'google.com', dispatch, navigation);
+        } else {
+          dispatch(logIn(true));
+          dispatch(updateUser({ uid: ans.user.uid, providerId: 'google.com' }));
+          await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true));
+          console.log('data added to storage google');
+          navigation.navigate(SCREEN_CONSTANTS.HomeNavigation);
         }
       } else {
-        // an error that's not related to google sign in occurred
+        console.log('User cancelled the login or there was an error');
+      }
+    } catch (error: any) {
+      if (error.code) {
+        switch (error.code) {
+          case statusCodes.SIGN_IN_CANCELLED:
+            console.log('User cancelled the login flow');
+            break;
+          case statusCodes.IN_PROGRESS:
+            console.log('Operation (eg. sign in) already in progress');
+            break;
+          case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
+            console.log('Play services not available or outdated');
+            break;
+          default:
+            console.log('Some other error happened', error);
+        }
+      } else {
+        console.log('An error not related to Google sign-in occurred', error);
       }
     }
   };
 
   return (
-      <View style={styles.google}>
-        <TouchableOpacity onPress={_signIn}>
-          <View style={styles.googleContainer}>
-            {ICONS.GOOGLE(
-              Platform.OS == 'ios'?heightPercentageToDP('2%'):heightPercentageToDP('2.5%'),
-              Platform.OS == 'ios'?heightPercentageToDP('2%'):heightPercentageToDP('2.5%'),
-              'none',
-            )}
-            <Text style={styles.text}>{STRINGS.GOOGLE_SIGN_IN}</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    
+    <View style={styles.google}>
+      <TouchableOpacity onPress={_signIn}>
+        <View style={styles.googleContainer}>
+          {ICONS.GOOGLE(
+            Platform.OS == 'ios' ? heightPercentageToDP('2%') : heightPercentageToDP('2.5%'),
+            Platform.OS == 'ios' ? heightPercentageToDP('2%') : heightPercentageToDP('2.5%'),
+            'none',
+          )}
+          <Text style={styles.text}>{STRINGS.GOOGLE_SIGN_IN}</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
   );
 }
-

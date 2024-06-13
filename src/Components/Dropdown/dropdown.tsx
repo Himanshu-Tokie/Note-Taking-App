@@ -9,6 +9,8 @@ import { styles } from './style';
   const DropdownComponent = ({data,value, setValue,theme}) => {
     const [isFocus, setIsFocus] = useState(false);
     const labelData = [{'label':''}]
+    console.log(data,1);
+    
     data.forEach((label)=>{
         labelData.push({'label':label.id})
     })

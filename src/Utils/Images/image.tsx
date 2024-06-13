@@ -25,7 +25,7 @@ export const uploadPhoto = async(photo,uid,noteId) => {
         .collection(STRINGS.FIREBASE.NOTES)
         .doc(noteId)
         .get()
-        photoUrls = [...ImageUrls.data().url,...photoUrls]
+        photoUrls = [...(ImageUrls.data()?.url),...photoUrls]
 
         await firestore()
         .collection(STRINGS.FIREBASE.USER)
@@ -37,15 +37,7 @@ export const uploadPhoto = async(photo,uid,noteId) => {
           });
           // console.log('All image uploaded to firebase');
           
-    } catch (e) {
+    } catch (e:any) {
         Alert.alert('Photo upload failed', e.message);
     }
 }
-
-const syncPhotos = async (dispatch, photos) => {
-    for (const photo of photos) {
-
-      dispatch(removePhoto(hash));
-    } 
-    await AsyncStorage.removeItem('photos');
-  };

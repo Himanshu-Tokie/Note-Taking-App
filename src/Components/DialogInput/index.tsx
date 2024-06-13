@@ -2,8 +2,9 @@
 import React, { useState } from 'react';
 import Dialog from 'react-native-dialog';
 import withTheme from '../HOC';
+import { customDialogInputProps } from './types';
 
-const CustomDialogInput = ({ isVisible, onCancel, onSubmit ,theme}) => {
+const CustomDialogInput = ({ isVisible, onCancel, onSubmit ,theme}:customDialogInputProps) => {
   const [inputValue, setInputValue] = useState('');
 
   return (

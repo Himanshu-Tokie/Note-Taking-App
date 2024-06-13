@@ -1,0 +1,1 @@
+export type newDataType = {'id':string,'count':number}[]
