@@ -1,8 +1,8 @@
-// import { themeType } from "../HOC";
+import { themeType } from "../HOC";
 
-// export interface dropdownComponentProps{
-//     data:,
-//     value:string, 
-//     setValue:()=>void,
-//     theme?:themeType
-// }
+export interface dropdownComponentProps{
+    data:any,
+    value:string, 
+    setValue:()=>void,
+    theme?:themeType
+}

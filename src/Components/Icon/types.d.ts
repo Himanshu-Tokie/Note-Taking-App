@@ -3,6 +3,6 @@ export interface iconType{
     width: number;
     height: number;
     color: string;
-    action: () => void;
+    action?: () => void;
     borderColor?: string;
   }

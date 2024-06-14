@@ -97,7 +97,7 @@ const Note = ({ route, theme }) => {
   useEffect(() => {
     labelRef.current = value;
   }, [value]);
-  const [photo, setPhoto] = useState(null);
+  const [photo, setPhoto] = useState<string|null>(null);
   const [imageData, setImageData] = useState(imageInitialData);
   const img = useRef<string[]>([]);
   const noteNewId = useRef(null);

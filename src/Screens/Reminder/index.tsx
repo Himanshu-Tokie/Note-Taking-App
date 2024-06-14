@@ -7,14 +7,14 @@ import Search from "../../Components/Header";
 import ListTemplate from "../../Components/ListTemplate/listTemplate";
 import { STRINGS } from "../../Constants/Strings";
 import { styles } from "./style";
-import { newDataType, reminderFormate } from "./types";
+import { reminderFormate, reminderNotesDataType } from "./types";
 
 function Extar2({ theme, route }) {
   const user = auth().currentUser;
   let uid = user?.uid;
   const THEME = theme;
-  const [searchData, setSearchData] = useState<newDataType | null>();
-  const [notesData, setNotesData] = useState<newDataType | null>();
+  const [searchData, setSearchData] = useState<reminderNotesDataType | null>();
+  const [notesData, setNotesData] = useState<reminderNotesDataType | null>();
 
   const search = (e: string) => {
     let text = e.toLowerCase();
@@ -39,7 +39,7 @@ function Extar2({ theme, route }) {
             .collection(STRINGS.FIREBASE.REMINDER)
             .get();
 
-          const newData: newDataType = []; // Temporary array to accumulate data
+          const newData: reminderNotesDataType = []; // Temporary array to accumulate data
 
           data.forEach((doc) => {
             newData.push({
@@ -63,26 +63,27 @@ function Extar2({ theme, route }) {
 
     // Set up listener for real-time updates
     if (uid) {
-    const unsubscribe = firestore()
-      .collection(STRINGS.FIREBASE.USER)
-      .doc(uid)
-      .collection(STRINGS.FIREBASE.REMINDER)
-      .orderBy("timeStamp", "asc")
-      .onSnapshot((querySnapshot) => {
-        const newData: newDataType = []; // Temporary array to accumulate data
-        querySnapshot.forEach((doc) => {
-          newData.push({
-            title: doc.data().title,
-            data: doc.data().content,
-            noteId: doc.id,
-            id: uid,
-            timestamp: doc.data().timeStamp,
+      const unsubscribe = firestore()
+        .collection(STRINGS.FIREBASE.USER)
+        .doc(uid)
+        .collection(STRINGS.FIREBASE.REMINDER)
+        .orderBy("timeStamp", "asc")
+        .onSnapshot((querySnapshot) => {
+          const newData: reminderNotesDataType = []; // Temporary array to accumulate data
+          querySnapshot.forEach((doc) => {
+            newData.push({
+              title: doc.data().title,
+              data: doc.data().content,
+              noteId: doc.id,
+              id: uid,
+              timestamp: doc.data().timeStamp,
+            });
           });
+          setNotesData(newData);
+          setSearchData(newData);
         });
-        setNotesData(newData);
-        setSearchData(newData);
-      });
-    return () => unsubscribe();}
+      return () => unsubscribe();
+    }
   }, [uid]);
 
   return (
@@ -98,7 +99,7 @@ function Extar2({ theme, route }) {
         <View>
           <Search
             onChangeText={search}
-            setSearchData={setSearchData}
+            handleSetInittialOnBlur={() => setSearchData(notesData)}
             notesData={notesData}
             headerText={"Reminder"}
           />

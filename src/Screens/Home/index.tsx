@@ -36,6 +36,7 @@ function Home({ theme, navigation }) {
     : { uri: defaultImage };
 
   const [label, setLabel] = useState<newDataType|null>();
+  
   useEffect(() => {
     getLabel();
     if (user) {
@@ -201,6 +202,7 @@ function Home({ theme, navigation }) {
                         text={item.id}
                         files={item.count}
                         note={user.uid}
+                        theme={THEME}
                       />
                     )}
                   />

@@ -1,4 +1,4 @@
-export type newDataType = {
+export type labelNotesDataType = {
     'title':string,
     'data':string,
     'id':string,

@@ -9,15 +9,15 @@ import StaggedLabel from "../../Components/Staggered";
 import { SCREEN_CONSTANTS } from "../../Constants";
 import { STRINGS } from "../../Constants/Strings";
 import { styles } from "./style";
-import { newDataType } from "./types";
+import { labelNotesDataType } from "./types";
 
 function Label({ navigation, route, theme }) {
   // console.log(route, 123321123)
   const uid = route.params.note;
   const label = route.params.text;
   const THEME = theme;
-  const [searchData, setSearchData] = useState<newDataType | null>();
-  const [notesData, setNotesData] = useState<newDataType | null>();
+  const [searchData, setSearchData] = useState<labelNotesDataType | null>();
+  const [notesData, setNotesData] = useState<labelNotesDataType | null>();
   console.log("label Page");
   const note = {
     uid,
@@ -49,7 +49,7 @@ function Label({ navigation, route, theme }) {
           .orderBy("time_stamp", "asc")
           .get();
 
-        const newData: newDataType = []; // Temporary array to accumulate data
+        const newData: labelNotesDataType = []; // Temporary array to accumulate data
 
         data.forEach((doc) => {
           newData.push({
@@ -81,7 +81,7 @@ function Label({ navigation, route, theme }) {
       .onSnapshot((querySnapshot) => {
         console.log(querySnapshot, "querySnapshot");
 
-        const newData: newDataType = [];
+        const newData: labelNotesDataType = [];
         querySnapshot.forEach((doc) => {
           newData.push({
             title: doc.data().title,
@@ -111,7 +111,7 @@ function Label({ navigation, route, theme }) {
       <View>
         <Search
           onChangeText={search}
-          setSearchData={setSearchData}
+          handleSetInittialOnBlur={() => setSearchData(notesData)}
           notesData={notesData}
           headerText={label}
         />
