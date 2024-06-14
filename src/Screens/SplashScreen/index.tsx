@@ -5,7 +5,7 @@ import { ActivityIndicator, SafeAreaView, Text, View } from "react-native";
 import Fade from "react-native-fade";
 import { heightPercentageToDP } from "react-native-responsive-screen";
 import { useDispatch, useSelector } from "react-redux";
-import withTheme from "../../Components/HOC";
+import withTheme, { themeType } from "../../Components/HOC";
 import { SCREEN_CONSTANTS } from "../../Constants";
 import { ICONS } from "../../Constants/Icons";
 import { STRINGS } from "../../Constants/Strings";
@@ -13,8 +13,9 @@ import { logIn } from "../../Store/Common";
 import { getFromAsyncStorage } from "../../Store/Image";
 import { changeApprearance } from "../../Store/Theme";
 import { styles } from "./style";
+import { SplashProps } from "./types";
 
-function Splash({ theme }) {
+function Splash({ theme }:SplashProps) {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   // const isLogedIn = useSelector(state => state.common.isLogedIn);

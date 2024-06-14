@@ -3,7 +3,7 @@ export interface reminderFormate {
   title: string;
 }
 
-export type newDataType = {
+export type reminderNotesDataType = {
   title: string;
   data: string;
   noteId: string;

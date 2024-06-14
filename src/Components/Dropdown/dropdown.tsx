@@ -4,9 +4,10 @@ import { Dropdown } from 'react-native-element-dropdown';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 import withTheme from '../HOC';
 import { styles } from './style';
+import { dropdownComponentProps } from './types';
 
 
-  const DropdownComponent = ({data,value, setValue,theme}) => {
+  const DropdownComponent = ({data,value, setValue,theme}:dropdownComponentProps) => {
     const [isFocus, setIsFocus] = useState(false);
     const labelData = [{'label':''}]
     console.log(data,1);
@@ -16,15 +17,15 @@ import { styles } from './style';
     })
     const THEME = theme     
     return (
-      <View style={[styles.container,{backgroundColor:THEME.BACKGROUND}]}>
+      <View style={[styles.container,{backgroundColor:THEME?.BACKGROUND}]}>
         <Dropdown
           style={[styles.dropdown, isFocus && { borderColor: 'white' }]}
-          placeholderStyle={[styles.placeholderStyle,{color:THEME.NOTETEXT}]}
-          selectedTextStyle={[styles.selectedTextStyle,{color:THEME.NOTETEXT}]}
+          placeholderStyle={[styles.placeholderStyle,{color:THEME?.NOTETEXT}]}
+          selectedTextStyle={[styles.selectedTextStyle,{color:THEME?.NOTETEXT}]}
           data={labelData}
-          itemTextStyle={{color:THEME.TEXT1}}
-          containerStyle={{backgroundColor:THEME.BACKGROUND}}
-          activeColor={THEME.BACKGROUND}
+          itemTextStyle={{color:THEME?.TEXT1}}
+          containerStyle={{backgroundColor:THEME?.BACKGROUND}}
+          activeColor={THEME?.BACKGROUND}
           maxHeight={heightPercentageToDP('30%')}
           labelField="label"
           valueField="label"

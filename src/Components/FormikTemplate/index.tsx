@@ -5,6 +5,7 @@ import { LIGHT_THEME_COLOR } from '../../Constants/Colors';
 import { ICONS } from '../../Constants/Icons';
 import { STRINGS } from '../../Constants/Strings';
 import { styles } from './style';
+import { formikTemplateTypes } from './types';
 
 export default function FormikTemplate({
   placeholder,
@@ -14,7 +15,7 @@ export default function FormikTemplate({
   onBlur,
   error,
   logIn = true
-}) {
+}:formikTemplateTypes) {
   const [secureTextEntry, setSecureTextEntry] = useState(false);
   const [show, setShow] = useState(true);
   useMemo(()=>{

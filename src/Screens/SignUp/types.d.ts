@@ -3,5 +3,5 @@ export interface valuesTypes{
     password:string,
     firstName:string,
     lastName:string,
-
 }
+

@@ -13,11 +13,11 @@ import { SCREEN_CONSTANTS } from '../../Constants';
 import { IMAGES } from '../../Constants/Images';
 import withTheme from '../HOC';
 import { styles } from './style';
-import { colorSchemeState } from './types';
+import { colorSchemeState, labelTemplateTypes } from './types';
 
-function LabelTemplate({icon, text, files, note,theme}) {
+function LabelTemplate({icon, text, files, note,theme}:labelTemplateTypes) {
   const nav = useNavigation();
-  const label = (text)=>{
+  const label = (text:string)=>{
     if(!text.length)return ''
     else {
       if(text.length>8)

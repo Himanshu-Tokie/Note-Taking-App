@@ -9,15 +9,16 @@ import { RenderHTML } from "react-native-render-html";
 import { SCREEN_CONSTANTS } from "../../Constants";
 import withTheme from "../HOC";
 import { styles } from "./style";
-function ListTemplate({ note, nav, maxHeight, label, theme }) {
+import { listTemplateTypes } from "./types";
+function ListTemplate({ note, nav, maxHeight, label, theme }:listTemplateTypes) {
   const source = {
     html: note.data,
   };
   const { width: contentWidth } = useWindowDimensions();
   const THEME = theme;
-  const date = new Date(
+  const date = note.timestamp?new Date(
     note.timestamp?.seconds * 1000 + note.timestamp?.nanoseconds / 1000000
-  );
+  ):'error';
   const options = {
     year: "numeric",
     month: "long",
@@ -27,9 +28,9 @@ function ListTemplate({ note, nav, maxHeight, label, theme }) {
     second: "numeric",
     hour12: false,
   };
-  const formattedDate = date.toLocaleString("en-US", options);
+  const formattedDate = date.toLocaleString("en-US");
   const title = () => {
-    if (!note.title.length) return "";
+    if (!note.title?.length) return "";
     else {
       if (note.title.length > 8) return note.title.slice(0, 8) + "...";
       else return note.title;

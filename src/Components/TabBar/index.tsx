@@ -6,9 +6,9 @@ import Plus from "../Plus/Plus";
 import { useSelector } from "react-redux";
 import { styles } from "./styles";
 import withTheme from "../HOC";
-import { colorSchemeState } from "./types";
+import { colorSchemeState, myTabBarProps } from "./types";
 
-function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setShow,labelData}) {
+function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setShow,labelData}:myTabBarProps) {
     const colorScheme = useSelector((state:colorSchemeState)=>state.theme.theme)
     const iconSelection = (index:number) => {
       switch (index) {

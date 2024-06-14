@@ -37,7 +37,11 @@ export const uploadPhoto = async(photo,uid,noteId) => {
           });
           // console.log('All image uploaded to firebase');
           
-    } catch (e:any) {
-        Alert.alert('Photo upload failed', e.message);
+    } catch (e:unknown) {
+        if(e instanceof Error){
+            Alert.alert('Photo upload failed', e.message);
+        }else{
+            Alert.alert('unknown error');
+        }
     }
 }

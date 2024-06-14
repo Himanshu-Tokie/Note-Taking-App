@@ -1,6 +1,7 @@
+import { themeType } from "../HOC";
 export interface addLabelProps{
     uid:string,
-    setShow:React.Dispatch<React.SetStateAction<boolean>>,
+    setShow:(flag:boolean)=>void,
     show:boolean,
-    theme:{}
+    theme:themeType
 } 
