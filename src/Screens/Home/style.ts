@@ -2,6 +2,11 @@ import { Platform, StyleSheet } from 'react-native';
 import { heightPercentageToDP, widthPercentageToDP } from 'react-native-responsive-screen';
 
 export const styles = StyleSheet.create({
+  headerContainer: {
+    padding: 20, // Add desired padding here
+    backgroundColor: 'white', // Optional: background color for the header
+    alignItems: 'center', // Optional: align items in the center
+  },
   container: {
     flex: 1,
     paddingHorizontal: widthPercentageToDP('4%'),
