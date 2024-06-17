@@ -111,7 +111,7 @@ const Note = ({ route, theme }:NoteScreenProps) => {
         setImageData((prevImageData) => [...prevImageData, newUri]);
         img.current = [...img.current, newUri];
       } catch (error) {
-        console.log("Error compressing image:", error);
+        // console.log("Error compressing image:", error);
       }
     };
     processImage();
@@ -232,14 +232,15 @@ const Note = ({ route, theme }:NoteScreenProps) => {
     dateRef.current = date;
   }, [date]);
 
-  const fetchData = async () => {
-    if (!isNew.current) {
-      if (reminder.current) {
-        await updateReminder();
-        // console.log("reminder updated success");
-      } else {
-        await updateData();
-        // console.log("note updated success");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      if (!isNew.current) {
+        if (reminder.current) {
+          await updateReminder();
+        } else {
+          await updateData();
+        }
       }
     } else {
       if (reminder.current) {

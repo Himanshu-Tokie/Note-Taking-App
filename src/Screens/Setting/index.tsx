@@ -31,7 +31,6 @@ function Setting({ navigation, theme }:SettingProps) {
       if (user?.providerData[0].providerId !== "google.com") {
         await auth()
           .signOut()
-          .then(() => console.log("User signed out!"))
           .catch((e) => console.log(e));
         dispatch(logIn(false));
         dispatch(updateUser(null));
@@ -43,11 +42,10 @@ function Setting({ navigation, theme }:SettingProps) {
           await GoogleSignin.signOut().catch((e) => console.log(e));
           dispatch(logIn(false));
           dispatch(updateUser(null));
-          console.log("google log out");
           await AsyncStorage.setItem(
             STRINGS.IS_LOGGED_IN,
             JSON.stringify(false)
-          ).then(() => console.log("success remove async"));
+          )
           AsyncStorage.clear();
           navigation.navigate(SCREEN_CONSTANTS.Enter);
         } catch (error) {

@@ -14,7 +14,7 @@ function ADD_LABELS({theme}:addLabelProp) {
   const THEME = theme;
   let uid = user?.uid;
   const [notesData, setNotesData] = useState<newDataType|null>();
-  console.log('Label creater Page');
+
   useEffect(() => {
     const fetchData = async () => {
       try {

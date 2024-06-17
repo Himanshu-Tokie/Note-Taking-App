@@ -34,13 +34,11 @@ const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
   const logInUser = async (email: string, password: string) => {
     try {
       const userCredential = await auth().signInWithEmailAndPassword(email, password);
-      console.log("login complete");
       dispatch(logIn(true));
       dispatch(
         updateUser({ uid: userCredential.user.uid, providerId: "firebase" })
       );
       await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true));
-      console.log("data added to storage login");
     } catch (error) {
       console.error(error);
       setErrorLogin(true);

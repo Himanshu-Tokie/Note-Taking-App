@@ -38,15 +38,10 @@ function Enter({ navigation,theme }:EnterProps) {
   //   }
   // },[isConnected])
   
-  const checkConnection = () => {
-    console.log(isConnected,98);
-    
+  const checkConnection = () => {    
     if(isOffline.current){console.log('wow');
      return}
-    else {
-      console.log(isConnected,1011);
-      console.log(isOffline.current,1012);
-      
+    else {     
       Alert.alert(
         "No Internet Connection",
         "Please check your internet connection and try again.",

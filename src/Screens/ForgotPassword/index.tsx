@@ -15,7 +15,7 @@ function reset(email:string){
     auth().sendPasswordResetEmail(email).then(function (user) {
         Alert.alert('Please check your email...')
       }).catch(function (e) {
-        console.log(e)
+        // console.log(e)
       })
 }
 export default function ResetPassword() {

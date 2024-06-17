@@ -12,14 +12,11 @@ import { styles } from "./style";
 import { LabelProps, labelNotesDataType } from "./types";
 
 function Label({ navigation, route, theme }:LabelProps) {
-  // console.log(route, 123321123)
   const uid = route.params?.note?? '';
   const label = route.params?.text ?? '';
   const THEME = theme;
   const [searchData, setSearchData] = useState<labelNotesDataType >([]);
   const [notesData, setNotesData] = useState<labelNotesDataType>([]);
-
-
   const note = {
     uid,
     label,
@@ -77,6 +74,7 @@ function Label({ navigation, route, theme }:LabelProps) {
       .collection(STRINGS.FIREBASE.USER)
       .doc(uid)
       .collection(STRINGS.FIREBASE.NOTES)
+
       .where("label", "==", label)
       .orderBy("time_stamp", "asc")
       .onSnapshot((querySnapshot) => {
