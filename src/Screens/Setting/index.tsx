@@ -104,7 +104,7 @@ function Setting({ navigation, theme }:SettingProps) {
                     },
                   ]}
                 >
-                  Profile
+                  Profile - (𝘸𝘪𝘭𝘭 𝘴𝘰𝘰𝘯 𝘣𝘦 𝘢𝘷𝘢𝘪𝘭𝘢𝘣𝘭𝘦)
                 </Text>
               </View>
             </View>
@@ -143,7 +143,7 @@ function Setting({ navigation, theme }:SettingProps) {
                     },
                   ]}
                 >
-                  Change Password
+                  Change Password - (will soon be available)
                 </Text>
               </View>
             </View>

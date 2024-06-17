@@ -15,18 +15,23 @@ function Extar2({ navigation,theme, route }:ReminderProps) {
   const THEME = theme;
   const [searchData, setSearchData] = useState<reminderNotesDataType | null>();
   const [notesData, setNotesData] = useState<reminderNotesDataType | null>();
-
-  const search = (e: string) => {
-    let text = e.toLowerCase();
-    if (notesData) {
-      let filteredData = notesData.filter((item: reminderFormate) => {
-        return (
-          item.data.toLowerCase().match(text) ||
-          item.title.toLowerCase().match(text)
-        );
-      });
-      setSearchData(filteredData);
-    }
+  const [noData,setNoData] = useState<boolean>(false)
+  const search = (str: string) => {
+      setNoData(false)
+      let text = str.toLowerCase();
+      if (notesData) {
+        let filteredData = notesData.filter((item: reminderFormate) => {
+          return (
+            item.data.toLowerCase().match(text) ||
+            item.title.toLowerCase().match(text)
+          );
+        });
+        if(!filteredData.length)
+          setNoData(true)
+        else
+        setNoData(false)
+        setSearchData(filteredData);
+      }
   };
 
   useEffect(() => {
@@ -104,7 +109,12 @@ function Extar2({ navigation,theme, route }:ReminderProps) {
             headerText={"Reminder"}
           />
         </View>
-        {searchData?.length ? (
+        {noData && <View style={styles.noReminder}>
+            <Text style={styles.noReminderText}>
+              No
+            </Text>
+          </View>}
+        {searchData?.length? (
           <View style={styles.searchContainer}>
             <FlatList
               data={searchData}

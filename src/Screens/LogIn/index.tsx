@@ -20,10 +20,6 @@ const SignupSchema = Yup.object().shape({
   password: Yup.string()
     .min(8)
     .required("Please enter your password")
-    .matches(
-      /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-      "Invalid Password"
-    ),
 });
 
 const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
@@ -64,6 +60,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
             initialValues={{ email: "", password: "" }}
             validationSchema={SignupSchema}
             onSubmit={(values) => {
+              console.log('234');             
               logInUser(values.email, values.password);
             }}
           >
@@ -77,7 +74,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
               handleSubmit,
             }) => (
               <View>
-                {(!values.email || !values.password) && (touched.email || touched.password) && (
+                {errorLogin && (
                   <View style={styles.errorContainer}>
                     <Text style={styles.error}>
                       {STRINGS.EMPTY_CREDENTIALS}
@@ -91,7 +88,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
                   onChangeText={handleChange("email")}
                   onBlur={() => setFieldTouched("email")}
                   error={errors.email}
-                  logIn={false}
+                  logIn={true}
                 />
                 <FormikTemplate
                   placeholder="Password"
@@ -100,9 +97,8 @@ const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
                   onChangeText={handleChange(STRINGS.PASSWORD_SMALL)}
                   onBlur={() => setFieldTouched(STRINGS.PASSWORD_SMALL)}
                   error={errors.password}
-                  logIn={false}
+                  logIn={true}
                 />
-
                 <Text onPress={forgot} style={styles.colorText}>
                   {STRINGS.FORGOT_PASSWORD}
                 </Text>
@@ -111,7 +107,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
                 </Text>
                 <CustomButton
                   text="Log In"
-                  onPress={handleSubmit}
+                  onPress={() => handleSubmit()}
                   style={[styles.button]}
                 />
               </View>

@@ -46,14 +46,12 @@ function Home({ theme }:HomeProps) {
         .collection(STRINGS.FIREBASE.LABELS)
         .orderBy('time_stamp', 'asc')
         .onSnapshot((querySnapshot) => {
-          const newData:newDataType = []; // Temporary array to accumulate data
+          const newData:newDataType = []; 
           querySnapshot.forEach((doc) => {
             newData.push({ id: doc.id, count: doc.data().count });
           });
           setLabel(newData);
         });
-
-      // Stop listening for updates when no longer required
       return () => {
         unsubscribe();
       };
@@ -104,20 +102,22 @@ function Home({ theme }:HomeProps) {
   // DeviceInfo.getUsedMemory().then((usedMemory) => {
   //   setUsedSpace(usedMemory)
   // });
+  const fetchStorageInfo = async () => {
+    try {
+      const freeDiskStorage = await DeviceInfo.getTotalMemory();
+      const usedMemory = await DeviceInfo.getFreeDiskStorage();
+      setFreeSpace(freeDiskStorage);
+      setUsedSpace(usedMemory);
+    } catch (error) {
+      // console.error("Error fetching storage info:", error);
+    }
+  };
+  // setInterval(fetchStorageInfo,10000)
   useEffect(() => {
-    const fetchStorageInfo = async () => {
-      try {
-        const freeDiskStorage = await DeviceInfo.getFreeDiskStorage();
-        const usedMemory = await DeviceInfo.getUsedMemory();
-        setFreeSpace(freeDiskStorage);
-        setUsedSpace(usedMemory);
-      } catch (error) {
-        console.error("Error fetching storage info:", error);
-      }
-    };
-
     fetchStorageInfo();
   }, [user]);
+
+
 
   const bytesToGB = (bytes:number) => (bytes / (1024 * 1024 * 1024)).toFixed(2);
   if (user) {

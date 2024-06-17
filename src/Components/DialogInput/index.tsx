@@ -9,10 +9,10 @@ const CustomDialogInput = ({ isVisible, onCancel, onSubmit ,theme}:customDialogI
 
   return (
     <Dialog.Container visible={isVisible}>
-      <Dialog.Title style={{ color: theme.BACKGROUND }}>Enter Link URL</Dialog.Title>
+      <Dialog.Title style={{ color: '#000000' }}>Enter Link URL</Dialog.Title>
       <Dialog.Input
         placeholder="Enter URL"
-        placeholderTextColor={theme.TEXT1}
+        placeholderTextColor={'#000000'}
         style={{ color: '#000000' }}
         onChangeText={setInputValue}
         value={inputValue}
