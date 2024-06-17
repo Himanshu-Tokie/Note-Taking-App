@@ -16,9 +16,10 @@ function Label({ navigation, route, theme }:LabelProps) {
   const uid = route.params?.note?? '';
   const label = route.params?.text ?? '';
   const THEME = theme;
-  const [searchData, setSearchData] = useState<labelNotesDataType | null>();
-  const [notesData, setNotesData] = useState<labelNotesDataType | null>();
-  // console.log("label Page");
+  const [searchData, setSearchData] = useState<labelNotesDataType >([]);
+  const [notesData, setNotesData] = useState<labelNotesDataType>([]);
+
+
   const note = {
     uid,
     label,

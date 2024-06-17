@@ -1,3 +1,4 @@
+import { HTMLSource } from "react-native-render-html";
 import { themeType } from "../HOC";
 
 export interface TimestampType {
@@ -7,10 +8,10 @@ export interface TimestampType {
 
 export interface NoteType {
   title?: string;
-  data?: string;
+  data?: string | HTMLSource;
   noteId?: string;
   id?: string;
-  timestamp?: TimestampType|string;
+  timestamp?: TimestampType | string;
 }
 
 export interface listTemplateTypes {

@@ -34,9 +34,9 @@ import { STRINGS } from "../../Constants/Strings";
 import { loadImage } from "../../Store/Image";
 import { imageCompressor } from "../../Utils";
 import { styles } from "./styles";
-import { HomeNoteProps, NoteProps, imageState } from "./types";
+import { NoteScreenProps, imageState } from "./types";
 
-const Note = ({ route, theme }:HomeNoteProps) => {
+const Note = ({ route, theme }:NoteScreenProps) => {
   const dispatch = useDispatch();
   const imageInitData = useSelector(
     (state: imageState) => state.image.imageUri
@@ -397,7 +397,7 @@ const Note = ({ route, theme }:HomeNoteProps) => {
         />
         {/* </ScrollView> */}
         {reminder.current && (
-          <DateTime date={date} setDate={setDate} dateRef={dateRef}></DateTime>
+          <DateTime date={date} setDate={setDate}></DateTime>
         )}
         {reminder.current ? (
           <RichToolbar
@@ -453,7 +453,7 @@ const Note = ({ route, theme }:HomeNoteProps) => {
         isVisible={isDialogVisible}
         onCancel={handleCancel}
         onSubmit={handleSubmit}
-        theme={THEME}
+        // theme={THEME}
       />
     </SafeAreaView>
   );

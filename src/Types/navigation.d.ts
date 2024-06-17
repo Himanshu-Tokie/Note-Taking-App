@@ -13,25 +13,24 @@ type theme = {
 };
 
 export type RootStackParamList = {
-  [SCREEN_CONSTANTS.Splash]: undefined;
-  [SCREEN_CONSTANTS.Enter]: undefined;
-  [SCREEN_CONSTANTS.Login]: undefined;
-  [SCREEN_CONSTANTS.SignUp]: undefined;
-  [SCREEN_CONSTANTS.ForgotPassword]: undefined;
-  [SCREEN_CONSTANTS.HomeNavigation]: NavigatorScreenParams<RootTabParamList>;
-  [SCREEN_CONSTANTS.Note]: {
-    note: {
+    [SCREEN_CONSTANTS.Splash]: {
+        theme:themeType
+    };
+    [SCREEN_CONSTANTS.Enter]: undefined;
+    [SCREEN_CONSTANTS.Login]: undefined;
+    [SCREEN_CONSTANTS.SignUp]: undefined;
+    [SCREEN_CONSTANTS.ForgotPassword]: undefined;
+    [SCREEN_CONSTANTS.HomeNavigation]: undefined;
+    [SCREEN_CONSTANTS.Note]: {note: {
       uid: string;
       label: string;
+  }}
+    [SCREEN_CONSTANTS.Label]: {
+      note:string;
+      text:string
     };
   };
-  [SCREEN_CONSTANTS.Label]: {
-    note: string;
-    text: string;
-  };
-};
-
-export type RootStackScreenProps<T extends keyof RootStackParamList> =
+  export type RootStackScreenProps<T extends keyof RootStackParamList> =
   StackScreenProps<RootStackParamList, T>;
 
 export type RootTabParamList = {
@@ -59,14 +58,22 @@ export type RootTabParamList = {
   [SCREEN_CONSTANTS.Setting]: undefined;
 };
 
+export type CombinedStackParamList = RootStackParamList & RootTabParamList;
+
 export type HomeTabScreenProps<T extends keyof RootTabParamList> =
   CompositeScreenProps<
     BottomTabScreenProps<RootTabParamList, T>,
-    RootStackScreenProps<keyof RootStackParamList>
+    RootStackScreenProps<RootStackParamList>
   >;
+
+  // export type HomeTabScreenProps_<T extends keyof CombinedStackParamList> =
+  // CompositeScreenProps<
+  //   BottomTabScreenProps<CombinedStackParamList, T>,
+  //   RootStackScreenProps<keyof RootStackParamList>
+  // >;
 
   declare global {
     namespace ReactNavigation {
-      interface RootParamList extends HomeTabScreenProps {}
+      interface RootParamList extends RootStackParamList, RootTabParamList {}
     }
   }

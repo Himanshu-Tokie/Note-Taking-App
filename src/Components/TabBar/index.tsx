@@ -7,6 +7,8 @@ import { useSelector } from "react-redux";
 import { styles } from "./styles";
 import withTheme from "../HOC";
 import { colorSchemeState, myTabBarProps } from "./types";
+import { RouteProp } from "@react-navigation/native";
+import { RootTabParamList } from "../../Types/navigation";
 
 function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setShow,labelData}:myTabBarProps) {
     const colorScheme = useSelector((state:colorSchemeState)=>state.theme.theme)
@@ -67,7 +69,8 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
               theme.FOOTER,
           },
         ]}>
-        {state.routes.map((route, index:number) => {
+        {state.routes.map((route:RouteProp<RootTabParamList>, index:number) => {
+          
           const {options} = descriptors[route.key];
           const label =
             options.tabBarLabel !== undefined
