@@ -6,7 +6,6 @@ import withTheme from '../HOC';
 import { styles } from './style';
 import { dropdownComponentProps } from './types';
 
-
   const DropdownComponent = ({data,value, setValue,theme}:dropdownComponentProps) => {
     const [isFocus, setIsFocus] = useState(false);
     const labelData = [{'label':''}]
@@ -34,7 +33,7 @@ import { dropdownComponentProps } from './types';
           value={value}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
-          onChange={item => {
+          onChange={(item:{label:string}) => {
             setValue(item.label);
             setIsFocus(false);
           }}

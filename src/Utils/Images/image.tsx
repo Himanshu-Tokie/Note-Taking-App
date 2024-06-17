@@ -1,10 +1,9 @@
 import storage from '@react-native-firebase/storage';
 import { Alert } from 'react-native';
 import { STRINGS } from '../../Constants/Strings';
-
 import firestore from '@react-native-firebase/firestore';
 
-export const uploadPhoto = async(photo,uid,noteId) => {
+export const uploadPhoto = async(photo:string,uid:string,noteId:string) => {
     try {
         if(!photo.length)
             return

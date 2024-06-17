@@ -11,8 +11,8 @@ import { STRINGS } from '../../Constants/Strings';
 import { SCREEN_CONSTANTS } from '../../Constants/index';
 import Google from './google';
 import { styles } from './style';
-import { isConnectedState } from './type';
-function Enter({ navigation,theme }) {
+import { EnterProps, isConnectedState } from './type';
+function Enter({ navigation,theme }:EnterProps) {
   // const isLoggedIn = useSelector(state=>state.common.isLogedIn)   
   const THEME = theme  
   const isConnected = useSelector((state:isConnectedState)=>state.image.isConnected)

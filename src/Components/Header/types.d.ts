@@ -1,11 +1,11 @@
 import { labelNotesDataType } from "../../Screens/Labels/types";
 import { reminderNotesDataType } from "../../Screens/Reminder/types";
-import { themeType } from "../HOC";
+import { WithThemeProps, themeType } from "../HOC";
 
-export interface headerTypes{
+export interface headerTypes extends WithThemeProps{
   onChangeText?:(e:string)=>void,
   notesData?:reminderNotesDataType|labelNotesDataType|null,
   headerText:string,
-  theme?:themeType,
+  // theme?:themeType,
   handleSetInittialOnBlur?: () => void
 }

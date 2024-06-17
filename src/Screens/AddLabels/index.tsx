@@ -2,14 +2,14 @@ import { default as auth } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import React, { useEffect, useState } from 'react';
 import { FlatList, SafeAreaView, View } from 'react-native';
-import withTheme from '../../Components/HOC';
+import withTheme, { themeType } from '../../Components/HOC';
 import Search from '../../Components/Header';
 import ListTemplate from '../../Components/ListTemplate/listTemplate';
 import { STRINGS } from '../../Constants/Strings';
 import { styles } from './style';
-import { newDataType } from './types';
+import { addLabelProp, newDataType } from './types';
 
-function ADD_LABELS({theme}) {
+function ADD_LABELS({theme}:addLabelProp) {
   const user = auth().currentUser;
   const THEME = theme;
   let uid = user?.uid;

@@ -7,9 +7,9 @@ import Search from "../../Components/Header";
 import ListTemplate from "../../Components/ListTemplate/listTemplate";
 import { STRINGS } from "../../Constants/Strings";
 import { styles } from "./style";
-import { reminderFormate, reminderNotesDataType } from "./types";
+import { ReminderProps, reminderFormate, reminderNotesDataType } from "./types";
 
-function Extar2({ theme, route }) {
+function Extar2({ navigation,theme, route }:ReminderProps) {
   const user = auth().currentUser;
   let uid = user?.uid;
   const THEME = theme;
@@ -108,7 +108,7 @@ function Extar2({ theme, route }) {
           <View style={styles.searchContainer}>
             <FlatList
               data={searchData}
-              style={styles.list}
+              // style={styles.list}
               // keyExtractor={(item) => item.noteId}
               // numColumns={2}
               showsVerticalScrollIndicator={false}

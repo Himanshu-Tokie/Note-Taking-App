@@ -18,9 +18,9 @@ import { STRINGS } from "../../Constants/Strings";
 import { logIn, updateUser } from "../../Store/Common";
 import { toggleTheme } from "../../Store/Theme";
 import { styles } from "./style";
-import { themeState } from "./types";
+import { SettingProps, themeState } from "./types";
 
-function Setting({ navigation, theme }) {
+function Setting({ navigation, theme }:SettingProps) {
   const user = auth().currentUser;
   const dispatch = useDispatch();
   const THEME = theme;

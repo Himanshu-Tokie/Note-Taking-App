@@ -14,6 +14,12 @@ import { IMAGES } from '../../Constants/Images';
 import withTheme from '../HOC';
 import { styles } from './style';
 import { colorSchemeState, labelTemplateTypes } from './types';
+import { HomeTabScreenProps } from '../../Types/navigation';
+
+type route={
+  text:string;
+  note:string;
+}
 
 function LabelTemplate({icon, text, files, note,theme}:labelTemplateTypes) {
   const nav = useNavigation();
@@ -27,7 +33,8 @@ function LabelTemplate({icon, text, files, note,theme}:labelTemplateTypes) {
     }
   }
   function navigationHandler() {
-    nav.navigate(SCREEN_CONSTANTS.Label, {text, note});
+    // nav.navigate(SCREEN_CONSTANTS.Label, {text, note});
+    nav.navigate(SCREEN_CONSTANTS.Label, { text, note });
   }
   const colorScheme = useSelector((state:colorSchemeState)=>state.theme.theme)
   const THEME = theme ;

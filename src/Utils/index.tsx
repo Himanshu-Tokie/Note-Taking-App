@@ -5,7 +5,12 @@ import * as Yup from 'yup';
 import { SCREEN_CONSTANTS } from '../Constants';
 import { STRINGS } from '../Constants/Strings';
 import { logIn, updateUser } from '../Store/Common';
-export const signUpUser = async (user, providerId,dispatch,navigation) => {
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { HomeTabScreenProps, RootStackParamList, RootStackScreenProps } from '../Types/navigation';
+import { HomeNavigationProps } from '../Navigation/HomeNavigation/types';
+import { Dispatch, UnknownAction } from 'redux';
+export const signUpUser = async (user:FirebaseAuthTypes.User, providerId:string,dispatch: Dispatch<UnknownAction>,navigation:RootStackScreenProps<"SignUp">) => {
   try {
     const notes = [
       {
@@ -46,7 +51,7 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
         .collection(STRINGS.FIREBASE.USER)
         .doc(user.uid)
         .collection(STRINGS.FIREBASE.NOTES)
-        .doc(); // Automatically generates a new document ID
+        .doc(); 
       batch.set(newDocRef, doc);
     });
 
@@ -54,7 +59,7 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
       const newDocRef = collectionRef
         .doc(user.uid)
         .collection(STRINGS.FIREBASE.LABELS)
-        .doc(doc); // Automatically generates a new document ID
+        .doc(doc); 
       batch.set(newDocRef, { count: 1,time_stamp: firestore.FieldValue.serverTimestamp()});
     });
     await batch.commit();

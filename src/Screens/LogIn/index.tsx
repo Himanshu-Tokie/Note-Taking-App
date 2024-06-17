@@ -12,7 +12,7 @@ import { SCREEN_CONSTANTS } from "../../Constants";
 import { STRINGS } from "../../Constants/Strings";
 import { logIn, updateUser } from "../../Store/Common";
 import { styles } from "./style";
-import { commonState } from "./types";
+import { LogInProps, commonState } from "./types";
 
 const SignupSchema = Yup.object().shape({
   email: Yup.string().email("Invalid email").required("Please enter email"),
@@ -25,7 +25,7 @@ const SignupSchema = Yup.object().shape({
     ),
 });
 
-function LogIn({ navigation, theme }) {
+function LogIn({ navigation, theme }:LogInProps) {
   const isLogedIn = useSelector((state) => state.common[STRINGS.IS_LOGGED_IN]);
   const dispatch = useDispatch();
   const [errorLogin, setErrorLogin] = useState(false);
@@ -44,7 +44,7 @@ function LogIn({ navigation, theme }) {
       );
       await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true));
       console.log("data added to storage login");
-    } catch (error) {
+    } catch (error:Error) {
       if (error.code === "auth/invalid-credential") {
         console.log("User does not exist. Please register.");
         setErrorLogin(true);

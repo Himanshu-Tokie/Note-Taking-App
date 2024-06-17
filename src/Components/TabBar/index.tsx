@@ -88,7 +88,7 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
                 parentNavigation.navigate(SCREEN_CONSTANTS.Note, {note});
               } else if (state.index == 1) {
                 setShow(true);
-              } else {
+              } else {  
                 parentNavigation.navigate(SCREEN_CONSTANTS.Note, {labelData});
               }
             } else {

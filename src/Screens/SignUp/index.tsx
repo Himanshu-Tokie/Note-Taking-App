@@ -8,10 +8,10 @@ import withTheme from '../../Components/HOC';
 import { STRINGS } from '../../Constants/Strings';
 import { SignupSchema, signUpUser } from '../../Utils';
 import { styles } from './style';
-import { valuesTypes } from './types';
+import { SignUpProps, valuesTypes } from './types';
 
 // utils
-function SignUp({ navigation,theme }) {
+function SignUp({ navigation,theme }:SignUpProps) {
   const dispatch = useDispatch()
   const signUp = async (values:valuesTypes) => {
     try {
@@ -22,7 +22,7 @@ function SignUp({ navigation,theme }) {
       await userCredentials.user.updateProfile({
         displayName: values.firstName + ' ' + values.lastName,
       });
-      // console.log(userCredentials,1)
+      console.log(userCredentials,1)
       signUpUser(userCredentials.user,'firebase',dispatch,navigation)
     } catch (error) {
       // console.error('Error creating account:', error.code, error.message);

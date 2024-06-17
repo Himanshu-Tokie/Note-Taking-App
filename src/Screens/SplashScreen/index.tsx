@@ -1,3 +1,5 @@
+// src/Screens/SplashScreen/index.tsx
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CommonActions, useNavigation } from "@react-navigation/native";
 import React, { useEffect, useState } from "react";
@@ -11,22 +13,17 @@ import { ICONS } from "../../Constants/Icons";
 import { STRINGS } from "../../Constants/Strings";
 import { logIn } from "../../Store/Common";
 import { getFromAsyncStorage } from "../../Store/Image";
-import { changeApprearance } from "../../Store/Theme";
 import { styles } from "./style";
 import { SplashProps } from "./types";
 
-function Splash({ theme }:SplashProps) {
-  const navigation = useNavigation();
+function Splash({ theme, navigation }: SplashProps) {
   const dispatch = useDispatch();
-  // const isLogedIn = useSelector(state => state.common.isLogedIn);
   const [visible, setVisible] = useState(false);
   const THEME = theme;
-  dispatch(changeApprearance());
 
   useEffect(() => {
     setVisible(true);
     async function fetchAllData() {
-      // await AsyncStorage.clear();
       try {
         const keys = await AsyncStorage.getAllKeys();
         const fetchedData = await AsyncStorage.multiGet(keys);
