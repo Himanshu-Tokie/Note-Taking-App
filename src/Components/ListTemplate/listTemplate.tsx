@@ -5,30 +5,49 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import { RenderHTML } from "react-native-render-html";
+import RenderHTML, { HTMLSource } from "react-native-render-html";
 import { SCREEN_CONSTANTS } from "../../Constants";
 import withTheme from "../HOC";
 import { styles } from "./style";
 import { listTemplateTypes } from "./types";
-function ListTemplate({ note, nav, maxHeight, label, theme }:listTemplateTypes) {
-  const source = {
-    html: note.data,
+
+function ListTemplate({ note, nav, maxHeight, label, theme }: listTemplateTypes) {
+  const source: HTMLSource = {
+    html: typeof note.data === 'string' ? note.data : ""
   };
+
   const { width: contentWidth } = useWindowDimensions();
   const THEME = theme;
-  const date = note.timestamp?new Date(
-  note.timestamp?.seconds * 1000 + note.timestamp?.nanoseconds / 1000000
-  ):'error';
-  const options = {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    second: "numeric",
-    hour12: false,
-  };
-  const formattedDate = date.toLocaleString("en-US");
+
+  // const date = note.timestamp?new Date(
+  // note.timestamp?.seconds * 1000 + note.timestamp?.nanoseconds / 1000000
+  // ):'error';
+  // const options = {
+  //   year: "numeric",
+  //   month: "long",
+  //   day: "numeric",
+  //   hour: "numeric",
+  //   minute: "numeric",
+  //   second: "numeric",
+  //   hour12: false,
+  // };
+  // const formattedDate = date.toLocaleString("en-US");
+
+
+  let date;
+  if (typeof note.timestamp === 'string') {
+    date = new Date(note.timestamp);
+  } else if (note.timestamp) {
+    date = new Date(
+      note.timestamp.seconds * 1000 + note.timestamp.nanoseconds / 1000000
+    );
+  } else {
+    date = 'error';
+  }
+
+  const formattedDate = date instanceof Date ? date.toLocaleString("en-US") : date;
+
+
   const title = () => {
     if (!note.title?.length) return "";
     else {
@@ -36,6 +55,7 @@ function ListTemplate({ note, nav, maxHeight, label, theme }:listTemplateTypes) 
       else return note.title;
     }
   };
+
   return (
     <>
       {!label && (
@@ -118,4 +138,5 @@ function ListTemplate({ note, nav, maxHeight, label, theme }:listTemplateTypes) 
     </>
   );
 }
+
 export default withTheme(ListTemplate);

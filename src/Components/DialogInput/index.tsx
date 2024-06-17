@@ -13,7 +13,7 @@ const CustomDialogInput = ({ isVisible, onCancel, onSubmit ,theme}:customDialogI
       <Dialog.Input
         placeholder="Enter URL"
         placeholderTextColor={theme.TEXT1}
-        style={{ color: theme.TEXT1 }}
+        style={{ color: '#000000' }}
         onChangeText={setInputValue}
         value={inputValue}
       />

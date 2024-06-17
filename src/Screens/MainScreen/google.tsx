@@ -16,6 +16,7 @@ import { STRINGS } from '../../Constants/Strings';
 import { logIn, updateUser } from '../../Store/Common';
 import { signUpUser } from '../../Utils';
 import { styles } from './style';
+import { HomeTabScreenProps, RootStackParamList, RootStackScreenProps } from '../../Types/navigation';
 
 // function isErrorWithCode(error) {
 //   return error.code !== undefined;
@@ -23,7 +24,7 @@ import { styles } from './style';
 
 export default function Google() {
   const dispatch = useDispatch();
-  const navigation = useNavigation();
+  const navigation = useNavigation<RootStackScreenProps<keyof RootStackParamList>>();
 
   GoogleSignin.configure({
     webClientId:

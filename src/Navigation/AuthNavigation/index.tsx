@@ -18,12 +18,13 @@ import { loadThemeFromStorage } from "../../Store/Theme";
 import { RootStackParamList } from '../../Types/navigation';
 import HomeNavigation from "../HomeNavigation";
 import { authNavigationProps, commonState, imageState } from './types';
+import { useAppDispatch } from '../../Store';
 
 function AuthNavigation({theme}:authNavigationProps) {
     const isConnected = useSelector((state:imageState)=>state.image.isConnected)
     const isLoggedIn = useSelector((state:commonState)=>state.common.isLogedIn)   
     const Stack = createNativeStackNavigator<RootStackParamList>();
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     useEffect(() => {
         dispatch(loadThemeFromStorage());
         const unsubscribe = NetInfo.addEventListener(state => {

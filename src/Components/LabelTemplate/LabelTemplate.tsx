@@ -14,15 +14,17 @@ import { IMAGES } from '../../Constants/Images';
 import withTheme from '../HOC';
 import { styles } from './style';
 import { colorSchemeState, labelTemplateTypes } from './types';
-import { HomeTabScreenProps } from '../../Types/navigation';
+
+import { HomeTabScreenProps, RootStackParamList, RootStackScreenProps } from '../../Types/navigation';
 
 type route={
   text:string;
   note:string;
 }
 
+
 function LabelTemplate({icon, text, files, note,theme}:labelTemplateTypes) {
-  const nav = useNavigation();
+  const nav = useNavigation<RootStackScreenProps<keyof RootStackParamList>>();
   const label = (text:string)=>{
     if(!text.length)return ''
     else {
