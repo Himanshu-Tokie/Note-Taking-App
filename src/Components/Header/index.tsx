@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import {
+  Alert,
   Pressable,
   Text,
   TextInput,
@@ -45,7 +46,7 @@ import { headerTypes } from './types';
         </Pressable>
         {!isFocussed && (
           <View>
-            <Text style={[styles.headerText,{color:THEME?.TEXT4}]}>{label()}</Text>
+            <Text style={[styles.headerText,{color:THEME?.TEXT4}]} onPress={()=>Alert.alert(headerText)}>{label()}</Text>
           </View>
         )}
         <View

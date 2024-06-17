@@ -38,6 +38,7 @@ function AddLabel({uid,show,setShow,theme}:addLabelProps) {
         hintTextColor={theme.TEXT1}
         dialogStyle={{}}
         modalStyle={{}}
+        textInputProps={{maxLength:20}}
         submitInput={(input:string) => {          
           setNewLabel(input);
         }}
