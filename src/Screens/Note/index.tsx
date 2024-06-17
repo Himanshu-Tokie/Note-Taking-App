@@ -102,7 +102,7 @@ const Note = ({ route, theme }) => {
         setImageData((prevImageData) => [...prevImageData, newUri]);
         img.current = [...img.current, newUri];
       } catch (error) {
-        console.log("Error compressing image:", error);
+        // console.log("Error compressing image:", error);
       }
     };
     processImage();
@@ -221,18 +221,14 @@ const Note = ({ route, theme }) => {
       if (!isNew.current) {
         if (reminder.current) {
           await updateReminder();
-          // console.log("reminder updated success");
         } else {
           await updateData();
-          // console.log("note updated success");
         }
       } else {
         if (reminder.current) {
           await createReminder();
-          // console.log("reminder created success");
         } else {
           await createNote();
-          // console.log("note created success");
         }
       }
       if (noteIdExist.current) {

@@ -52,7 +52,6 @@ export default function Google() {
         await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true)).catch(e =>
           console.log(e),
         );
-        console.log('data added to storage google');
         navigation.navigate(SCREEN_CONSTANTS.HomeNavigation);
       }
     } catch (error) {

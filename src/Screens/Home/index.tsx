@@ -65,9 +65,6 @@ function Home({ theme, navigation }) {
         .doc(user.uid)
         // .orderBy('time_stamp', 'asc')
         .get()
-        .then(() => {
-          console.log("all data fetched successfully");
-        });
     } catch (e) {
       console.log(e, 91);
     }

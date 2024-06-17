@@ -11,13 +11,11 @@ import { STRINGS } from '../../Constants/Strings';
 import { styles } from './style';
 
 function Label({navigation, route, theme}) {
-  // console.log(route, 123321123)
   const uid = route.params.note;
   const label = route.params.text;
   const THEME = theme;
   const [searchData, setSearchData] = useState([]);
   const [notesData, setNotesData] = useState([]);
-  console.log('label Page');
   const note = {
     uid,
     label,
@@ -76,7 +74,6 @@ function Label({navigation, route, theme}) {
       .where('label', '==', label)
       .orderBy('time_stamp', 'asc')
       .onSnapshot(querySnapshot => {
-        console.log(querySnapshot,'querySnapshot');
         
         const newData = []; // Temporary array to accumulate data
         querySnapshot.forEach(doc => {

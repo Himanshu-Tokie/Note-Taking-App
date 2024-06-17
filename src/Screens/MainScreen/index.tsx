@@ -13,10 +13,10 @@ import Google from './google';
 import { styles } from './style';
 function Enter({ navigation,theme }) {
   const isLoggedIn = useSelector(state=>state.common.isLogedIn)   
-  console.log(isLoggedIn,0);
+  // console.log(isLoggedIn,0);
   const THEME = theme  
   const isConnected = useSelector(state=>state.image.isConnected)
-  console.log(isConnected,97);
+  // console.log(isConnected,97);
   const isOffline = useRef(!isConnected)
   const onPress = () => {
     navigation.navigate(SCREEN_CONSTANTS.SignUp);
@@ -39,15 +39,10 @@ function Enter({ navigation,theme }) {
   //   }
   // },[isConnected])
   
-  const checkConnection = () => {
-    console.log(isConnected,98);
-    
+  const checkConnection = () => {    
     if(isOffline.current){console.log('wow');
      return}
-    else {
-      console.log(isConnected,1011);
-      console.log(isOffline.current,1012);
-      
+    else {     
       Alert.alert(
         "No Internet Connection",
         "Please check your internet connection and try again.",

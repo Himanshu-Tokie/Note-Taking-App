@@ -33,12 +33,12 @@ function AuthNavigation({theme}) {
           };
         }, [dispatch]);
       
-        useEffect(() => {
-            console.log('Network connection status:', isConnected);
-            if (isConnected) {
-                console.log(isConnected,98); 
-            }
-        }, [isConnected]);
+        // useEffect(() => {
+        //     console.log('Network connection status:', isConnected);
+        //     if (isConnected) {
+        //         console.log(isConnected,98); 
+        //     }
+        // }, [isConnected]);
         
     return (
         

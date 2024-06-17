@@ -13,7 +13,7 @@ function ADD_LABELS({theme}) {
   const THEME = theme;
   let uid = user?.uid;
   const [notesData, setNotesData] = useState([]);
-  console.log('Label creater Page');
+  // console.log('Label creater Page');
   useEffect(() => {
     const fetchData = async () => {
       try {

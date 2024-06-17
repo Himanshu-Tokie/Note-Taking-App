@@ -37,22 +37,19 @@ function LogIn({ navigation, theme }) {
         email,
         password
       );
-
-      console.log("login complete");
       dispatch(logIn(true));
       dispatch(
         updateUser({ uid: userCredential.user.uid, providerId: "firebase" })
       );
       await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true));
-      console.log("data added to storage login");
     } catch (error) {
       if (error.code === "auth/invalid-credential") {
-        console.log("User does not exist. Please register.");
+        // console.log("User does not exist. Please register.");
         setErrorLogin(true);
       }
       const errorCode = error.code;
       const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
+      // console.log(errorCode, errorMessage);
     }
   };
 
