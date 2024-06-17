@@ -233,7 +233,7 @@ const Note = ({ route, theme }:NoteScreenProps) => {
   }, [date]);
 
 
-  useEffect(() => {
+
     const fetchData = async () => {
       if (!isNew.current) {
         if (reminder.current) {
@@ -242,7 +242,7 @@ const Note = ({ route, theme }:NoteScreenProps) => {
           await updateData();
         }
       }
-    } else {
+     else {
       if (reminder.current) {
         await createReminder();
         // console.log("reminder created success");
@@ -258,8 +258,8 @@ const Note = ({ route, theme }:NoteScreenProps) => {
       dispatch(
         loadImage({ uid: uid, noteId: noteNewId.current, uri: img.current })
       );
-    }
-  };
+    }}
+
   useEffect(() => {
     return () => {
       fetchData();
