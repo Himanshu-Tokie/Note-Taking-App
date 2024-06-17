@@ -9,16 +9,16 @@ import StaggedLabel from "../../Components/Staggered";
 import { SCREEN_CONSTANTS } from "../../Constants";
 import { STRINGS } from "../../Constants/Strings";
 import { styles } from "./style";
-import { labelNotesDataType } from "./types";
+import { LabelProps, labelNotesDataType } from "./types";
 
-function Label({ navigation, route, theme }) {
+function Label({ navigation, route, theme }:LabelProps) {
   // console.log(route, 123321123)
-  const uid = route.params.note;
-  const label = route.params.text;
+  const uid = route.params?.note?? '';
+  const label = route.params?.text ?? '';
   const THEME = theme;
   const [searchData, setSearchData] = useState<labelNotesDataType | null>();
   const [notesData, setNotesData] = useState<labelNotesDataType | null>();
-  console.log("label Page");
+  // console.log("label Page");
   const note = {
     uid,
     label,
@@ -79,8 +79,6 @@ function Label({ navigation, route, theme }) {
       .where("label", "==", label)
       .orderBy("time_stamp", "asc")
       .onSnapshot((querySnapshot) => {
-        console.log(querySnapshot, "querySnapshot");
-
         const newData: labelNotesDataType = [];
         querySnapshot.forEach((doc) => {
           newData.push({

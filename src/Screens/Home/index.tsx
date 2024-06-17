@@ -24,9 +24,9 @@ import { IMAGES } from "../../Constants/Images";
 import { STRINGS } from "../../Constants/Strings";
 import { styles } from "./style";
 import { colorSchemeState } from "../MainScreen/type";
-import { newDataType } from "./types";
+import { HomeProps, newDataType } from "./types";
 
-function Home({ theme, navigation }) {
+function Home({ theme }:HomeProps) {
   const THEME = theme;
   const user = auth().currentUser;
   const colorScheme = useSelector((state:colorSchemeState) => state.theme.theme);
@@ -63,7 +63,7 @@ function Home({ theme, navigation }) {
     try {
       await firestore()
         .collection(STRINGS.FIREBASE.USER)
-        .doc(user.uid)
+        .doc(user?.uid)
         // .orderBy('time_stamp', 'asc')
         .get()
         .then(() => {
@@ -202,7 +202,7 @@ function Home({ theme, navigation }) {
                         text={item.id}
                         files={item.count}
                         note={user.uid}
-                        theme={THEME}
+                        // theme={THEME}
                       />
                     )}
                   />

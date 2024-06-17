@@ -34,9 +34,9 @@ import { STRINGS } from "../../Constants/Strings";
 import { loadImage } from "../../Store/Image";
 import { imageCompressor } from "../../Utils";
 import { styles } from "./styles";
-import { imageState } from "./types";
+import { HomeNoteProps, NoteProps, imageState } from "./types";
 
-const Note = ({ route, theme }) => {
+const Note = ({ route, theme }:HomeNoteProps) => {
   const dispatch = useDispatch();
   const imageInitData = useSelector(
     (state: imageState) => state.image.imageUri
@@ -100,7 +100,7 @@ const Note = ({ route, theme }) => {
   const [photo, setPhoto] = useState<string|null>(null);
   const [imageData, setImageData] = useState(imageInitialData);
   const img = useRef<string[]>([]);
-  const noteNewId = useRef(null);
+  const noteNewId = useRef<string|null>();
   useEffect(() => {
     if (!photo || !uid) {
       return;
@@ -183,8 +183,7 @@ const Note = ({ route, theme }) => {
         url: [],
       })
       .then((data) => {
-        noteNewId.current = data._documentPath._parts[3];
-        // console.log("new note added successfully");
+        noteNewId.current = data.id;
       });
   };
   const createNote = async () => {
@@ -223,7 +222,7 @@ const Note = ({ route, theme }) => {
           );
       }
     } catch (e) {
-      // console.log(e);
+      console.log(e);
     }
   };
   useEffect(() => {

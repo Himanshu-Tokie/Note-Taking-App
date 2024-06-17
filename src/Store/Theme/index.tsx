@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { createSlice } from '@reduxjs/toolkit';
+import { ActionCreatorWithPayload, Dispatch, UnknownAction, createSlice } from '@reduxjs/toolkit';
 import { Appearance } from 'react-native';
 
 const initialState = {

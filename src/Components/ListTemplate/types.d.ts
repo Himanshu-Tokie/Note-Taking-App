@@ -10,7 +10,7 @@ export interface NoteType {
   data?: string;
   noteId?: string;
   id?: string;
-  timestamp?: TimestampType;
+  timestamp?: TimestampType|string;
 }
 
 export interface listTemplateTypes {

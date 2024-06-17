@@ -17,7 +17,7 @@ function ListTemplate({ note, nav, maxHeight, label, theme }:listTemplateTypes) 
   const { width: contentWidth } = useWindowDimensions();
   const THEME = theme;
   const date = note.timestamp?new Date(
-    note.timestamp?.seconds * 1000 + note.timestamp?.nanoseconds / 1000000
+  note.timestamp?.seconds * 1000 + note.timestamp?.nanoseconds / 1000000
   ):'error';
   const options = {
     year: "numeric",

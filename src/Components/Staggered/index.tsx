@@ -12,6 +12,7 @@ export default function StaggedLabel({data}){
     return (
         <StaggeredList
             data={data}
+            animationType = 'NONE'
             // contentContainerStyle={styles.contentContainer}
             showsVerticalScrollIndicator={false}
             renderItem={({item}) => renderChildren(item)}
