@@ -17,19 +17,17 @@ const image = createSlice({
       const noteId = action.payload.noteId;
       const uri = action.payload.uri;
       const uid = action.payload.uid;
+      const imageData:{[key:string]:string[]} = state.imageUri;
       if (state.imageUri.hasOwnProperty(noteId)) {
-        const imageData = state.imageUri;
         imageData[noteId] = [...imageData[noteId], ...uri];
         state.imageUri = imageData;
       } else {
-        const imageData = state.imageUri;
         imageData[noteId] = uri;
         state.imageUri = imageData;
         
       }
       AsyncStorage.setItem('Saved_Images', JSON.stringify(state.imageUri));
       uploadPhoto(uri,uid,noteId)
-      // console.log(state.imageUri, 'all image saved');
     },
     deleteImage: (state, action) => {},
     getFromAsyncStorage: (state, action) => {

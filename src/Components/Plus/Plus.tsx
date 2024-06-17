@@ -2,7 +2,7 @@ import { TouchableOpacity, View } from 'react-native';
 import { ICONS } from '../../Constants/Icons';
 import { styles } from './style';
 
-export default function Plus({onPress}) {
+export default function Plus({onPress}:{onPress:()=>void}) {
   return (
     
       <TouchableOpacity onPress={onPress}>

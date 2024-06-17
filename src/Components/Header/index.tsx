@@ -1,6 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import {
+  Alert,
   Pressable,
   Text,
   TextInput,
@@ -12,14 +13,15 @@ import { ICONS } from '../../Constants/Icons';
 import withTheme from '../HOC';
 import Icon from '../Icon';
 import { styles } from './style';
+import { headerTypes } from './types';
 
  function Header({
   onChangeText,
   notesData,
-  setSearchData,
+  handleSetInittialOnBlur,
   headerText,
   theme
-}) {
+}:headerTypes) {
   const navigation = useNavigation();
   const [isFocussed, setIsFocused] = useState(false);
   const [value,setValue] = useState('')
@@ -44,12 +46,12 @@ import { styles } from './style';
         </Pressable>
         {!isFocussed && (
           <View>
-            <Text style={[styles.headerText,{color:THEME.TEXT4}]}>{label()}</Text>
+            <Text style={[styles.headerText,{color:THEME?.TEXT4}]} onPress={()=>Alert.alert(headerText)}>{label()}</Text>
           </View>
         )}
         <View
           style={[styles.rightHeader, isFocussed && styles.rightHeaderFocused]}>
-          {setSearchData && (
+          {handleSetInittialOnBlur && (
             <TouchableOpacity style={styles.searchContainer}>
               {!isFocussed && (
                 <Icon
@@ -57,9 +59,10 @@ import { styles } from './style';
                   height={23}
                   width={23}
                   color="none"
-                  style={styles.iconContainer}
+                  // style={styles.iconContainer}
                 />
               )}
+              {onChangeText && notesData&&
               <TextInput
                 style={[styles.text,{paddingTop:0}]}
                 placeholder="Search"
@@ -71,10 +74,10 @@ import { styles } from './style';
                 }}
                 onBlur={() => {
                   setIsFocused(false);
-                  setSearchData(notesData);
+                  handleSetInittialOnBlur();
                   setValue('')
                 }}
-              />
+              />}
             </TouchableOpacity>
           )}
         </View>

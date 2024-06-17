@@ -7,48 +7,53 @@ import Search from "../../Components/Header";
 import ListTemplate from "../../Components/ListTemplate/listTemplate";
 import { STRINGS } from "../../Constants/Strings";
 import { styles } from "./style";
+import { ReminderProps, reminderFormate, reminderNotesDataType } from "./types";
 
-function Extar2({ theme, route }) {
+function Extar2({ navigation,theme, route }:ReminderProps) {
   const user = auth().currentUser;
   let uid = user?.uid;
   const THEME = theme;
-  const [searchData, setSearchData] = useState([]);
-  const [notesData, setNotesData] = useState([]);
+  const [searchData, setSearchData] = useState<reminderNotesDataType | null>();
+  const [notesData, setNotesData] = useState<reminderNotesDataType | null>();
 
-  const search = (e) => {
+  const search = (e: string) => {
     let text = e.toLowerCase();
-    let filteredData = notesData.filter((item) => {
-      return (
-        item.data.toLowerCase().match(text) ||
-        item.title.toLowerCase().match(text)
-      );
-    });
-    setSearchData(filteredData);
+    if (notesData) {
+      let filteredData = notesData.filter((item: reminderFormate) => {
+        return (
+          item.data.toLowerCase().match(text) ||
+          item.title.toLowerCase().match(text)
+        );
+      });
+      setSearchData(filteredData);
+    }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await firestore()
-          .collection(STRINGS.FIREBASE.USER)
-          .doc(uid)
-          .collection(STRINGS.FIREBASE.REMINDER)
-          .get();
+        if (uid) {
+          const data = await firestore()
+            .collection(STRINGS.FIREBASE.USER)
+            .doc(uid)
+            .collection(STRINGS.FIREBASE.REMINDER)
+            .get();
 
-        const newData = []; // Temporary array to accumulate data
+          const newData: reminderNotesDataType = []; // Temporary array to accumulate data
 
-        data.forEach((doc) => {
-          newData.push({
-            title: doc.data().title,
-            data: doc.data().content,
-            noteId: doc.id,
-            id: uid,
-            timestamp: doc.data().timeStamp,
+          data.forEach((doc) => {
+            newData.push({
+              title: doc.data().title,
+              data: doc.data().content,
+              noteId: doc.id,
+              id: uid,
+              timestamp: doc.data().timeStamp,
+            });
           });
-        });
 
-        setNotesData(newData);
-        setSearchData(newData);
+          setNotesData(newData);
+          setSearchData(newData);
+        }
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -57,74 +62,74 @@ function Extar2({ theme, route }) {
     fetchData(); // Fetch initial data
 
     // Set up listener for real-time updates
-    const unsubscribe = firestore()
-      .collection(STRINGS.FIREBASE.USER)
-      .doc(uid)
-      .collection(STRINGS.FIREBASE.REMINDER)
-      .orderBy('timeStamp', 'asc')
-      .onSnapshot((querySnapshot) => {
-        const newData = []; // Temporary array to accumulate data
-        querySnapshot.forEach((doc) => {
-          newData.push({
-            title: doc.data().title,
-            data: doc.data().content,
-            noteId: doc.id,
-            id: uid,
-            timestamp: doc.data().timeStamp,
+    if (uid) {
+      const unsubscribe = firestore()
+        .collection(STRINGS.FIREBASE.USER)
+        .doc(uid)
+        .collection(STRINGS.FIREBASE.REMINDER)
+        .orderBy("timeStamp", "asc")
+        .onSnapshot((querySnapshot) => {
+          const newData: reminderNotesDataType = []; // Temporary array to accumulate data
+          querySnapshot.forEach((doc) => {
+            newData.push({
+              title: doc.data().title,
+              data: doc.data().content,
+              noteId: doc.id,
+              id: uid,
+              timestamp: doc.data().timeStamp,
+            });
           });
+          setNotesData(newData);
+          setSearchData(newData);
         });
-        setNotesData(newData);
-        setSearchData(newData);
-      });
-    return () => unsubscribe();
+      return () => unsubscribe();
+    }
   }, [uid]);
 
   return (
-    
-      <SafeAreaView
-        style={[
-          styles.container,
-          {
-            backgroundColor: THEME.BACKGROUND,
-          },
-        ]}
-      >
-        <View style={styles.subContainer}>
-          <View>
-            <Search
-              onChangeText={search}
-              setSearchData={setSearchData}
-              notesData={notesData}
-              headerText={"Reminder"}
-            />
-          </View>
-          {searchData.length ? (
-            <View style={styles.searchContainer}>
-              <FlatList
-                data={searchData}
-                style={styles.list}
-                // keyExtractor={(item) => item.noteId}
-                // numColumns={2}
-                showsVerticalScrollIndicator={false}
-                renderItem={({ item }) => (
-                  <ListTemplate
-                    note={item}
-                    nav={route.params.parentNavigation}
-                    maxHeight={150}
-                  />
-                )}
-              ></FlatList>
-            </View>
-          ) : (
-            <View style={styles.noReminder}>
-              <Text style={[styles.noReminderText, { color: THEME.TEXT1 }]}>
-                Add Reminder
-              </Text>
-            </View>
-          )}
+    <SafeAreaView
+      style={[
+        styles.container,
+        {
+          backgroundColor: THEME.BACKGROUND,
+        },
+      ]}
+    >
+      <View style={styles.subContainer}>
+        <View>
+          <Search
+            onChangeText={search}
+            handleSetInittialOnBlur={() => setSearchData(notesData)}
+            notesData={notesData}
+            headerText={"Reminder"}
+          />
         </View>
-      </SafeAreaView>
-    
+        {searchData?.length ? (
+          <View style={styles.searchContainer}>
+            <FlatList
+              data={searchData}
+              // style={styles.list}
+              // keyExtractor={(item) => item.noteId}
+              // numColumns={2}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item }) => (
+                <ListTemplate
+                  note={item}
+                  nav={route.params.parentNavigation}
+                  maxHeight={150}
+                />
+              )}
+            ></FlatList>
+          </View>
+        ) : (
+          <View style={styles.noReminder}>
+            <Text style={[styles.noReminderText, { color: THEME.TEXT1 }]}>
+              Add Reminder
+            </Text>
+          </View>
+        )}
+      </View>
+    </SafeAreaView>
   );
 }
 

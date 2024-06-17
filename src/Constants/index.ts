@@ -11,6 +11,6 @@ export const SCREEN_CONSTANTS={
     NewNote:'note',
     Extra1:'extra1',
     Extra2:'extra2',
-    Splash1:'splashScreen1',
+    Splash:'splashScreen1',
     HomeNavigation:'homeNavigation'
-}
+} as const

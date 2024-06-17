@@ -23,19 +23,20 @@ import { ICONS } from "../../Constants/Icons";
 import { IMAGES } from "../../Constants/Images";
 import { STRINGS } from "../../Constants/Strings";
 import { styles } from "./style";
+import { colorSchemeState } from "../MainScreen/type";
+import { HomeProps, newDataType } from "./types";
 
-function Home({ theme, navigation }) {
-  // const userRedux = useSelector(state=>state.common.user)
+function Home({ theme }:HomeProps) {
   const THEME = theme;
   const user = auth().currentUser;
-
-  const colorScheme = useSelector((state) => state.theme.theme);
+  const colorScheme = useSelector((state:colorSchemeState) => state.theme.theme);
   const defaultImage = IMAGES.DEFAULTUSER;
   const photoURL = user?.photoURL
     ? { uri: { uri: user.photoURL } }
     : { uri: defaultImage };
 
-  const [label, setLabel] = useState("");
+  const [label, setLabel] = useState<newDataType|null>();
+  
   useEffect(() => {
     getLabel();
     if (user) {
@@ -45,7 +46,7 @@ function Home({ theme, navigation }) {
         .collection(STRINGS.FIREBASE.LABELS)
         .orderBy('time_stamp', 'asc')
         .onSnapshot((querySnapshot) => {
-          const newData = []; // Temporary array to accumulate data
+          const newData:newDataType = []; // Temporary array to accumulate data
           querySnapshot.forEach((doc) => {
             newData.push({ id: doc.id, count: doc.data().count });
           });
@@ -62,7 +63,7 @@ function Home({ theme, navigation }) {
     try {
       await firestore()
         .collection(STRINGS.FIREBASE.USER)
-        .doc(user.uid)
+        .doc(user?.uid)
         // .orderBy('time_stamp', 'asc')
         .get()
     } catch (e) {
@@ -80,7 +81,7 @@ function Home({ theme, navigation }) {
           .collection(STRINGS.FIREBASE.LABELS)
           .orderBy('time_stamp', 'asc')
           .get();
-        const labelData = [];
+        const labelData:newDataType = [];
         snapShot.forEach((doc) => {
           labelData.push({ id: doc.id, count: doc.data().count });
         });
@@ -118,7 +119,7 @@ function Home({ theme, navigation }) {
     fetchStorageInfo();
   }, [user]);
 
-  const bytesToGB = (bytes) => (bytes / (1024 * 1024 * 1024)).toFixed(2);
+  const bytesToGB = (bytes:number) => (bytes / (1024 * 1024 * 1024)).toFixed(2);
   if (user) {
     return (
       
@@ -198,6 +199,7 @@ function Home({ theme, navigation }) {
                         text={item.id}
                         files={item.count}
                         note={user.uid}
+                        // theme={THEME}
                       />
                     )}
                   />

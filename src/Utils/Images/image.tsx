@@ -1,10 +1,9 @@
 import storage from '@react-native-firebase/storage';
 import { Alert } from 'react-native';
 import { STRINGS } from '../../Constants/Strings';
-
 import firestore from '@react-native-firebase/firestore';
 
-export const uploadPhoto = async(photo,uid,noteId) => {
+export const uploadPhoto = async(photo:string,uid:string,noteId:string) => {
     try {
         if(!photo.length)
             return
@@ -25,7 +24,7 @@ export const uploadPhoto = async(photo,uid,noteId) => {
         .collection(STRINGS.FIREBASE.NOTES)
         .doc(noteId)
         .get()
-        photoUrls = [...ImageUrls.data().url,...photoUrls]
+        photoUrls = [...(ImageUrls.data()?.url),...photoUrls]
 
         await firestore()
         .collection(STRINGS.FIREBASE.USER)
@@ -37,15 +36,11 @@ export const uploadPhoto = async(photo,uid,noteId) => {
           });
           // console.log('All image uploaded to firebase');
           
-    } catch (e) {
-        Alert.alert('Photo upload failed', e.message);
+    } catch (e:unknown) {
+        if(e instanceof Error){
+            Alert.alert('Photo upload failed', e.message);
+        }else{
+            Alert.alert('unknown error');
+        }
     }
 }
-
-const syncPhotos = async (dispatch, photos) => {
-    for (const photo of photos) {
-
-      dispatch(removePhoto(hash));
-    } 
-    await AsyncStorage.removeItem('photos');
-  };

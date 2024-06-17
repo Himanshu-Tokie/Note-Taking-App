@@ -11,7 +11,7 @@ const SignupSchema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Please enter email')
 });
 
-function reset(email){
+function reset(email:string){
     auth().sendPasswordResetEmail(email).then(function (user) {
         Alert.alert('Please check your email...')
       }).catch(function (e) {

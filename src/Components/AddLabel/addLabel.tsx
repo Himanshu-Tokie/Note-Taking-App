@@ -3,10 +3,10 @@ import React, { useEffect, useState } from 'react';
 import DialogInput from 'react-native-dialog-input';
 import withTheme from "../../Components/HOC";
 import { STRINGS } from '../../Constants/Strings';
+import { addLabelProps } from './types';
 
-function AddLabel({uid,show,setShow,theme}) {
-  // const [show, setShow] = useState(false)
-  const [newLabel, setNewLabel] = useState('');
+function AddLabel({uid,show,setShow,theme}:addLabelProps) {
+  const [newLabel, setNewLabel] = useState<string|null>();
   useEffect(() => {
     const addNewLabel = async () => {     
       try {
@@ -38,7 +38,8 @@ function AddLabel({uid,show,setShow,theme}) {
         hintTextColor={theme.TEXT1}
         dialogStyle={{}}
         modalStyle={{}}
-        submitInput={input => {          
+        textInputProps={{maxLength:20}}
+        submitInput={(input:string) => {          
           setNewLabel(input);
         }}
         closeDialog={() => {

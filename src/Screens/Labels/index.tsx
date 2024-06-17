@@ -1,36 +1,39 @@
-import firestore from '@react-native-firebase/firestore';
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import CustomButton from '../../Components/Button/customButton';
-import withTheme from '../../Components/HOC';
-import Search from '../../Components/Header';
-import StaggedLabel from '../../Components/Staggered';
-import { SCREEN_CONSTANTS } from '../../Constants';
-import { STRINGS } from '../../Constants/Strings';
-import { styles } from './style';
+import firestore from "@react-native-firebase/firestore";
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CustomButton from "../../Components/Button/customButton";
+import withTheme from "../../Components/HOC";
+import Search from "../../Components/Header";
+import StaggedLabel from "../../Components/Staggered";
+import { SCREEN_CONSTANTS } from "../../Constants";
+import { STRINGS } from "../../Constants/Strings";
+import { styles } from "./style";
+import { LabelProps, labelNotesDataType } from "./types";
 
-function Label({navigation, route, theme}) {
-  const uid = route.params.note;
-  const label = route.params.text;
+function Label({ navigation, route, theme }:LabelProps) {
+  const uid = route.params?.note?? '';
+  const label = route.params?.text ?? '';
   const THEME = theme;
-  const [searchData, setSearchData] = useState([]);
-  const [notesData, setNotesData] = useState([]);
+  const [searchData, setSearchData] = useState<labelNotesDataType >([]);
+  const [notesData, setNotesData] = useState<labelNotesDataType>([]);
   const note = {
     uid,
     label,
   };
 
-  const search = e => {
+  const search = (e: string) => {
     let text = e.toLowerCase();
-    let filteredData = notesData.filter(item => {
-      return (
-        item.data.toLowerCase().match(text) ||
-        item.title.toLowerCase().match(text)
-      );
-    });
-    // console.log(filteredData);
-    setSearchData(filteredData);
+    if (notesData) {
+      let filteredData = notesData.filter((item) => {
+        return (
+          item.data.toLowerCase().match(text) ||
+          item.title.toLowerCase().match(text)
+        );
+      });
+      // console.log(filteredData);
+      setSearchData(filteredData);
+    }
   };
 
   useEffect(() => {
@@ -40,27 +43,27 @@ function Label({navigation, route, theme}) {
           .collection(STRINGS.FIREBASE.USER)
           .doc(uid)
           .collection(STRINGS.FIREBASE.NOTES)
-          .where('label', '==', label)
-          .orderBy('time_stamp', 'asc')
+          .where("label", "==", label)
+          .orderBy("time_stamp", "asc")
           .get();
 
-        const newData = []; // Temporary array to accumulate data
+        const newData: labelNotesDataType = []; // Temporary array to accumulate data
 
-        data.forEach(doc => {        
+        data.forEach((doc) => {
           newData.push({
             title: doc.data().title,
             data: doc.data().content,
             noteId: doc.id,
             id: uid,
             label: label,
-            ImageUrl:doc.data().url??[],
+            ImageUrl: doc.data().url ?? [],
           });
         });
 
         setNotesData(newData);
         setSearchData(newData);
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error("Error fetching data:", error);
       }
     };
 
@@ -71,17 +74,17 @@ function Label({navigation, route, theme}) {
       .collection(STRINGS.FIREBASE.USER)
       .doc(uid)
       .collection(STRINGS.FIREBASE.NOTES)
-      .where('label', '==', label)
-      .orderBy('time_stamp', 'asc')
-      .onSnapshot(querySnapshot => {
-        
-        const newData = []; // Temporary array to accumulate data
-        querySnapshot.forEach(doc => {
+
+      .where("label", "==", label)
+      .orderBy("time_stamp", "asc")
+      .onSnapshot((querySnapshot) => {
+        const newData: labelNotesDataType = [];
+        querySnapshot.forEach((doc) => {
           newData.push({
             title: doc.data().title,
             data: doc.data().content,
             noteId: doc.id,
-            ImageUrl:doc.data().url,
+            ImageUrl: doc.data().url,
             id: uid,
             label: label,
           });
@@ -96,30 +99,29 @@ function Label({navigation, route, theme}) {
   }, [uid]);
 
   const addNewNote = () => {
-    navigation.navigate(SCREEN_CONSTANTS.Note, {note});
+    navigation.navigate(SCREEN_CONSTANTS.Note, { note });
   };
   return (
-    
-      <SafeAreaView
-        style={[styles.container, {backgroundColor: THEME.BACKGROUND}]}>
-        <View>
-          <Search
-            onChangeText={search}
-            setSearchData={setSearchData}
-            notesData={notesData}
-            headerText={label}
-          />
-        </View>
-        <StaggedLabel data={searchData} />
-        {/* <View style={styles.addNotes}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: THEME.BACKGROUND }]}
+    >
+      <View>
+        <Search
+          onChangeText={search}
+          handleSetInittialOnBlur={() => setSearchData(notesData)}
+          notesData={notesData}
+          headerText={label}
+        />
+      </View>
+      <StaggedLabel data={searchData} />
+      <View style={styles.addNotes}>
           <CustomButton
             text="+  Add New Notes"
             style={[styles.customButton]}
             onPress={addNewNote}
           />
-        </View> */}
-      </SafeAreaView>
-    
+        </View>
+    </SafeAreaView>
   );
 }
 

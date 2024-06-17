@@ -5,7 +5,12 @@ import * as Yup from 'yup';
 import { SCREEN_CONSTANTS } from '../Constants';
 import { STRINGS } from '../Constants/Strings';
 import { logIn, updateUser } from '../Store/Common';
-export const signUpUser = async (user, providerId,dispatch,navigation) => {
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { HomeTabScreenProps, RootStackParamList, RootStackScreenProps } from '../Types/navigation';
+import { HomeNavigationProps } from '../Navigation/HomeNavigation/types';
+import { Dispatch, UnknownAction } from 'redux';
+export const signUpUser = async (user:FirebaseAuthTypes.User, providerId:string,dispatch: Dispatch<UnknownAction>,navigation:RootStackScreenProps<"SignUp">) => {
   try {
     const notes = [
       {
@@ -46,7 +51,7 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
         .collection(STRINGS.FIREBASE.USER)
         .doc(user.uid)
         .collection(STRINGS.FIREBASE.NOTES)
-        .doc(); // Automatically generates a new document ID
+        .doc(); 
       batch.set(newDocRef, doc);
     });
 
@@ -54,7 +59,7 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
       const newDocRef = collectionRef
         .doc(user.uid)
         .collection(STRINGS.FIREBASE.LABELS)
-        .doc(doc); // Automatically generates a new document ID
+        .doc(doc); 
       batch.set(newDocRef, { count: 1,time_stamp: firestore.FieldValue.serverTimestamp()});
     });
     await batch.commit();
@@ -68,7 +73,7 @@ export const signUpUser = async (user, providerId,dispatch,navigation) => {
     await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true))
         navigation.navigate(SCREEN_CONSTANTS.HomeNavigation);
   } catch (error) {
-    console.error('Error creating initial database:', error.code, error.message);
+    // console.error('Error creating initial database:', error.code, error.message);
   }
 };
 
@@ -91,14 +96,14 @@ export const SignupSchema = Yup.object().shape({
   .matches(/^\d{10}$/, 'Number must be exactly 10 digits')
   .required('Enter Number')});
 
-export const imageCompressor = async (photo) => {
+export const imageCompressor = async (photo:string) => {
   try {
     const compressedImage = await ImageResizer.createResizedImage(
       photo,
       600, // max width
       400, // max height
-      'JPEG', // format
-      80, // quality (0 to 100)
+      'JPEG',
+      80, 
     );
     return compressedImage.uri; 
   } catch (error) {

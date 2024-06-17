@@ -18,13 +18,14 @@ import { STRINGS } from "../../Constants/Strings";
 import { logIn, updateUser } from "../../Store/Common";
 import { toggleTheme } from "../../Store/Theme";
 import { styles } from "./style";
+import { SettingProps, themeState } from "./types";
 
-function Setting({ navigation, theme }) {
+function Setting({ navigation, theme }:SettingProps) {
   const user = auth().currentUser;
   const dispatch = useDispatch();
   const THEME = theme;
   const [show, setShow] = useState(false);
-  const isThemeOn = useSelector((state) => state.theme.theme);
+  const isThemeOn = useSelector((state:themeState) => state.theme.theme);
   const signOut = async () => {
     try {
       if (user?.providerData[0].providerId !== "google.com") {

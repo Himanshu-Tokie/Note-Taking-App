@@ -13,10 +13,19 @@ import { SCREEN_CONSTANTS } from '../../Constants';
 import { IMAGES } from '../../Constants/Images';
 import withTheme from '../HOC';
 import { styles } from './style';
+import { colorSchemeState, labelTemplateTypes } from './types';
 
-function LabelTemplate({icon, text, files, note,theme}) {
-  const nav = useNavigation();
-  const label = (text)=>{
+import { HomeTabScreenProps, RootStackParamList, RootStackScreenProps } from '../../Types/navigation';
+
+type route={
+  text:string;
+  note:string;
+}
+
+
+function LabelTemplate({icon, text, files, note,theme}:labelTemplateTypes) {
+  const nav = useNavigation<RootStackScreenProps<keyof RootStackParamList>>();
+  const label = (text:string)=>{
     if(!text.length)return ''
     else {
       if(text.length>8)
@@ -26,9 +35,10 @@ function LabelTemplate({icon, text, files, note,theme}) {
     }
   }
   function navigationHandler() {
-    nav.navigate(SCREEN_CONSTANTS.Label, {text, note});
+    // nav.navigate(SCREEN_CONSTANTS.Label, {text, note});
+    nav.navigate(SCREEN_CONSTANTS.Label, { text, note });
   }
-  const colorScheme = useSelector(state=>state.theme.theme)
+  const colorScheme = useSelector((state:colorSchemeState)=>state.theme.theme)
   const THEME = theme ;
   return (
     
