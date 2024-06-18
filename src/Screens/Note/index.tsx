@@ -16,8 +16,7 @@ import ImageModal from "react-native-image-modal";
 import {
   RichEditor,
   RichToolbar,
-  actions,
-  RichEditorProps,
+  actions
 } from "react-native-pell-rich-editor";
 import {
   heightPercentageToDP,
@@ -317,7 +316,7 @@ const Note = ({ route, theme }:NoteScreenProps) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         keyboardVerticalOffset={keyboardVerticalOffset}
-        // keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : keyboardOffset}
+        // keyboardVerticalOffset={Platform.OS === PLATEFORM.IOS ? 0 : keyboardOffset}
         style={styles.subContainer}
       >
         <View>
@@ -389,7 +388,7 @@ const Note = ({ route, theme }:NoteScreenProps) => {
             position: absolute; 
             top: 0; right: 0; bottom: 0; left: 0;`,
           }}
-          placeholder={"Start Writing Here"}
+          placeholder={STRINGS.START_WRITING_HERE}
           onChange={(text) => {
             articleData.current = text;
           }}

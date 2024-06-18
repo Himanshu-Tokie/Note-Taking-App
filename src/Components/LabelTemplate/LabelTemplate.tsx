@@ -14,8 +14,8 @@ import { IMAGES } from '../../Constants/Images';
 import withTheme from '../HOC';
 import { styles } from './style';
 import { colorSchemeState, labelTemplateTypes } from './types';
-
-import { HomeTabScreenProps, RootStackParamList, RootStackScreenProps } from '../../Types/navigation';
+import { RootStackParamList, RootStackScreenProps } from '../../Types/navigation';
+import { DEVICE_THEME } from '../../Constants/Colors';
 
 type route={
   text:string;
@@ -44,7 +44,7 @@ function LabelTemplate({icon, text, files, note,theme}:labelTemplateTypes) {
     
       <View style={styles.sub}>
         <ImageBackground
-          source={colorScheme==='light'? IMAGES.LABEL:IMAGES.DARK_LABEL}
+          source={colorScheme===DEVICE_THEME.LIGHT? IMAGES.LABEL:IMAGES.DARK_LABEL}
           resizeMode="cover"
           style={styles.container}>
           <TouchableOpacity onPress={navigationHandler}>

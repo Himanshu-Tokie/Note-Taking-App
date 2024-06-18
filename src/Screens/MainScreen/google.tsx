@@ -12,11 +12,11 @@ import {
 import { useDispatch } from 'react-redux';
 import { SCREEN_CONSTANTS } from '../../Constants';
 import { ICONS } from '../../Constants/Icons';
-import { STRINGS } from '../../Constants/Strings';
+import { PLATEFORM, STRINGS } from '../../Constants/Strings';
 import { logIn, updateUser } from '../../Store/Common';
+import { RootStackParamList, RootStackScreenProps } from '../../Types/navigation';
 import { signUpUser } from '../../Utils';
 import { styles } from './style';
-import { HomeTabScreenProps, RootStackParamList, RootStackScreenProps } from '../../Types/navigation';
 
 // function isErrorWithCode(error) {
 //   return error.code !== undefined;
@@ -47,29 +47,28 @@ export default function Google() {
           dispatch(logIn(true));
           dispatch(updateUser({ uid: ans.user.uid, providerId: 'google.com' }));
           await AsyncStorage.setItem(STRINGS.IS_LOGGED_IN, JSON.stringify(true));
-          console.log('data added to storage google');
           navigation.navigate(SCREEN_CONSTANTS.HomeNavigation);
         }
       } else {
-        console.log('User cancelled the login or there was an error');
+        // console.log('User cancelled the login or there was an error');
       }
     } catch (error: any) {
       if (error.code) {
         switch (error.code) {
           case statusCodes.SIGN_IN_CANCELLED:
-            console.log('User cancelled the login flow');
+            // console.log('User cancelled the login flow');
             break;
           case statusCodes.IN_PROGRESS:
-            console.log('Operation (eg. sign in) already in progress');
+            // console.log('Operation (eg. sign in) already in progress');
             break;
           case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-            console.log('Play services not available or outdated');
+            // console.log('Play services not available or outdated');
             break;
           default:
-            console.log('Some other error happened', error);
+            // console.log('Some other error happened', error);
         }
       } else {
-        console.log('An error not related to Google sign-in occurred', error);
+        // console.log('An error not related to Google sign-in occurred', error);
       }
     }
   };
@@ -79,8 +78,8 @@ export default function Google() {
       <TouchableOpacity onPress={_signIn}>
         <View style={styles.googleContainer}>
           {ICONS.GOOGLE(
-            Platform.OS == 'ios' ? heightPercentageToDP('2%') : heightPercentageToDP('2.5%'),
-            Platform.OS == 'ios' ? heightPercentageToDP('2%') : heightPercentageToDP('2.5%'),
+            Platform.OS == PLATEFORM.IOS ? heightPercentageToDP('2%') : heightPercentageToDP('2.5%'),
+            Platform.OS == PLATEFORM.IOS ? heightPercentageToDP('2%') : heightPercentageToDP('2.5%'),
             'none',
           )}
           <Text style={styles.text}>{STRINGS.GOOGLE_SIGN_IN}</Text>

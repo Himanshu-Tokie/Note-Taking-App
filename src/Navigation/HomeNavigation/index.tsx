@@ -1,5 +1,5 @@
 import { default as auth } from '@react-native-firebase/auth';
-import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+import firestore from '@react-native-firebase/firestore';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { useNavigation } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
@@ -7,14 +7,14 @@ import AddLabel from '../../Components/AddLabel/addLabel';
 import withTheme from '../../Components/HOC';
 import MyTabBar from '../../Components/TabBar';
 import { SCREEN_CONSTANTS } from '../../Constants';
-import { STRINGS } from '../../Constants/Strings';
+import { STRINGS, STRINGS_FIREBASE } from '../../Constants/Strings';
 import ADD_LABELS from '../../Screens/AddLabels';
 import Home from '../../Screens/Home';
 import Note from '../../Screens/Note';
 import Extar2 from '../../Screens/Reminder';
 import Setting from '../../Screens/Setting';
-import { HomeNavigationProps, LabelData } from './types';
 import { RootTabParamList } from '../../Types/navigation';
+import { HomeNavigationProps } from './types';
 
  function HomeNavigation({theme}:HomeNavigationProps) {
   const parentNavigation = useNavigation();
@@ -31,7 +31,7 @@ import { RootTabParamList } from '../../Types/navigation';
           .collection(STRINGS.FIREBASE.USER)
           .doc(uid)
           .collection(STRINGS.FIREBASE.LABELS)
-          .orderBy('time_stamp', 'asc')
+          .orderBy(STRINGS_FIREBASE.TIME_STAMP, STRINGS_FIREBASE.ORDER)
           .get()
           // console.log(labelData.docs,13);
         setLabelData(labelData)
@@ -43,12 +43,10 @@ import { RootTabParamList } from '../../Types/navigation';
     .collection(STRINGS.FIREBASE.USER)
     .doc(uid)
     .collection(STRINGS.FIREBASE.LABELS)
-    .orderBy('time_stamp', 'asc')
+    .orderBy(STRINGS_FIREBASE.TIME_STAMP, STRINGS_FIREBASE.ORDER)
     .onSnapshot(querySnapshot => {
       setLabelData(querySnapshot)
     });
-  
-  // Stop listening for updates when no longer required
   return () => unsubscribe();
   }, [uid]);
   return (

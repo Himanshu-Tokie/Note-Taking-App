@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux';
 import CustomButton from '../../Components/Button/customButton';
 import FormikTemplate from '../../Components/FormikTemplate';
 import withTheme from '../../Components/HOC';
-import { STRINGS } from '../../Constants/Strings';
+import { PLATEFORM, STRINGS } from '../../Constants/Strings';
 import { SignupSchema, signUpUser } from '../../Utils';
 import { styles } from './style';
 import { SignUpProps, valuesTypes } from './types';
@@ -34,7 +34,7 @@ function SignUp({ navigation,theme }:SignUpProps) {
     
       <SafeAreaView style={[styles.container,{backgroundColor:THEME.BACKGROUND}]}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS === PLATEFORM.IOS ? 'padding' : 'height'}
         >
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.subContainer}>

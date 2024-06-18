@@ -5,7 +5,7 @@ import { FlatList, SafeAreaView, Text, View } from "react-native";
 import withTheme from "../../Components/HOC";
 import Search from "../../Components/Header";
 import ListTemplate from "../../Components/ListTemplate/listTemplate";
-import { STRINGS } from "../../Constants/Strings";
+import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
 import { styles } from "./style";
 import { ReminderProps, reminderFormate, reminderNotesDataType } from "./types";
 
@@ -25,7 +25,6 @@ function Extar2({ navigation, theme, route }: ReminderProps) {
           item.title.toLowerCase().match(text)
         );
       });
-      console.log(filteredData.length, "filteredData.length");
       if (!filteredData.length) setNoData(true);
       else setNoData(false);
       setSearchData(filteredData);
@@ -58,7 +57,7 @@ function Extar2({ navigation, theme, route }: ReminderProps) {
           setSearchData(newData);
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
       }
     };
 
@@ -70,7 +69,7 @@ function Extar2({ navigation, theme, route }: ReminderProps) {
         .collection(STRINGS.FIREBASE.USER)
         .doc(uid)
         .collection(STRINGS.FIREBASE.REMINDER)
-        .orderBy("timeStamp", "asc")
+        .orderBy(STRINGS_FIREBASE.DB_TIME_STAMP, STRINGS_FIREBASE.ORDER)
         .onSnapshot((querySnapshot) => {
           const newData: reminderNotesDataType = []; // Temporary array to accumulate data
           querySnapshot.forEach((doc) => {
@@ -116,7 +115,7 @@ function Extar2({ navigation, theme, route }: ReminderProps) {
         {noData && (
           <View>
             <Text style={[styles.noReminderText, { color: THEME.TEXT1 }]}>
-              No such reminder exist
+              {STRINGS.NO_REMINDER_EXIST}
             </Text>
           </View>
         )}
@@ -139,7 +138,7 @@ function Extar2({ navigation, theme, route }: ReminderProps) {
         ) : (
           <View style={styles.noReminder}>
             <Text style={[styles.noReminderText, { color: THEME.TEXT1 }]}>
-              Add Reminder
+              {STRINGS.ADD_REMINDER}
             </Text>
           </View>
         )}

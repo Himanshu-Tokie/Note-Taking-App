@@ -1,15 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import ImageResizer from 'react-native-image-resizer';
+import { Dispatch, UnknownAction } from 'redux';
 import * as Yup from 'yup';
 import { SCREEN_CONSTANTS } from '../Constants';
-import { STRINGS } from '../Constants/Strings';
+import { STRINGS, YUP_STRINGS } from '../Constants/Strings';
 import { logIn, updateUser } from '../Store/Common';
-import { FirebaseAuthTypes } from '@react-native-firebase/auth';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { HomeTabScreenProps, RootStackParamList, RootStackScreenProps } from '../Types/navigation';
-import { HomeNavigationProps } from '../Navigation/HomeNavigation/types';
-import { Dispatch, UnknownAction } from 'redux';
+import { RootStackScreenProps } from '../Types/navigation';
 export const signUpUser = async (user:FirebaseAuthTypes.User, providerId:string,dispatch: Dispatch<UnknownAction>,navigation:RootStackScreenProps<"SignUp">) => {
   try {
     const notes = [
@@ -78,23 +76,23 @@ export const signUpUser = async (user:FirebaseAuthTypes.User, providerId:string,
 };
 
 export const SignupSchema = Yup.object().shape({
-  firstName: Yup.string().required(STRINGS.FIRST_NAME_WARNING).matches(/^[A-Za-z]+$/,'Invalid first name'),
-  lastName: Yup.string().required(STRINGS.LAST_NAME_WARNING).matches(/^[A-Za-z]+$/,'Invalid last name'),
-  email: Yup.string().email('Invalid email').required(STRINGS.EMAIL_WARNING),
+  firstName: Yup.string().required(STRINGS.FIRST_NAME_WARNING).matches(/^[A-Za-z]+$/,YUP_STRINGS.INVALID_FIRST_NAME),
+  lastName: Yup.string().required(STRINGS.LAST_NAME_WARNING).matches(/^[A-Za-z]+$/,YUP_STRINGS.INVALID_LAST_NAME),
+  email: Yup.string().email(YUP_STRINGS.INVALID_EMAIL).required(STRINGS.EMAIL_WARNING),
   password: Yup.string()
     .min(8)
     .required(STRINGS.PASSWORD_WARNING)
     .matches(
       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$/,
-      'Invalid Password',
+      YUP_STRINGS.INVALID_PASSWORD,
     ),
   confirmPassword: Yup.string().oneOf(
     [Yup.ref(STRINGS.PASSWORD_SMALL)],
-    "Password doesn't match",
+    YUP_STRINGS.PASSWORD_NOT_MATCH,
   ),
   number: Yup.string()
-  .matches(/^\d{10}$/, 'Number must be exactly 10 digits')
-  .required('Enter Number')});
+  .matches(/^\d{10}$/, YUP_STRINGS.PHONE_NUMBER_WARNING1)
+  .required(YUP_STRINGS.PHONE_NUMBER_WARNING2)});
 
 export const imageCompressor = async (photo:string) => {
   try {
