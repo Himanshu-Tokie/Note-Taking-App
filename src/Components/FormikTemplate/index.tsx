@@ -50,9 +50,8 @@ export default function FormikTemplate({
           <TouchableOpacity onPress={onPress}>
             {
               secureTextEntry ?
-              ICONS.EYE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none'):ICONS.EYE_CLOSE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none')
+              ICONS.EYE_CLOSE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none'):ICONS.EYE(heightPercentageToDP('2.2'), heightPercentageToDP('2.2'), 'none')
             }
-          
           </TouchableOpacity>
         )}
         </View>
