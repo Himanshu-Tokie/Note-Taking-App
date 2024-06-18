@@ -35,7 +35,7 @@ function AddLabel({uid,show,setShow,theme}:addLabelProps) {
         isDialogVisible={show}
         title={STRINGS.ADD_LABEL}
         hintInput={STRINGS.LABEL_NAME}
-        hintTextColor={theme.TEXT1}
+        hintTextColor='rgb(9,9,10)'
         dialogStyle={{}}
         modalStyle={{}}
         textInputProps={{maxLength:20}}

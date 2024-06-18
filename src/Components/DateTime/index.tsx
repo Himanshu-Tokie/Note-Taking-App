@@ -39,7 +39,7 @@ function DateTime({date, setDate,theme}:dateTimeProps) {
           <View>
             <TouchableOpacity onPress={showDatepicker}>
               <Text style={[styles.text,{color:THEME.TEXT1}]}>
-                {date.toLocaleString().slice(0,9)}
+                {date.toLocaleString().slice(0,10)}
               </Text>
             </TouchableOpacity>
           </View>
@@ -51,7 +51,7 @@ function DateTime({date, setDate,theme}:dateTimeProps) {
           <View>
             <TouchableOpacity onPress={showTimepicker}>
               <Text style={[styles.text,{color:THEME.TEXT1}]}>
-                {date.toLocaleString().slice(10)}
+                {date.toLocaleString().slice(11)}
               </Text>
             </TouchableOpacity>
           </View>
