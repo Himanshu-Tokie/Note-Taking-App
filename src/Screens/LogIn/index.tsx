@@ -9,17 +9,17 @@ import CustomButton from "../../Components/Button/customButton";
 import FormikTemplate from "../../Components/FormikTemplate";
 import withTheme from "../../Components/HOC";
 import { SCREEN_CONSTANTS } from "../../Constants";
-import { STRINGS } from "../../Constants/Strings";
+import { STRINGS, YUP_STRINGS } from "../../Constants/Strings";
 import { logIn, updateUser } from "../../Store/Common";
 import { useAppDispatch, useAppSelector } from "../../Store";
 import { styles } from "./style";
 import { LogInProps } from "./types";
 
 const SignupSchema = Yup.object().shape({
-  email: Yup.string().email("Invalid email").required("Please enter email"),
+  email: Yup.string().email(YUP_STRINGS.INVALID_EMAIL).required(YUP_STRINGS.ENTER_EMAIL),
   password: Yup.string()
     .min(8)
-    .required("Please enter your password")
+    .required(YUP_STRINGS.ENTER_PASSWORD)
 });
 
 const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
@@ -59,8 +59,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
           <Formik
             initialValues={{ email: "", password: "" }}
             validationSchema={SignupSchema}
-            onSubmit={(values) => {
-              console.log('234');             
+            onSubmit={(values) => {            
               logInUser(values.email, values.password);
             }}
           >
@@ -91,7 +90,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
                   logIn={true}
                 />
                 <FormikTemplate
-                  placeholder="Password"
+                  placeholder={STRINGS.PASSWORD}
                   values={values.password}
                   touched={touched.password}
                   onChangeText={handleChange(STRINGS.PASSWORD_SMALL)}
@@ -106,7 +105,7 @@ const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
                   {STRINGS.SIGN_UP_CONDITIONS}
                 </Text>
                 <CustomButton
-                  text="Log In"
+                  text={STRINGS.LOG_IN}
                   onPress={() => handleSubmit()}
                   style={[styles.button]}
                 />

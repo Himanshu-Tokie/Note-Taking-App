@@ -19,6 +19,7 @@ import { logIn, updateUser } from "../../Store/Common";
 import { toggleTheme } from "../../Store/Theme";
 import { styles } from "./style";
 import { SettingProps, themeState } from "./types";
+import { DEVICE_THEME } from "../../Constants/Colors";
 
 function Setting({ navigation, theme }:SettingProps) {
   const user = auth().currentUser;
@@ -59,12 +60,12 @@ function Setting({ navigation, theme }:SettingProps) {
   };
 
   const SignOutAlert = () => {
-    Alert.alert("Sign Out", "Are you sure?", [
+    Alert.alert(STRINGS.SIGN_OUT, STRINGS.ARE_YOU_SURE, [
       {
-        text: "CANCEL",
+        text: STRINGS.CANCEL,
       },
       {
-        text: "OK",
+        text: STRINGS.OK,
         onPress: () => {
           signOut();
         },
@@ -104,7 +105,7 @@ function Setting({ navigation, theme }:SettingProps) {
                     },
                   ]}
                 >
-                  Profile - (𝘸𝘪𝘭𝘭 𝘴𝘰𝘰𝘯 𝘣𝘦 𝘢𝘷𝘢𝘪𝘭𝘢𝘣𝘭𝘦)
+                  {STRINGS.SETTING.CHANGE_PROFILE}
                 </Text>
               </View>
             </View>
@@ -123,7 +124,7 @@ function Setting({ navigation, theme }:SettingProps) {
               </View>
               <View>
                 <ToggleSwitch
-                  isOn={isThemeOn === "dark"}
+                  isOn={isThemeOn === DEVICE_THEME.DARK}
                   onColor="black"
                   circleColor={THEME.BACKGROUND1}
                   offColor="white"
@@ -143,7 +144,7 @@ function Setting({ navigation, theme }:SettingProps) {
                     },
                   ]}
                 >
-                  Change Password - (will soon be available)
+                  {STRINGS.SETTING.CHANGE_PASSWORD}
                 </Text>
               </View>
             </View>

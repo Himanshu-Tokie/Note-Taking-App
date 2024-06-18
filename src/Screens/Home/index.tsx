@@ -22,7 +22,7 @@ import withTheme from "../../Components/HOC";
 import LabelTemplate from "../../Components/LabelTemplate/LabelTemplate";
 import { ICONS } from "../../Constants/Icons";
 import { IMAGES } from "../../Constants/Images";
-import { STRINGS } from "../../Constants/Strings";
+import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
 import { colorSchemeState } from "../MainScreen/type";
 import { styles } from "./style";
 import { HomeProps, newDataType } from "./types";
@@ -47,7 +47,7 @@ function Home({ theme }: HomeProps) {
         .collection(STRINGS.FIREBASE.USER)
         .doc(user.uid)
         .collection(STRINGS.FIREBASE.LABELS)
-        .orderBy("time_stamp", "asc")
+        .orderBy(STRINGS_FIREBASE.TIME_STAMP, STRINGS_FIREBASE.ORDER)
         .onSnapshot((querySnapshot) => {
           const newData: newDataType = [];
           querySnapshot.forEach((doc) => {
@@ -65,10 +65,10 @@ function Home({ theme }: HomeProps) {
       await firestore()
         .collection(STRINGS.FIREBASE.USER)
         .doc(user?.uid)
-        // .orderBy('time_stamp', 'asc')
+        // .orderBy(STRINGS_FIREBASE.TIME_STAMP, STRINGS_FIREBASE.ORDER)
         .get();
     } catch (e) {
-      console.log(e, 91);
+      // console.log(e, 91);
     }
   };
   const getLabel = async () => {
@@ -80,7 +80,7 @@ function Home({ theme }: HomeProps) {
           .collection(STRINGS.FIREBASE.USER)
           .doc(user.uid)
           .collection(STRINGS.FIREBASE.LABELS)
-          .orderBy("time_stamp", "asc")
+          .orderBy(STRINGS_FIREBASE.TIME_STAMP, STRINGS_FIREBASE.ORDER)
           .get();
         const labelData: newDataType = [];
         snapShot.forEach((doc) => {
@@ -90,7 +90,7 @@ function Home({ theme }: HomeProps) {
         // console.log(label, 70);}
       }
     } catch (error) {
-      console.error("Error retrieving notes:", error);
+      // console.error("Error retrieving notes:", error);
     }
   };
   // const bytesToGB = (bytes)=>{
@@ -191,8 +191,7 @@ function Home({ theme }: HomeProps) {
                   <View style={{ paddingLeft: widthPercentageToDP("7%") }}>
                     <Text style={[styles.text]}>{STRINGS.AVAILABLE_SPACE}</Text>
                     <Text style={[styles.size, { color: THEME.HOMESIZE }]}>
-                      {bytesToGB(usedSpace)} GB of {bytesToGB(freeSpace)} GB
-                      Used
+                      {bytesToGB(usedSpace)} GB of {bytesToGB(freeSpace)} GB Used
                     </Text>
                   </View>
                 </View>

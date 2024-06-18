@@ -1,10 +1,11 @@
 import messaging from '@react-native-firebase/messaging';
 import { PermissionsAndroid, Platform } from 'react-native';
+import { PLATEFORM } from '../../Constants/Strings';
 
 
 export const usePushNotification = () => {
     const requestUserPermission = async () => {
-      if (Platform.OS === 'ios') {
+      if (Platform.OS === PLATEFORM.IOS) {
         //Request iOS permission
         const authStatus = await messaging().requestPermission();
         const enabled =
@@ -14,7 +15,7 @@ export const usePushNotification = () => {
         if (enabled) {
           // console.log('Authorization status:', authStatus);
         }
-      } else if (Platform.OS === 'android') {
+      } else if (Platform.OS === PLATEFORM.ANDROID) {
         //Request Android permission (For API level 33+, for 32 or below is not required)
         const res = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS,

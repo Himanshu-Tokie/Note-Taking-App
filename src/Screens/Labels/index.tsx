@@ -7,7 +7,7 @@ import withTheme from "../../Components/HOC";
 import Search from "../../Components/Header";
 import StaggedLabel from "../../Components/Staggered";
 import { SCREEN_CONSTANTS } from "../../Constants";
-import { STRINGS } from "../../Constants/Strings";
+import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
 import { styles } from "./style";
 import { LabelProps, labelNotesDataType } from "./types";
 
@@ -43,8 +43,8 @@ function Label({ navigation, route, theme }:LabelProps) {
           .collection(STRINGS.FIREBASE.USER)
           .doc(uid)
           .collection(STRINGS.FIREBASE.NOTES)
-          .where("label", "==", label)
-          .orderBy("time_stamp", "asc")
+          .where(STRINGS_FIREBASE.LABEL, "==", label)
+          .orderBy(STRINGS_FIREBASE.TIME_STAMP, STRINGS_FIREBASE.ORDER)
           .get();
 
         const newData: labelNotesDataType = []; // Temporary array to accumulate data
@@ -63,7 +63,7 @@ function Label({ navigation, route, theme }:LabelProps) {
         setNotesData(newData);
         setSearchData(newData);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        // console.error("Error fetching data:", error);
       }
     };
 
@@ -75,8 +75,8 @@ function Label({ navigation, route, theme }:LabelProps) {
       .doc(uid)
       .collection(STRINGS.FIREBASE.NOTES)
 
-      .where("label", "==", label)
-      .orderBy("time_stamp", "asc")
+      .where(STRINGS_FIREBASE.LABEL, "==", label)
+      .orderBy(STRINGS_FIREBASE.TIME_STAMP, STRINGS_FIREBASE.ORDER)
       .onSnapshot((querySnapshot) => {
         const newData: labelNotesDataType = [];
         querySnapshot.forEach((doc) => {
@@ -116,7 +116,7 @@ function Label({ navigation, route, theme }:LabelProps) {
       <StaggedLabel data={searchData} />
       <View style={styles.addNotes}>
           <CustomButton
-            text="+  Add New Notes"
+            text={STRINGS.ADD_NEW_NOTES}
             style={[styles.customButton]}
             onPress={addNewNote}
           />

@@ -58,7 +58,7 @@ function Splash({ theme, navigation }: SplashProps) {
                   );
                 }
               } catch (e) {
-                console.error("Error parsing isLoggedInData:", e);
+                // console.error("Error parsing isLoggedInData:", e);
                 dispatch(logIn(false));
                 navigation.dispatch(
                   CommonActions.reset({
