@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
@@ -8,12 +8,13 @@ import { dropdownComponentProps } from './types';
 
   const DropdownComponent = ({data,value, setValue,theme}:dropdownComponentProps) => {
     const [isFocus, setIsFocus] = useState(false);
-    const labelData = [{'label':''}]
-    console.log(data,1);
-    
+    const labelData:{label:string}[] = []    
     data.forEach((label)=>{
         labelData.push({'label':label.id})
     })
+    useEffect(()=>
+      {value='Select label'}
+    ,[])
     const THEME = theme     
     return (
       <View style={[styles.container,{backgroundColor:THEME?.BACKGROUND}]}>
@@ -28,9 +29,8 @@ import { dropdownComponentProps } from './types';
           maxHeight={heightPercentageToDP('30%')}
           labelField="label"
           valueField="label"
-          placeholder={!isFocus ? 'Select item' : '...'}
-          searchPlaceholder="Search..."
-          value={value}
+          placeholder={!isFocus ? 'Select Label' : '...'}
+          value={!isFocus ? 'Select Label' : value}
           onFocus={() => setIsFocus(true)}
           onBlur={() => setIsFocus(false)}
           onChange={(item:{label:string}) => {
