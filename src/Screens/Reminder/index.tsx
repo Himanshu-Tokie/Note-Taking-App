@@ -9,29 +9,27 @@ import { STRINGS } from "../../Constants/Strings";
 import { styles } from "./style";
 import { ReminderProps, reminderFormate, reminderNotesDataType } from "./types";
 
-function Extar2({ navigation,theme, route }:ReminderProps) {
+function Extar2({ navigation, theme, route }: ReminderProps) {
   const user = auth().currentUser;
   let uid = user?.uid;
   const THEME = theme;
   const [searchData, setSearchData] = useState<reminderNotesDataType | null>();
   const [notesData, setNotesData] = useState<reminderNotesDataType | null>();
-  const [noData,setNoData] = useState<boolean>(false)
+  const [noData, setNoData] = useState<boolean>(false);
   const search = (str: string) => {
-      setNoData(false)
-      let text = str.toLowerCase();
-      if (notesData) {
-        let filteredData = notesData.filter((item: reminderFormate) => {
-          return (
-            item.data.toLowerCase().match(text) ||
-            item.title.toLowerCase().match(text)
-          );
-        });
-        if(!filteredData.length)
-          setNoData(true)
-        else
-        setNoData(false)
-        setSearchData(filteredData);
-      }
+    let text = str.toLowerCase();
+    if (notesData) {
+      let filteredData = notesData.filter((item: reminderFormate) => {
+        return (
+          item.data.toLowerCase().match(text) ||
+          item.title.toLowerCase().match(text)
+        );
+      });
+      console.log(filteredData.length, "filteredData.length");
+      if (!filteredData.length) setNoData(true);
+      else setNoData(false);
+      setSearchData(filteredData);
+    }
   };
 
   useEffect(() => {
@@ -90,7 +88,10 @@ function Extar2({ navigation,theme, route }:ReminderProps) {
       return () => unsubscribe();
     }
   }, [uid]);
-
+  useEffect(() => {
+    if (!searchData?.length) {
+    }
+  }, [searchData]);
   return (
     <SafeAreaView
       style={[
@@ -104,23 +105,27 @@ function Extar2({ navigation,theme, route }:ReminderProps) {
         <View>
           <Search
             onChangeText={search}
-            handleSetInittialOnBlur={() => setSearchData(notesData)}
+            handleSetInittialOnBlur={() => {
+              setSearchData(notesData);
+              setNoData(false);
+            }}
             notesData={notesData}
             headerText={"Reminder"}
           />
         </View>
-        {noData && <View style={styles.noReminder}>
-            <Text style={styles.noReminderText}>
-              No
+        {noData && (
+          <View>
+            <Text style={[styles.noReminderText, { color: THEME.TEXT1 }]}>
+              No such reminder exist
             </Text>
-          </View>}
-        {searchData?.length? (
+          </View>
+        )}
+        {searchData?.length ? (
           <View style={styles.searchContainer}>
             <FlatList
               data={searchData}
               // style={styles.list}
               // keyExtractor={(item) => item.noteId}
-              // numColumns={2}
               showsVerticalScrollIndicator={false}
               renderItem={({ item }) => (
                 <ListTemplate

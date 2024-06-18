@@ -55,6 +55,7 @@ export const styles = StyleSheet.create({
     height: heightPercentageToDP('19%'),
   },
   imageContainer: {
+    alignItems:'center',
     paddingHorizontal: Platform.OS == 'ios'? widthPercentageToDP('4.1%'):widthPercentageToDP('0%'),
     paddingTop: heightPercentageToDP('3.5%'),
     paddingBottom:heightPercentageToDP('3%')
