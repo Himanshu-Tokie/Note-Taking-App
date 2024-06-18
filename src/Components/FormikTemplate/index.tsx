@@ -19,7 +19,6 @@ export default function FormikTemplate({
   const [secureTextEntry, setSecureTextEntry] = useState(false);
   const [show, setShow] = useState(true);
   useMemo(()=>{
-
     if (
       (placeholder === STRINGS.PASSWORD || placeholder === STRINGS.CONFIRM_PASSWORD) &&
       show
@@ -28,9 +27,9 @@ export default function FormikTemplate({
       setShow(false);
     }
   },[placeholder])
-    const onPress = () => {
-    setSecureTextEntry(!secureTextEntry);
-    setShow(!show);
+  const onPress = () => {
+  setSecureTextEntry(!secureTextEntry);
+  setShow(!show);
   };
   return (
     <View style={styles.container}>
@@ -58,7 +57,7 @@ export default function FormikTemplate({
         )}
         </View>
       </View>
-      {touched && error &&(logIn)&& <Text style={styles.error}>*{error}</Text>}
+      {touched && error && logIn && <Text style={styles.error}>*{error}</Text>}
     </View>
   );
 }
