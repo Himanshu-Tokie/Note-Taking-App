@@ -6,10 +6,13 @@ import Plus from "../Plus/Plus";
 import { useSelector } from "react-redux";
 import { styles } from "./styles";
 import withTheme from "../HOC";
+import { colorSchemeState, myTabBarProps } from "./types";
+import { RouteProp } from "@react-navigation/native";
+import { RootTabParamList } from "../../Types/navigation";
 
-function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setShow,labelData}) {
-    const colorScheme = useSelector(state=>state.theme.theme)
-    const iconSelection = index => {
+function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setShow,labelData}:myTabBarProps) {
+    const colorScheme = useSelector((state:colorSchemeState)=>state.theme.theme)
+    const iconSelection = (index:number) => {
       switch (index) {
         case 0:
           return ICONS.DOC;
@@ -21,7 +24,7 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
           return ICONS.SETTING;
       }
     };
-    const iconSelectionDark = index => {
+    const iconSelectionDark = (index:number) => {
       switch (index) {
         case 0:
           return ICONS.DOC_DARK;
@@ -33,7 +36,7 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
           return ICONS.SETTINGS_DARK;
       }
     };
-    const iconHover = index => {
+    const iconHover = (index:number) => {
       switch (index) {
         case 0:
           return ICONS.DOC_BLACK;
@@ -45,7 +48,7 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
           return ICONS.SETTING_BLACK;
       }
     };
-    const iconHoverDark = index => {
+    const iconHoverDark = (index:number) => {
       switch (index) {
         case 0:
           return ICONS.DOC_BLACK_DARK;
@@ -66,7 +69,8 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
               theme.FOOTER,
           },
         ]}>
-        {state.routes.map((route, index) => {
+        {state.routes.map((route:RouteProp<RootTabParamList>, index:number) => {
+          
           const {options} = descriptors[route.key];
           const label =
             options.tabBarLabel !== undefined
@@ -79,7 +83,6 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
 
           const onPress = () => {
             if (index === 2) {
-              // Check if the "Note" tab is clicked
               if (state.index == 3) {
                 const note = {
                   timestamp: '',
@@ -87,14 +90,10 @@ function MyTabBar({state, descriptors, navigation, parentNavigation,theme,setSho
                 };
                 parentNavigation.navigate(SCREEN_CONSTANTS.Note, {note});
               } else if (state.index == 1) {
-                // console.log('add label',234423);
                 setShow(true);
-                // console.log(uid);
-
-                // return (<AddLabel uid={uid} setShow={setShow} show={show}/>)
-              } else {
+              } else {  
                 parentNavigation.navigate(SCREEN_CONSTANTS.Note, {labelData});
-              } // Use the parent navigation to navigate to the "Note" screen
+              }
             } else {
               const event = navigation.emit({
                 type: 'tabPress',

@@ -4,24 +4,21 @@ import { Alert, Keyboard, SafeAreaView, View } from 'react-native';
 import * as Yup from 'yup';
 import CustomButton from '../../Components/Button/customButton';
 import FormikTemplate from '../../Components/FormikTemplate';
-import { STRINGS } from '../../Constants/Strings';
+import { STRINGS, YUP_STRINGS } from '../../Constants/Strings';
 import { styles } from '../LogIn/style';
  
 const SignupSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Please enter email')
+  email: Yup.string().email(YUP_STRINGS.INVALID_EMAIL).required(YUP_STRINGS.ENTER_EMAIL)
 });
 
-function reset(email){
+function reset(email:string){
     auth().sendPasswordResetEmail(email).then(function (user) {
-        Alert.alert('Please check your email...')
+        Alert.alert(STRINGS.CHECK_EMAIL)
       }).catch(function (e) {
-        console.log(e)
+        // console.log(e)
       })
 }
 export default function ResetPassword() {
-  // const [user, setUser] = useState();
-  // const [errorLogin, setErrorLogin] = useState(false);
-
     return (
         <SafeAreaView style={styles.container}>
           <View style={styles.subContainer}>
@@ -61,7 +58,6 @@ export default function ResetPassword() {
               )}
             </Formik>
           </View>
-          {/* <CustomButton text='Log In' onPress={logIn} /> */}
         </SafeAreaView>)
 
 }

@@ -11,43 +11,29 @@ import { STRINGS } from '../../Constants/Strings';
 import { SCREEN_CONSTANTS } from '../../Constants/index';
 import Google from './google';
 import { styles } from './style';
-function Enter({ navigation,theme }) {
-  const isLoggedIn = useSelector(state=>state.common.isLogedIn)   
-  console.log(isLoggedIn,0);
-  const THEME = theme  
-  const isConnected = useSelector(state=>state.image.isConnected)
-  console.log(isConnected,97);
+import { EnterProps, isConnectedState } from './type';
+
+function Enter({ navigation,theme }:EnterProps) {
+  const isConnected = useSelector((state:isConnectedState)=>state.image.isConnected)
   const isOffline = useRef(!isConnected)
+  const THEME = theme  
+  
+  useEffect(() => {
+    isOffline.current = !isOffline.current
+    checkConnection();
+  }, [isConnected]);
+
   const onPress = () => {
     navigation.navigate(SCREEN_CONSTANTS.SignUp);
   };
   const logIn = () => {
     navigation.navigate(SCREEN_CONSTANTS.Login);
   };
-  // const checkConnection = ()=>{
-  //   if(isConnected)return                               
-  //   if(!isConnected)
-  //     Alert.alert(
-  //       "No Internet Connection",
-  //       "Please check your internet connection and try again.",
-  //       [{ text: "OK", onPress: ((isConnected)=> {if(isConnected)return checkConnection()}) }]
-  //     );
-  // }
-  // useEffect(()=>{
-  //   if(!isConnected){
-  //     checkConnection();
-  //   }
-  // },[isConnected])
   
-  const checkConnection = () => {
-    console.log(isConnected,98);
-    
+  const checkConnection = () => {    
     if(isOffline.current){console.log('wow');
      return}
-    else {
-      console.log(isConnected,1011);
-      console.log(isOffline.current,1012);
-      
+    else {     
       Alert.alert(
         "No Internet Connection",
         "Please check your internet connection and try again.",
@@ -62,11 +48,6 @@ function Enter({ navigation,theme }) {
       );
     }
   };
-  
-  useEffect(() => {
-    isOffline.current = !isOffline.current
-    checkConnection();
-  }, [isConnected]);
   return (
     <SafeAreaView style={[styles.container,{backgroundColor:THEME.BACKGROUND}]}>
       <View style={styles.subContainer}>

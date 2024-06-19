@@ -5,14 +5,18 @@ import { useDispatch } from 'react-redux';
 import CustomButton from '../../Components/Button/customButton';
 import FormikTemplate from '../../Components/FormikTemplate';
 import withTheme from '../../Components/HOC';
-import { STRINGS } from '../../Constants/Strings';
+import { PLATEFORM, STRINGS } from '../../Constants/Strings';
 import { SignupSchema, signUpUser } from '../../Utils';
 import { styles } from './style';
+import { SignUpProps, valuesTypes } from './types';
 
 // utils
-function SignUp({ navigation,theme }) {
+function SignUp({ navigation,theme }:SignUpProps) {
   const dispatch = useDispatch()
-  const signUp = async values => {
+  
+  const THEME = theme 
+
+  const signUp = async (values:valuesTypes) => {
     try {
       let userCredentials = await auth().createUserWithEmailAndPassword(
         values.email,
@@ -21,19 +25,18 @@ function SignUp({ navigation,theme }) {
       await userCredentials.user.updateProfile({
         displayName: values.firstName + ' ' + values.lastName,
       });
-      // console.log(userCredentials,1)
+      console.log(userCredentials,1)
       signUpUser(userCredentials.user,'firebase',dispatch,navigation)
     } catch (error) {
-      console.error('Error creating account:', error.code, error.message);
+      // console.error('Error creating account:', error.code, error.message);
     }
   };
-  const THEME = theme 
 
   return (
-    <>
+    
       <SafeAreaView style={[styles.container,{backgroundColor:THEME.BACKGROUND}]}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS === PLATEFORM.IOS ? 'padding' : 'height'}
         >
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.subContainer}>
@@ -121,7 +124,7 @@ function SignUp({ navigation,theme }) {
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </>
+    
   );
 }
 

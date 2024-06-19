@@ -72,3 +72,11 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Ignore release APK files
+android/app/build/outputs/apk/release/*.apk
+android/app/build/outputs/apk/debug/*.apk
+android/app/release/*.apk
+
+#ignore yarn.lock
+yarn.lock

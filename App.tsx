@@ -25,7 +25,7 @@ export default function App() {
         listenToForegroundNotifications();
         onNotificationOpenedAppFromBackground();
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
 

@@ -3,16 +3,14 @@ import React, { useEffect, useState } from 'react';
 import DialogInput from 'react-native-dialog-input';
 import withTheme from "../../Components/HOC";
 import { STRINGS } from '../../Constants/Strings';
+import { addLabelProps } from './types';
 
-function AddLabel({uid,show,setShow,theme}) {
-  // const [show, setShow] = useState(false)
-  const [newLabel, setNewLabel] = useState('');
+function AddLabel({uid,show,setShow,theme}:addLabelProps) {
+  const [newLabel, setNewLabel] = useState<string|null>();
   useEffect(() => {
     const addNewLabel = async () => {     
       try {
-        if (newLabel) {
-          console.log(newLabel,'new');
-          
+        if (newLabel) {        
           await firestore()
             .collection(STRINGS.FIREBASE.USER)
             .doc(uid)
@@ -33,22 +31,20 @@ function AddLabel({uid,show,setShow,theme}) {
   }, [newLabel]);
   // setShow(true)
   return (
-    <>
-    {/* <Button title="Add Label" onPress={() => setShow(true)} /> */}
       <DialogInput
         isDialogVisible={show}
         title={STRINGS.ADD_LABEL}
         hintInput={STRINGS.LABEL_NAME}
-        hintTextColor={theme.TEXT1}
+        hintTextColor='rgb(9,9,10)'
         dialogStyle={{}}
         modalStyle={{}}
-        submitInput={input => {          
+        textInputProps={{maxLength:20}}
+        submitInput={(input:string) => {          
           setNewLabel(input);
         }}
         closeDialog={() => {
           setShow(false);
         }}></DialogInput>
-    </>
   );
 }
 

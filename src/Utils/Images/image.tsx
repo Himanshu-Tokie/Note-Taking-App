@@ -1,15 +1,12 @@
-
+import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 import { Alert } from 'react-native';
 import { STRINGS } from '../../Constants/Strings';
 
-import firestore from '@react-native-firebase/firestore';
-
-export const uploadPhoto = async(photo,uid,noteId) => {
+export const uploadPhoto = async(photo:string,uid:string,noteId:string) => {
     try {
         if(!photo.length)
             return
-        console.log(photo,90);
         
         let photoUrls = [];
         for (const item of photo) {
@@ -21,30 +18,13 @@ export const uploadPhoto = async(photo,uid,noteId) => {
             const url = await reference.getDownloadURL();
             photoUrls.push(url);
           }
-        // uploadTask.on('state_changed',
-        //     taskSnapshot => {
-        //         console.log(`${taskSnapshot.bytesTransferred} transferred out of ${taskSnapshot.totalBytes}`);
-        //     },
-        //     error => {
-        //         console.log(error, 'image error');
-        //         Alert.alert('Photo upload failed', error.message);
-        //     },
-        //     () => {
-        //         console.log('Image uploaded to the bucket!');
-        //         Alert.alert('Photo uploaded successfully');
-        //     }
-        // );
-
-                
-        // update image data
         const ImageUrls = await firestore()
         .collection(STRINGS.FIREBASE.USER)
         .doc(uid)
         .collection(STRINGS.FIREBASE.NOTES)
         .doc(noteId)
         .get()
-        // console.log(ImageUrls.doc());
-        photoUrls = [...ImageUrls.data().url,...photoUrls]
+        photoUrls = [...(ImageUrls.data()?.url),...photoUrls]
 
         await firestore()
         .collection(STRINGS.FIREBASE.USER)
@@ -54,19 +34,13 @@ export const uploadPhoto = async(photo,uid,noteId) => {
         .update({
             url: photoUrls
           });
-          console.log('All image uploaded to firebase');
+          // console.log('All image uploaded to firebase');
           
-    } catch (e) {
-        console.log(e, 'image error');
-        Alert.alert('Photo upload failed', e.message);
+    } catch (e:unknown) {
+        if(e instanceof Error){
+            Alert.alert(STRINGS.PHOTO_UPLOAD_FAILED , e.message);
+        }else{
+            Alert.alert(STRINGS.UNKNOWN_ERROR);
+        }
     }
 }
-
-const syncPhotos = async (dispatch, photos) => {
-    // photos from store queue
-    for (const photo of photos) {
-
-      dispatch(removePhoto(hash));
-    } 
-    await AsyncStorage.removeItem('photos');
-  };

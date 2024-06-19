@@ -11,10 +11,10 @@ export const styles = StyleSheet.create({
         // maxWidth:RFPercentage(50),
         // width:"50%",
         // width:100
-        paddingTop:heightPercentageToDP('2.4%')
+        paddingTop:heightPercentageToDP('0%')
     },
     subContainer:{
-       paddingBottom:heightPercentageToDP('14%') 
+       paddingBottom:heightPercentageToDP('27%') 
     },
     addNotes:{
         position:'absolute',

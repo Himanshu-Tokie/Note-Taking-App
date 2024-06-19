@@ -10,13 +10,19 @@ import {
 } from 'react-native-responsive-screen';
 import { useSelector } from 'react-redux';
 import { SCREEN_CONSTANTS } from '../../Constants';
+import { DEVICE_THEME } from '../../Constants/Colors';
 import { IMAGES } from '../../Constants/Images';
+import { RootStackParamList, RootStackScreenProps } from '../../Types/navigation';
 import withTheme from '../HOC';
 import { styles } from './style';
+import { colorSchemeState, labelTemplateTypes } from './types';
 
-function LabelTemplate({icon, text, files, note,theme}) {
-  const nav = useNavigation();
-  const label = (text)=>{
+function LabelTemplate({icon, text, files, note,theme}:labelTemplateTypes) {
+  const nav = useNavigation<RootStackScreenProps<keyof RootStackParamList>>();
+  const colorScheme = useSelector((state:colorSchemeState)=>state.theme.theme)
+  const THEME = theme ;
+  
+  const label = (text:string)=>{
     if(!text.length)return ''
     else {
       if(text.length>8)
@@ -26,15 +32,13 @@ function LabelTemplate({icon, text, files, note,theme}) {
     }
   }
   function navigationHandler() {
-    nav.navigate(SCREEN_CONSTANTS.Label, {text, note});
+    nav.navigate(SCREEN_CONSTANTS.Label, { text, note });
   }
-  const colorScheme = useSelector(state=>state.theme.theme)
-  const THEME = theme ;
   return (
-    <>
+    
       <View style={styles.sub}>
         <ImageBackground
-          source={colorScheme==='light'? IMAGES.LABEL:IMAGES.DARK_LABEL}
+          source={colorScheme===DEVICE_THEME.LIGHT? IMAGES.LABEL:IMAGES.DARK_LABEL}
           resizeMode="cover"
           style={styles.container}>
           <TouchableOpacity onPress={navigationHandler}>
@@ -46,7 +50,7 @@ function LabelTemplate({icon, text, files, note,theme}) {
           </TouchableOpacity>
         </ImageBackground>
       </View>
-    </>
+    
   );
 }
 export default withTheme(LabelTemplate)

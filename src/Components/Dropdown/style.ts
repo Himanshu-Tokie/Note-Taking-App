@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
     container: {
       backgroundColor: 'black',
-      padding: 16,
+      padding: 10,
     },
     dropdown: {
       height: 50,

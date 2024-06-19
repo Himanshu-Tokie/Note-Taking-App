@@ -1,9 +1,9 @@
 import { Text, TouchableOpacity, View } from 'react-native';
 import { heightPercentageToDP } from 'react-native-responsive-screen';
 import { styles } from './style';
+import { addLabelProps } from './types';
 
-export default function CustomButton({text, onPress, disabled = false, style}) {
-  // console.log(text);
+export default function CustomButton({text, onPress, disabled = false, style}:addLabelProps) {
   const customstyles = style ?? [];
   
   return (

@@ -5,15 +5,17 @@ import { FlatList, SafeAreaView, View } from 'react-native';
 import withTheme from '../../Components/HOC';
 import Search from '../../Components/Header';
 import ListTemplate from '../../Components/ListTemplate/listTemplate';
-import { STRINGS } from '../../Constants/Strings';
+import { STRINGS, STRINGS_FIREBASE } from '../../Constants/Strings';
 import { styles } from './style';
+import { addLabelProp, newDataType } from './types';
 
-function ADD_LABELS({theme}) {
+function ADD_LABELS({theme}:addLabelProp) {
+  const [notesData, setNotesData] = useState<newDataType|null>();
+  
   const user = auth().currentUser;
   const THEME = theme;
   let uid = user?.uid;
-  const [notesData, setNotesData] = useState([]);
-  console.log('Label creater Page');
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,40 +23,34 @@ function ADD_LABELS({theme}) {
           .collection(STRINGS.FIREBASE.USER)
           .doc(uid)
           .collection(STRINGS.FIREBASE.LABELS)
-          .orderBy('time_stamp', 'asc')
+          .orderBy(STRINGS_FIREBASE.TIME_STAMP, STRINGS_FIREBASE.ORDER)
           .get();
-        const newData = []; // Temporary array to accumulate data
+        const newData:newDataType =[]; // Temporary array to accumulate data
         data.forEach(doc => {
           newData.push({id: doc.id});
         });
-
-        setNotesData(newData);
+        setNotesData(newData);        
       } catch (error) {
-        console.error('Error fetching data:', error);
+        // console.error('Error fetching data:', error);
       }
     };
     fetchData();
-    // Fetch initial data
-    // Set up listener for real-time updates
     const unsubscribe = firestore()
       .collection(STRINGS.FIREBASE.USER)
       .doc(uid)
       .collection(STRINGS.FIREBASE.LABELS)
-      .orderBy('time_stamp', 'asc')
+      .orderBy(STRINGS_FIREBASE.TIME_STAMP, STRINGS_FIREBASE.ORDER)
       .onSnapshot(querySnapshot => {
-        const newData = []; // Temporary array to accumulate data
+        const newData:newDataType = [];
         querySnapshot.forEach(doc => {
           newData.push({id: doc.id});
         });
         setNotesData(newData);
       });
-
-    // Stop listening for updates when no longer required
     return () => unsubscribe();
   }, []);
-  // console.log(newLabel.current);
   return (
-    <>
+    
       <SafeAreaView
         style={[styles.container, {backgroundColor: THEME.BACKGROUND}]}>
         <View style={styles.subContainer}>
@@ -80,7 +76,7 @@ function ADD_LABELS({theme}) {
           </View>
         </View>
       </SafeAreaView>
-    </>
+    
   );
 }
 

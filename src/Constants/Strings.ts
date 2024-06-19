@@ -55,5 +55,46 @@ export const STRINGS = {
   PASSWORD_WARNING:'Please enter your password',
   AVAILABLE_SPACE:'Available Space',
   STORAGE:'20 .254 GB of 25 GB Used',
-  NOTE:'Note-Taking App'
+  NOTE:'Note-Taking App',
+  SETTING:{
+    CHANGE_PASSWORD:'Change Password - (will soon be available)',
+    CHANGE_PROFILE:'Profile - (will soon be available)'
+  },
+  ARE_YOU_SURE:"Are you sure?",
+  CANCEL:'CANCEL',
+  OK:'OK',
+  START_WRITING_HERE:'Start Writing Here',
+  NO_REMINDER_EXIST:'No such reminder exist',
+  ADD_REMINDER:'Add Reminder',
+  CHECK_EMAIL:'Please check your email...',
+  ADD_NEW_NOTES:'+  Add New Notes',
+  ENTER_LINK_URL:'Enter Link URL',
+  ENTER_URL:'"Enter URL"',
+  ENTER_YOUR:'Enter your ' ,
+  PHOTO_UPLOAD_FAILED:'Photo upload failed',
+  UNKNOWN_ERROR:'unknown error'
 };
+
+export const STRINGS_FIREBASE = {
+  TIME_STAMP:'time_stamp',
+  DB_TIME_STAMP:'timeStamp',
+  ORDER:'asc',
+  LABEL:'label'
+} as const
+
+export const YUP_STRINGS = {
+  INVALID_EMAIL:'Invalid email',
+  INVALID_PASSWORD:'Invalid password',
+  PASSWORD_NOT_MATCH:"Password doesn't match",
+  INVALID_FIRST_NAME:'Invalid first name',
+  INVALID_LAST_NAME:'Invalid last name',
+  ENTER_EMAIL:'Please enter email',
+  ENTER_PASSWORD:"Please enter your password",
+  PHONE_NUMBER_WARNING1:'Number must be exactly 10 digits',
+  PHONE_NUMBER_WARNING2:'Enter Number',
+}as const
+
+export const PLATEFORM = {
+  IOS:'ios',
+  ANDROID:'Android'
+}

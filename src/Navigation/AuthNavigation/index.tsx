@@ -15,17 +15,19 @@ import SignUp from "../../Screens/SignUp";
 import Splash from "../../Screens/SplashScreen";
 import { setConnectionStatus } from "../../Store/Image";
 import { loadThemeFromStorage } from "../../Store/Theme";
+import { RootStackParamList } from '../../Types/navigation';
 import HomeNavigation from "../HomeNavigation";
+import { authNavigationProps, commonState, imageState } from './types';
+import { useAppDispatch } from '../../Store';
 
-function AuthNavigation({theme}) {
-    const isConnected = useSelector(state=>state.image.isConnected)
-    const isLoggedIn = useSelector(state=>state.common.isLogedIn)   
-    const Stack = createNativeStackNavigator();
-    const dispatch = useDispatch()
+function AuthNavigation({theme}:authNavigationProps) {
+    const isConnected = useSelector((state:imageState)=>state.image.isConnected)
+    const isLoggedIn = useSelector((state:commonState)=>state.common.isLogedIn)   
+    const Stack = createNativeStackNavigator<RootStackParamList>();
+    const dispatch = useAppDispatch()
     useEffect(() => {
         dispatch(loadThemeFromStorage());
         const unsubscribe = NetInfo.addEventListener(state => {
-            console.log(state,1);
             dispatch(setConnectionStatus(state.isConnected));
           });
       
@@ -33,18 +35,11 @@ function AuthNavigation({theme}) {
             unsubscribe();
           };
         }, [dispatch]);
-      
-        useEffect(() => {
-            console.log('Network connection status:', isConnected);
-            if (isConnected) {
-                console.log(isConnected,98); 
-            }
-        }, [isConnected]);
         
     return (
-        <>
+        
             <NavigationContainer>
-                <Stack.Navigator initialRouteName={SCREEN_CONSTANTS.Splash1}
+                <Stack.Navigator initialRouteName={SCREEN_CONSTANTS.Splash}
                     screenOptions={{
                         headerStyle: { backgroundColor: theme.BACKGROUND ,
                             
@@ -59,7 +54,7 @@ function AuthNavigation({theme}) {
                     }}>
                         {!isLoggedIn ? (
                     <>
-                        <Stack.Screen name={SCREEN_CONSTANTS.Splash1} component={Splash} options={{ headerShown: false }} />
+                        <Stack.Screen name={SCREEN_CONSTANTS.Splash} component={Splash} options={{ headerShown: false }} />
                         <Stack.Screen name={SCREEN_CONSTANTS.Enter} component={Enter} options={{ headerShown: false }} />
                         <Stack.Screen name={SCREEN_CONSTANTS.Login} component={LogIn} />
                         <Stack.Screen name={SCREEN_CONSTANTS.SignUp} component={SignUp} options={{headerTitle:'Create Account'}} />
@@ -74,7 +69,7 @@ function AuthNavigation({theme}) {
                 )}
                 </Stack.Navigator>
             </NavigationContainer>
-        </>
+        
     )
 }
 export default withTheme(AuthNavigation)

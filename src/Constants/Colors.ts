@@ -47,6 +47,15 @@ export const DARK_THEME_COLOR = {
         FOOTER: '#191A1D',
         SETTING_BOX: 'rgb(73,72,85)'
 };
+
+export const DEVICE_THEME = {
+        DARK:'dark',
+        LIGHT:'light'
+} as const
+
+export const COLORS = {
+        BLACK: '#000000',
+} as const
 // export const DARK_COLORS = {
 //     BACKGROUND: '#292B30', //
 //     BACKGROUND1: 'rgb(107,78,255)',
