@@ -22,11 +22,12 @@ import { SettingProps, themeState } from "./types";
 import { DEVICE_THEME } from "../../Constants/Colors";
 
 function Setting({ navigation, theme }:SettingProps) {
-  const user = auth().currentUser;
   const dispatch = useDispatch();
-  const THEME = theme;
-  const [show, setShow] = useState(false);
+
   const isThemeOn = useSelector((state:themeState) => state.theme.theme);
+  const user = auth().currentUser;
+  const THEME = theme;
+  
   const signOut = async () => {
     try {
       if (user?.providerData[0].providerId !== "google.com") {

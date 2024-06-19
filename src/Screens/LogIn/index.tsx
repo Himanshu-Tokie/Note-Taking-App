@@ -23,10 +23,13 @@ const SignupSchema = Yup.object().shape({
 });
 
 const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
-  const isLogedIn = useAppSelector((state) => state.common.isLogedIn);
-  const dispatch = useAppDispatch();
   const [errorLogin, setErrorLogin] = useState(false);
 
+  const isLogedIn = useAppSelector((state) => state.common.isLogedIn);
+  const dispatch = useAppDispatch();
+  
+  const THEME = theme;
+  
   const logInUser = async (email: string, password: string) => {
     try {
       const userCredential = await auth().signInWithEmailAndPassword(email, password);
@@ -45,7 +48,6 @@ const LogIn: React.FC<LogInProps> = ({ navigation, theme }) => {
     navigation.navigate(SCREEN_CONSTANTS.ForgotPassword);
   };
 
-  const THEME = theme;
 
   if (errorLogin) {
     Alert.alert(STRINGS.INVALID_CREDENTIALS);

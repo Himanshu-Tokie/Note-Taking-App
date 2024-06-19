@@ -10,21 +10,18 @@ import {
 } from 'react-native-responsive-screen';
 import { useSelector } from 'react-redux';
 import { SCREEN_CONSTANTS } from '../../Constants';
+import { DEVICE_THEME } from '../../Constants/Colors';
 import { IMAGES } from '../../Constants/Images';
+import { RootStackParamList, RootStackScreenProps } from '../../Types/navigation';
 import withTheme from '../HOC';
 import { styles } from './style';
 import { colorSchemeState, labelTemplateTypes } from './types';
-import { RootStackParamList, RootStackScreenProps } from '../../Types/navigation';
-import { DEVICE_THEME } from '../../Constants/Colors';
-
-type route={
-  text:string;
-  note:string;
-}
-
 
 function LabelTemplate({icon, text, files, note,theme}:labelTemplateTypes) {
   const nav = useNavigation<RootStackScreenProps<keyof RootStackParamList>>();
+  const colorScheme = useSelector((state:colorSchemeState)=>state.theme.theme)
+  const THEME = theme ;
+  
   const label = (text:string)=>{
     if(!text.length)return ''
     else {
@@ -35,11 +32,8 @@ function LabelTemplate({icon, text, files, note,theme}:labelTemplateTypes) {
     }
   }
   function navigationHandler() {
-    // nav.navigate(SCREEN_CONSTANTS.Label, {text, note});
     nav.navigate(SCREEN_CONSTANTS.Label, { text, note });
   }
-  const colorScheme = useSelector((state:colorSchemeState)=>state.theme.theme)
-  const THEME = theme ;
   return (
     
       <View style={styles.sub}>

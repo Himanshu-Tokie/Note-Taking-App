@@ -9,13 +9,17 @@ import { dropdownComponentProps } from './types';
   const DropdownComponent = ({data,value, setValue,theme}:dropdownComponentProps) => {
     const [isFocus, setIsFocus] = useState(false);
     const labelData:{label:string}[] = []    
-    data.forEach((label)=>{
-        labelData.push({'label':label.id})
-    })
+    
+    const THEME = theme     
+
     useEffect(()=>
       {value='Select label'}
     ,[])
-    const THEME = theme     
+
+    data.forEach((label)=>{
+        labelData.push({'label':label.id})
+    })
+    
     return (
       <View style={[styles.container,{backgroundColor:THEME?.BACKGROUND}]}>
         <Dropdown

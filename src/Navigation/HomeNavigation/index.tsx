@@ -17,11 +17,10 @@ import { RootTabParamList } from '../../Types/navigation';
 import { HomeNavigationProps } from './types';
 
  function HomeNavigation({theme}:HomeNavigationProps) {
+   const [show, setShow] = useState(false);
+   const [labelData, setLabelData] = useState<any>();
   const parentNavigation = useNavigation();
   const Tab = createBottomTabNavigator<RootTabParamList>();
-  // const THEME = route.params.theme
-  const [show, setShow] = useState(false);
-  const [labelData, setLabelData] = useState<any>();
   const user = auth().currentUser;
   let uid = user?.uid;
   useEffect(() => {

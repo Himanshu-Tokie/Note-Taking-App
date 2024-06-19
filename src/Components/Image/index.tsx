@@ -7,20 +7,15 @@ import { userImageProps } from './types';
 
 
 export default function UserImage({photo,setPhoto}:userImageProps) {
+  
   const handleImagePicker = () => {
     async function launch() {
       const response = await launchImageLibrary({
         mediaType:'photo'
       });
-      if (response.didCancel) {
-        // console.log('User cancelled image picker', 1);
-      }
-      //  else if (response.error) {
-        // console.log('ImagePicker Error: ', response.error, 2);
-      // }
-       else {
+      if (!response.didCancel) {
         if(response.assets)
-        setPhoto(response.assets[0].uri);
+          setPhoto(response.assets[0].uri);
       }
     }
     launch();

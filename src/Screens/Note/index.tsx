@@ -1,7 +1,6 @@
 import { default as auth } from "@react-native-firebase/auth";
 import firestore from "@react-native-firebase/firestore";
 import { useHeaderHeight } from "@react-navigation/elements";
-import * as htmlparser2 from "htmlparser2";
 import React, { useEffect, useRef, useState } from "react";
 import {
   FlatList,
@@ -30,12 +29,17 @@ import withTheme from "../../Components/HOC";
 import Header from "../../Components/Header";
 import UserImage from "../../Components/Image";
 import { STRINGS } from "../../Constants/Strings";
+import { createNote, createReminder, updateData, updateReminder } from "../../Firebase Utils";
 import { loadImage } from "../../Store/Image";
 import { imageCompressor } from "../../Utils";
 import { styles } from "./styles";
 import { NoteScreenProps, imageState } from "./types";
 
 const Note = ({ route, theme }:NoteScreenProps) => {
+  const [photo, setPhoto] = useState<string|null>(null);
+  const [isDialogVisible, setIsDialogVisible] = useState(false);
+  const [keyboardVerticalOffset, setKeyboardVerticalOffset] = useState(0);
+
   const dispatch = useDispatch();
   const imageInitData = useSelector(
     (state: imageState) => state.image.imageUri
@@ -53,7 +57,10 @@ const Note = ({ route, theme }:NoteScreenProps) => {
   const isCompleteNew = useRef(false);
   const noteIdExist = useRef(false);
   const dateRef = useRef(new Date());
-
+  const RichText = useRef<RichEditor>(null);
+  const img = useRef<string[]>([]);
+  const noteNewId = useRef<string|null>();
+  
   if (route.params != undefined) {
     if (route.params?.labelData != undefined) {
       
@@ -84,22 +91,20 @@ const Note = ({ route, theme }:NoteScreenProps) => {
     }
   }
   const [date, setDate] = useState(dateRef.current);
-
-  const RichText = useRef<RichEditor>(null);
-  const articleData = useRef(data);
   const [title, setTitle] = useState(initialTitle);
   const [label, setLable] = useState(lable);
-  const labelRef = useRef(lable);
-  const [isDialogVisible, setIsDialogVisible] = useState(false);
-  const titleRef = useRef(initialTitle);
   const [value, setValue] = useState(lable);
+  const [imageData, setImageData] = useState(imageInitialData);
+
+  const articleData = useRef(data);
+  const labelRef = useRef(lable);
+  const titleRef = useRef(initialTitle);
+
+  const THEME = theme;
+  
   useEffect(() => {
     labelRef.current = value;
   }, [value]);
-  const [photo, setPhoto] = useState<string|null>(null);
-  const [imageData, setImageData] = useState(imageInitialData);
-  const img = useRef<string[]>([]);
-  const noteNewId = useRef<string|null>();
   useEffect(() => {
     if (!photo || !uid) {
       return;
@@ -116,114 +121,6 @@ const Note = ({ route, theme }:NoteScreenProps) => {
     processImage();
   }, [photo, uid]);
 
-  const createReminder = async () => {
-    try {
-      await firestore()
-        .collection(STRINGS.FIREBASE.USER)
-        .doc(uid)
-        .collection(STRINGS.FIREBASE.REMINDER)
-        .add({
-          title: titleRef.current,
-          content: articleData.current,
-          timeStamp: dateRef.current,
-        })
-        .then(() => {
-          // console.log("new reminder added successfully");
-        });
-    } catch (e) {
-      // console.log(e, STRINGS.FIREBASE.REMINDER);
-    }
-  };
-  const updateReminder = async () => {
-    try {
-      await firestore()
-        .collection(STRINGS.FIREBASE.USER)
-        .doc(uid)
-        .collection(STRINGS.FIREBASE.REMINDER)
-        .doc(noteId)
-        .update({
-          title: titleRef.current,
-          content: articleData.current,
-          timeStamp: dateRef.current,
-        })
-        .then(() => {
-          // console.log("reminder updated successfully");
-        });
-    } catch (e) {
-      // console.log(e, "reminderrrr");
-    }
-  };
-  const updateData = async () => {
-    try {
-      await firestore()
-        .collection(STRINGS.FIREBASE.USER)
-        .doc(uid)
-        .collection(STRINGS.FIREBASE.NOTES)
-        .doc(noteId)
-        .update({
-          title: titleRef.current,
-          content: articleData.current,
-          time_stamp: firestore.FieldValue.serverTimestamp(),
-        });
-    } catch (e) {
-      // console.log(e);
-    }
-  };
-  const createN = async () => {
-    await firestore()
-      .collection(STRINGS.FIREBASE.USER)
-      .doc(uid)
-      .collection(STRINGS.FIREBASE.NOTES)
-      .add({
-        label: labelRef.current,
-        title: titleRef.current,
-        content: articleData.current,
-        time_stamp: firestore.FieldValue.serverTimestamp(),
-        url: [],
-      })
-      .then((data) => {
-        noteNewId.current = data.id;
-      });
-  };
-  const createNote = async () => {
-    try {
-      if (labelRef.current === null) {
-        labelRef.current = label;
-      }
-      const regex = /^[\s\r\n]*$/;
-      const dom = htmlparser2.parseDocument(articleData.current);
-      if (
-        !regex.test(articleData.current) ||
-        !regex.test(titleRef.current) ||
-        img.current.length
-      ) {
-        createN();
-        const count = await firestore()
-          .collection(STRINGS.FIREBASE.USER)
-          .doc(uid)
-          .collection(STRINGS.FIREBASE.LABELS)
-          .doc(labelRef.current)
-          .get();
-
-        let updatedcount = count.data();
-        if (updatedcount) updatedcount = updatedcount["count"] + 1;
-        await firestore()
-          .collection(STRINGS.FIREBASE.USER)
-          .doc(uid)
-          .collection(STRINGS.FIREBASE.LABELS)
-          .doc(labelRef.current)
-          .set(
-            {
-              count: updatedcount,
-              time_stamp: firestore.FieldValue.serverTimestamp(),
-            },
-            { merge: true }
-          );
-      }
-    } catch (e) {
-      console.log(e);
-    }
-  };
   useEffect(() => {
     setDate(dateRef.current);
   }, []);
@@ -236,24 +133,24 @@ const Note = ({ route, theme }:NoteScreenProps) => {
     const fetchData = async () => {
       if (!isNew.current) {
         if (reminder.current) {
-          await updateReminder();
+          await updateReminder(uid,noteId,titleRef.current,articleData.current,dateRef.current);
         } else {
-          await updateData();
+          await updateData(uid,noteId,titleRef.current,articleData.current);
         }
       }
      else {
       if (reminder.current) {
-        await createReminder();
+        await createReminder(uid,titleRef.current,articleData.current,dateRef.current);
         // console.log("reminder created success");
       } else {
-        await createNote();
+        await createNote(uid,labelRef.current,label,articleData.current,titleRef.current,noteNewId,img.current);
         // console.log("note created success");
       }
     }
     if (noteIdExist.current) {
       dispatch(loadImage({ uid: uid, noteId: noteId, uri: img.current }));
     } 
-    else if (noteNewId.current) {
+    else if (noteNewId.current) {     
       dispatch(
         loadImage({ uid: uid, noteId: noteNewId.current, uri: img.current })
       );
@@ -271,8 +168,6 @@ const Note = ({ route, theme }:NoteScreenProps) => {
   //   }
   // };
   const headerHeight = useHeaderHeight();
-  const THEME = theme;
-  const [keyboardVerticalOffset, setKeyboardVerticalOffset] = useState(0);
 
   useEffect(() => {
     const keyboardDidShowListener = Keyboard.addListener(

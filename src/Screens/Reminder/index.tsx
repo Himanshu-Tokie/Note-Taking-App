@@ -6,16 +6,49 @@ import withTheme from "../../Components/HOC";
 import Search from "../../Components/Header";
 import ListTemplate from "../../Components/ListTemplate/listTemplate";
 import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
+import { fetchReminderData } from "../../Firebase Utils";
 import { styles } from "./style";
 import { ReminderProps, reminderFormate, reminderNotesDataType } from "./types";
 
 function Extar2({ navigation, theme, route }: ReminderProps) {
-  const user = auth().currentUser;
-  let uid = user?.uid;
-  const THEME = theme;
   const [searchData, setSearchData] = useState<reminderNotesDataType | null>();
   const [notesData, setNotesData] = useState<reminderNotesDataType | null>();
   const [noData, setNoData] = useState<boolean>(false);
+
+  const user = auth().currentUser;
+  let uid = user?.uid;
+  const THEME = theme;
+
+  useEffect(() => {
+    fetchReminderData(uid,setSearchData,setNotesData); 
+    if (uid) {
+      const unsubscribe = firestore()
+      .collection(STRINGS.FIREBASE.USER)
+      .doc(uid)
+      .collection(STRINGS.FIREBASE.REMINDER)
+      .orderBy(STRINGS_FIREBASE.DB_TIME_STAMP, STRINGS_FIREBASE.ORDER)
+      .onSnapshot((querySnapshot) => {
+        const newData: reminderNotesDataType = []; // Temporary array to accumulate data
+        querySnapshot.forEach((doc) => {
+          newData.push({
+            title: doc.data().title,
+            data: doc.data().content,
+            noteId: doc.id,
+            id: uid,
+            timestamp: doc.data().timeStamp,
+          });
+        });
+        setNotesData(newData);
+        setSearchData(newData);
+      });
+      return () => unsubscribe();
+    }
+  }, [uid]);
+  useEffect(() => {
+    if (!searchData?.length) {
+    }
+  }, [searchData]);
+
   const search = (str: string) => {
     let text = str.toLowerCase();
     if (notesData) {
@@ -30,75 +63,15 @@ function Extar2({ navigation, theme, route }: ReminderProps) {
       setSearchData(filteredData);
     }
   };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (uid) {
-          const data = await firestore()
-            .collection(STRINGS.FIREBASE.USER)
-            .doc(uid)
-            .collection(STRINGS.FIREBASE.REMINDER)
-            .get();
-
-          const newData: reminderNotesDataType = []; // Temporary array to accumulate data
-
-          data.forEach((doc) => {
-            newData.push({
-              title: doc.data().title,
-              data: doc.data().content,
-              noteId: doc.id,
-              id: uid,
-              timestamp: doc.data().timeStamp,
-            });
-          });
-
-          setNotesData(newData);
-          setSearchData(newData);
-        }
-      } catch (error) {
-        // console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData(); // Fetch initial data
-
-    // Set up listener for real-time updates
-    if (uid) {
-      const unsubscribe = firestore()
-        .collection(STRINGS.FIREBASE.USER)
-        .doc(uid)
-        .collection(STRINGS.FIREBASE.REMINDER)
-        .orderBy(STRINGS_FIREBASE.DB_TIME_STAMP, STRINGS_FIREBASE.ORDER)
-        .onSnapshot((querySnapshot) => {
-          const newData: reminderNotesDataType = []; // Temporary array to accumulate data
-          querySnapshot.forEach((doc) => {
-            newData.push({
-              title: doc.data().title,
-              data: doc.data().content,
-              noteId: doc.id,
-              id: uid,
-              timestamp: doc.data().timeStamp,
-            });
-          });
-          setNotesData(newData);
-          setSearchData(newData);
-        });
-      return () => unsubscribe();
-    }
-  }, [uid]);
-  useEffect(() => {
-    if (!searchData?.length) {
-    }
-  }, [searchData]);
+  
   return (
     <SafeAreaView
-      style={[
-        styles.container,
-        {
-          backgroundColor: THEME.BACKGROUND,
-        },
-      ]}
+    style={[
+      styles.container,
+      {
+        backgroundColor: THEME.BACKGROUND,
+      },
+    ]}
     >
       <View style={styles.subContainer}>
         <View>

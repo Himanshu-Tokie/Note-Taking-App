@@ -67,7 +67,12 @@ export const STRINGS = {
   NO_REMINDER_EXIST:'No such reminder exist',
   ADD_REMINDER:'Add Reminder',
   CHECK_EMAIL:'Please check your email...',
-  ADD_NEW_NOTES:'+  Add New Notes'
+  ADD_NEW_NOTES:'+  Add New Notes',
+  ENTER_LINK_URL:'Enter Link URL',
+  ENTER_URL:'"Enter URL"',
+  ENTER_YOUR:'Enter your ' ,
+  PHOTO_UPLOAD_FAILED:'Photo upload failed',
+  UNKNOWN_ERROR:'unknown error'
 };
 
 export const STRINGS_FIREBASE = {
