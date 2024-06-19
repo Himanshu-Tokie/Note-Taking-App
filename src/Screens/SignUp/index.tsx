@@ -13,6 +13,9 @@ import { SignUpProps, valuesTypes } from './types';
 // utils
 function SignUp({ navigation,theme }:SignUpProps) {
   const dispatch = useDispatch()
+  
+  const THEME = theme 
+
   const signUp = async (values:valuesTypes) => {
     try {
       let userCredentials = await auth().createUserWithEmailAndPassword(
@@ -28,7 +31,6 @@ function SignUp({ navigation,theme }:SignUpProps) {
       // console.error('Error creating account:', error.code, error.message);
     }
   };
-  const THEME = theme 
 
   return (
     

@@ -18,10 +18,6 @@ import { RootStackParamList, RootStackScreenProps } from '../../Types/navigation
 import { signUpUser } from '../../Utils';
 import { styles } from './style';
 
-// function isErrorWithCode(error) {
-//   return error.code !== undefined;
-// }
-
 export default function Google() {
   const dispatch = useDispatch();
   const navigation = useNavigation<RootStackScreenProps<keyof RootStackParamList>>();

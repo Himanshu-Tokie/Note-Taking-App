@@ -38,9 +38,9 @@ export const uploadPhoto = async(photo:string,uid:string,noteId:string) => {
           
     } catch (e:unknown) {
         if(e instanceof Error){
-            Alert.alert('Photo upload failed', e.message);
+            Alert.alert(STRINGS.PHOTO_UPLOAD_FAILED , e.message);
         }else{
-            Alert.alert('unknown error');
+            Alert.alert(STRINGS.UNKNOWN_ERROR);
         }
     }
 }

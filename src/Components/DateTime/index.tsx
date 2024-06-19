@@ -9,6 +9,8 @@ function DateTime({date, setDate,theme}:dateTimeProps) {
   const [mode, setMode] = useState<"date"|"time">('date');
   const [show, setShow] = useState(false);
 
+  const THEME = theme
+  
   const onChange = (event:DateTimePickerEvent,selectedDate:Date|undefined) => {
     setShow(false);
     if(selectedDate)
@@ -27,7 +29,6 @@ function DateTime({date, setDate,theme}:dateTimeProps) {
   const showTimepicker = () => {
     showMode('time');
   };
-  const THEME = theme
 
   return (
     <>

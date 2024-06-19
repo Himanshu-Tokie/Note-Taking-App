@@ -15,25 +15,9 @@ function ListTemplate({ note, nav, maxHeight, label, theme }: listTemplateTypes)
   const source: HTMLSource = {
     html: typeof note.data === 'string' ? note.data : ""
   };
-
+  
   const { width: contentWidth } = useWindowDimensions();
   const THEME = theme;
-
-  // const date = note.timestamp?new Date(
-  // note.timestamp?.seconds * 1000 + note.timestamp?.nanoseconds / 1000000
-  // ):'error';
-  // const options = {
-  //   year: "numeric",
-  //   month: "long",
-  //   day: "numeric",
-  //   hour: "numeric",
-  //   minute: "numeric",
-  //   second: "numeric",
-  //   hour12: false,
-  // };
-  // const formattedDate = date.toLocaleString("en-US");
-
-
   let date;
   if (typeof note.timestamp === 'string') {
     date = new Date(note.timestamp);
@@ -44,8 +28,8 @@ function ListTemplate({ note, nav, maxHeight, label, theme }: listTemplateTypes)
   } else {
     date = 'error';
   }
-
   const formattedDate = date instanceof Date ? date.toLocaleString("en-US") : date;
+
 
 
   const title = () => {

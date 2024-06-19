@@ -28,17 +28,21 @@ import { styles } from "./style";
 import { HomeProps, newDataType } from "./types";
 
 function Home({ theme }: HomeProps) {
-  const THEME = theme;
-  const user = auth().currentUser;
+  const [usedSpace, setUsedSpace] = useState(0);
+  const [freeSpace, setFreeSpace] = useState(0);
+  const [label, setLabel] = useState<newDataType | null>();
+  
   const colorScheme = useSelector(
     (state: colorSchemeState) => state.theme.theme
   );
+  
+  const THEME = theme;
+  const user = auth().currentUser;
   const defaultImage = IMAGES.DEFAULTUSER;
   const photoURL = user?.photoURL
     ? { uri: { uri: user.photoURL } }
     : { uri: defaultImage };
 
-  const [label, setLabel] = useState<newDataType | null>();
 
   useEffect(() => {
     getLabel();
@@ -93,36 +97,17 @@ function Home({ theme }: HomeProps) {
       // console.error("Error retrieving notes:", error);
     }
   };
-  // const bytesToGB = (bytes)=>{
-  //   return (bytes/(1024*1024*1024))%100
-  // }
-  const [usedSpace, setUsedSpace] = useState(0);
-  const [freeSpace, setFreeSpace] = useState(0);
-  // DeviceInfo.getFreeDiskStorage().then((freeDiskStorage) => {
-  //   // console.log(freeDiskStorage,'free');
-  //   setFreeSpace(freeDiskStorage)
-  // });
-  // DeviceInfo.getUsedMemory().then((usedMemory) => {
-  //   setUsedSpace(usedMemory)
-  // });
-
-  // setInterval(fetchStorageInfo,10000)
   const fetchStorageInfo = useCallback(async () => {
-    // let isActive = true;
     try {
       console.log(1888);
       const freeDiskStorage = await DeviceInfo.getTotalDiskCapacity();
       const usedMemory = await DeviceInfo.getUsedMemory();
-      // if (isActive) {
         setFreeSpace(freeDiskStorage);
         setUsedSpace(usedMemory);
       
     } catch (error) {
       // console.error("Error fetching storage info:", error);
     }
-    // return () => {
-    //   isActive = false;
-    // };
   }, []);
 
   useFocusEffect(
@@ -131,12 +116,6 @@ function Home({ theme }: HomeProps) {
       fetchStorageInfo();
     }, [fetchStorageInfo])
   );
-  const [parentLayout, setParentLayout] = useState({
-    x: 0,
-    y: 0,
-    width: 0,
-    height: 0,
-  });
   const bytesToGB = (bytes: number) =>(bytes / (1024 * 1024 * 1024)).toFixed(2);
   if (user) {
     return (

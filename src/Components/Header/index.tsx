@@ -25,7 +25,9 @@ import { headerTypes } from './types';
   const navigation = useNavigation();
   const [isFocussed, setIsFocused] = useState(false);
   const [value,setValue] = useState('')
+
   const THEME = theme
+
   const label = ()=>{
     if(!headerText)
       return headerText
@@ -34,6 +36,7 @@ import { headerTypes } from './types';
       else 
       return headerText
   }
+  
   return (
     
       <View style={styles.container}>

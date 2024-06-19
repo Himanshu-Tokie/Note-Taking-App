@@ -8,15 +8,17 @@ import Search from "../../Components/Header";
 import StaggedLabel from "../../Components/Staggered";
 import { SCREEN_CONSTANTS } from "../../Constants";
 import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
+import { fetchLabelData } from "../../Firebase Utils";
 import { styles } from "./style";
 import { LabelProps, labelNotesDataType } from "./types";
 
 function Label({ navigation, route, theme }:LabelProps) {
+  const [searchData, setSearchData] = useState<labelNotesDataType >([]);
+  const [notesData, setNotesData] = useState<labelNotesDataType>([]);
+  
   const uid = route.params?.note?? '';
   const label = route.params?.text ?? '';
   const THEME = theme;
-  const [searchData, setSearchData] = useState<labelNotesDataType >([]);
-  const [notesData, setNotesData] = useState<labelNotesDataType>([]);
   const note = {
     uid,
     label,
@@ -37,39 +39,7 @@ function Label({ navigation, route, theme }:LabelProps) {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await firestore()
-          .collection(STRINGS.FIREBASE.USER)
-          .doc(uid)
-          .collection(STRINGS.FIREBASE.NOTES)
-          .where(STRINGS_FIREBASE.LABEL, "==", label)
-          .orderBy(STRINGS_FIREBASE.TIME_STAMP, STRINGS_FIREBASE.ORDER)
-          .get();
-
-        const newData: labelNotesDataType = []; // Temporary array to accumulate data
-
-        data.forEach((doc) => {
-          newData.push({
-            title: doc.data().title,
-            data: doc.data().content,
-            noteId: doc.id,
-            id: uid,
-            label: label,
-            ImageUrl: doc.data().url ?? [],
-          });
-        });
-
-        setNotesData(newData);
-        setSearchData(newData);
-      } catch (error) {
-        // console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData(); // Fetch initial data
-
-    // Set up listener for real-time updates
+    fetchLabelData(uid,label,setSearchData,setNotesData); 
     const unsubscribe = firestore()
       .collection(STRINGS.FIREBASE.USER)
       .doc(uid)
@@ -93,8 +63,6 @@ function Label({ navigation, route, theme }:LabelProps) {
         setNotesData(newData);
         setSearchData(newData);
       });
-
-    // Stop listening for updates when no longer required
     return () => unsubscribe();
   }, [uid]);
 

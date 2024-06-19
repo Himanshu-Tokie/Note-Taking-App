@@ -35,13 +35,6 @@ function AuthNavigation({theme}:authNavigationProps) {
             unsubscribe();
           };
         }, [dispatch]);
-      
-        // useEffect(() => {
-        //     console.log('Network connection status:', isConnected);
-        //     if (isConnected) {
-        //         console.log(isConnected,98); 
-        //     }
-        // }, [isConnected]);
         
     return (
         
