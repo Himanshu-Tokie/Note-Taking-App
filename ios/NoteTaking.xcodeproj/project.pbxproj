@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* NoteTakingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NoteTakingTests.m */; };
+		11C5D4AE2C25C24300A74DD7 /* CombinedModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C5D4AD2C25C24300A74DD7 /* CombinedModule.m */; };
+		11F8F1DB2C257CFB00A8060E /* counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F8F1DA2C257CFB00A8060E /* counter.swift */; };
+		11F8F1E02C2589A600A8060E /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 11F8F1DF2C2589A600A8060E /* GoogleMobileAds */; };
+		11F8F1E22C258F9700A8060E /* RNAdMobModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F8F1E12C258F9700A8060E /* RNAdMobModule.swift */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -33,6 +37,10 @@
 		00E356F21AD99517003FC87E /* NoteTakingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteTakingTests.m; sourceTree = "<group>"; };
 		0D18E4C59B86E229852F7F29 /* Pods_NoteTaking_NoteTakingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NoteTaking_NoteTakingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1193B00F2BF20CAD0097C5BB /* NoteTaking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NoteTaking.entitlements; path = NoteTaking/NoteTaking.entitlements; sourceTree = "<group>"; };
+		11C5D4AD2C25C24300A74DD7 /* CombinedModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CombinedModule.m; path = NoteTaking/CombinedModule.m; sourceTree = "<group>"; };
+		11F8F1D92C257CFB00A8060E /* NoteTaking-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NoteTaking-Bridging-Header.h"; sourceTree = "<group>"; };
+		11F8F1DA2C257CFB00A8060E /* counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = counter.swift; sourceTree = "<group>"; };
+		11F8F1E12C258F9700A8060E /* RNAdMobModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RNAdMobModule.swift; path = NoteTaking/RNAdMobModule.swift; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* NoteTaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoteTaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = NoteTaking/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = NoteTaking/AppDelegate.mm; sourceTree = "<group>"; };
@@ -63,6 +71,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11F8F1E02C2589A600A8060E /* GoogleMobileAds in Frameworks */,
 				90DBBE7E7898190A2F656F85 /* Pods_NoteTaking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -99,6 +108,10 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				11F8F1DA2C257CFB00A8060E /* counter.swift */,
+				11F8F1D92C257CFB00A8060E /* NoteTaking-Bridging-Header.h */,
+				11F8F1E12C258F9700A8060E /* RNAdMobModule.swift */,
+				11C5D4AD2C25C24300A74DD7 /* CombinedModule.m */,
 			);
 			name = NoteTaking;
 			sourceTree = "<group>";
@@ -197,6 +210,9 @@
 			dependencies = (
 			);
 			name = NoteTaking;
+			packageProductDependencies = (
+				11F8F1DF2C2589A600A8060E /* GoogleMobileAds */,
+			);
 			productName = NoteTaking;
 			productReference = 13B07F961A680F5B00A75B9A /* NoteTaking.app */;
 			productType = "com.apple.product-type.application";
@@ -214,7 +230,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -227,6 +243,9 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
+			packageReferences = (
+				11F8F1DE2C2589A600A8060E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -414,6 +433,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11F8F1E22C258F9700A8060E /* RNAdMobModule.swift in Sources */,
+				11C5D4AE2C25C24300A74DD7 /* CombinedModule.m in Sources */,
+				11F8F1DB2C257CFB00A8060E /* counter.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
@@ -434,6 +456,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-NoteTaking-NoteTakingTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -461,6 +484,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-NoteTaking-NoteTakingTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = NoteTakingTests/Info.plist;
@@ -505,6 +529,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chicmicapps.notetaking;
 				PRODUCT_NAME = NoteTaking;
+				SWIFT_OBJC_BRIDGING_HEADER = "NoteTaking-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -534,6 +559,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chicmicapps.notetaking;
 				PRODUCT_NAME = NoteTaking;
+				SWIFT_OBJC_BRIDGING_HEADER = "NoteTaking-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -623,10 +649,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -709,10 +732,7 @@
 					"-DFOLLY_CFG_NO_COROUTINES=1",
 					"-DFOLLY_HAVE_CLOCK_GETTIME=1",
 				);
-				OTHER_LDFLAGS = (
-					"$(inherited)",
-					" ",
-				);
+				OTHER_LDFLAGS = "$(inherited)  ";
 				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				USE_HERMES = true;
@@ -751,6 +771,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		11F8F1DE2C2589A600A8060E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		11F8F1DF2C2589A600A8060E /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11F8F1DE2C2589A600A8060E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

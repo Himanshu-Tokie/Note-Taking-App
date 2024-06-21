@@ -26,23 +26,25 @@ import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
 import { colorSchemeState } from "../MainScreen/type";
 import { styles } from "./style";
 import { HomeProps, newDataType } from "./types";
+import NewModuleButton from "../../Components/TestModules";
+// import NewModuleButton from "../../Components/TestModules";
+// import { loadAd } from "../../Shared/Services/NativeModules";
 
 function Home({ theme }: HomeProps) {
   const [usedSpace, setUsedSpace] = useState(0);
   const [freeSpace, setFreeSpace] = useState(0);
   const [label, setLabel] = useState<newDataType | null>();
-  
+
   const colorScheme = useSelector(
     (state: colorSchemeState) => state.theme.theme
   );
-  
+
   const THEME = theme;
   const user = auth().currentUser;
   const defaultImage = IMAGES.DEFAULTUSER;
   const photoURL = user?.photoURL
     ? { uri: { uri: user.photoURL } }
     : { uri: defaultImage };
-
 
   useEffect(() => {
     getLabel();
@@ -102,21 +104,27 @@ function Home({ theme }: HomeProps) {
       console.log(1888);
       const freeDiskStorage = await DeviceInfo.getTotalDiskCapacity();
       const usedMemory = await DeviceInfo.getUsedMemory();
-        setFreeSpace(freeDiskStorage);
-        setUsedSpace(usedMemory);
-      
+      setFreeSpace(freeDiskStorage);
+      setUsedSpace(usedMemory);
     } catch (error) {
       // console.error("Error fetching storage info:", error);
     }
   }, []);
 
   useFocusEffect(
-    
     useCallback(() => {
       fetchStorageInfo();
     }, [fetchStorageInfo])
   );
-  const bytesToGB = (bytes: number) =>(bytes / (1024 * 1024 * 1024)).toFixed(2);
+  // useEffect(()=>{
+  //   loadAd('ca-app-pub-3940256099942544/9214589741').then(()=>
+  //     console.log('added ad')
+  // ).catch((e)=>console.log(e)
+  // )
+    
+  // },[])
+  const bytesToGB = (bytes: number) =>
+    (bytes / (1024 * 1024 * 1024)).toFixed(2);
   if (user) {
     return (
       <SafeAreaView
@@ -134,15 +142,15 @@ function Home({ theme }: HomeProps) {
             </View>
             <View style={styles.innerHeader}>
               <ImageModal
-              // modalImageStyle={{height:50,width:50}}
-              resizeMode="contain"
-              imageBackgroundColor={THEME.BACKGROUND}
-              style={{
-                borderRadius: 50,
-                height: heightPercentageToDP("6.8%"),
-                width: heightPercentageToDP("6.8%"),
-              }}
-              source={photoURL.uri}
+                // modalImageStyle={{height:50,width:50}}
+                resizeMode="contain"
+                imageBackgroundColor={THEME.BACKGROUND}
+                style={{
+                  borderRadius: 50,
+                  height: heightPercentageToDP("6.8%"),
+                  width: heightPercentageToDP("6.8%"),
+                }}
+                source={photoURL.uri}
               />
             </View>
           </View>
@@ -170,11 +178,28 @@ function Home({ theme }: HomeProps) {
                   <View style={{ paddingLeft: widthPercentageToDP("7%") }}>
                     <Text style={[styles.text]}>{STRINGS.AVAILABLE_SPACE}</Text>
                     <Text style={[styles.size, { color: THEME.HOMESIZE }]}>
-                      {bytesToGB(usedSpace)} GB of {bytesToGB(freeSpace)} GB Used
+                      {bytesToGB(usedSpace)} GB of {bytesToGB(freeSpace)} GB
+                      Used
                     </Text>
                   </View>
                 </View>
               </ImageBackground>
+              <NewModuleButton />
+              {/* <View
+                style={{
+                  flex: 1,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              > */}
+                {/* <View
+                  id="adViewContainer"
+                  style={{ width: "100%", height: 100 }}
+                > */}
+                  {/* AdView will be inserted here */}
+                {/* </View> */}
+                {/* <Text>React Native App with AdView</Text> */}
+              {/* </View> */}
             </View>
             {!label && <ActivityIndicator size="large" />}
             {label && (
