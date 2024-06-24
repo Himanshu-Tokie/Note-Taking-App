@@ -1,7 +1,6 @@
 package com.chicmicapps.notetaking
 
 import android.util.Log
-import android.view.View
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
@@ -14,7 +13,7 @@ import com.google.android.gms.ads.LoadAdError
 class AdViewManager : SimpleViewManager<AdView>() {
 
     companion object {
-        const val REACT_CLASS = "AdView"
+        const val REACT_CLASS = "BannerAdView"
         const val TAG = "AdViewManager"
     }
 
@@ -24,7 +23,11 @@ class AdViewManager : SimpleViewManager<AdView>() {
 
     override fun createViewInstance(reactContext: ThemedReactContext): AdView {
         val adView = AdView(reactContext)
-        adView.setAdSize(AdSize.BANNER)
+        val adSize = AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(reactContext, 320)
+        adView.setAdSize(adSize)
+//        adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
         return adView
     }
 
