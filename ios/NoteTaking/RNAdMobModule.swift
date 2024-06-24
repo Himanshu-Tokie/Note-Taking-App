@@ -6,12 +6,15 @@
 //
 
 import Foundation
-
 import GoogleMobileAds
 import React
 
 @objc(RNAdMobModule)
 class RNAdMobModule: NSObject, RCTBridgeModule {
+  static func requiresMainQueueSetup() -> Bool {
+    return true
+  }
+
   static func moduleName() -> String! {
     return "RNAdMobModule"
   }
@@ -20,9 +23,17 @@ class RNAdMobModule: NSObject, RCTBridgeModule {
     super.init()
   }
 
-  @objc func initializeAds(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) {
-      GADMobileAds.sharedInstance().start(completionHandler: { (status) in
-          resolve("AdMob SDK initialized successfully")
-      })
+  @objc func initializeAds(_ resolve: @escaping RCTPromiseResolveBlock,
+                           rejecter reject: @escaping RCTPromiseRejectBlock) {
+      GADMobileAds.sharedInstance().start { (status) in
+          if status.adapterStatusesByClassName.isEmpty {
+            print("AdMob SDK initialization failed")
+              reject("E_ADS_INIT_FAILED", "AdMob SDK initialization failed", nil)
+          } else {
+            print("AdMob SDK initialized successfully")
+              resolve("AdMob SDK initialized successfully")
+          }
+      }
   }
 }
+

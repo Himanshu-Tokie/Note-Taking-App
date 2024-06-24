@@ -10,9 +10,10 @@
 #import <React/RCTBridgeModule.h>
 // This ensures the module is exported to React Native
 @interface RCT_EXTERN_REMAP_MODULE(AdsModule,RNAdMobModule, NSObject)
-RCT_EXTERN_METHOD(initializeAds:(RCTPromiseResolveBlock)resolve rejecter:(RCTPromiseRejectBlock)reject)
+RCT_EXTERN_METHOD(initializeAds: (RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
 @end
 
-#import "React/RCTBridgeModule.h"
+//#import "React/RCTBridgeModule.h"
 @interface RCT_EXTERN_MODULE(Counter, NSObject)
 @end

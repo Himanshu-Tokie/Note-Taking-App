@@ -1,11 +1,8 @@
 // import { NativeModules } from 'react-native';
 const { AdsModule } = NativeModules;
 
-export const initializeAds = async() => {
-  AdsModule.initializeAds();
-  const t = await JSON.stringify(AdsModule.initializeAds);
-  console.log(t,'t');
-  
+export const initializeAds = () => {
+  AdsModule.initializeAds()
 };
 
 // export const loadAd = async (adUnitId:string) => {
@@ -19,6 +16,4 @@ export const initializeAds = async() => {
 
 import { NativeModules } from 'react-native';
 
-const { CalendarModule } = NativeModules;
-
-export default CalendarModule;
+export const { CalendarModule } = NativeModules;
