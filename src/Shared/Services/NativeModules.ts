@@ -1,19 +1,29 @@
+import { NativeModules, ViewStyle, requireNativeComponent } from "react-native";
+
 // import { NativeModules } from 'react-native';
-const { AdsModule } = NativeModules;
+const { AdsModule,AdView } = NativeModules;
+
+interface AdBannerProps {
+  adUnitId: string;
+  style?: ViewStyle;
+}
 
 export const initializeAds = () => {
   AdsModule.initializeAds()
 };
 
-// export const loadAd = async (adUnitId:string) => {
-//     try {
-//       const result = await AdView.loadBanner(adUnitId);
-//       console.log(result); // Ad loaded successfully
-//     } catch (error) {
-//       console.error(error); // Handle error if ad fails to load
-//     }
-//   };
+export const loadBanner = async (adUnitId:string) => {
+  await AdView.loadBanner(adUnitId)
+};
 
-import { NativeModules } from 'react-native';
+// export const AdBannerIOS = requireNativeComponent<AdBannerIOSProps>('AdView');
+
+export const AdBanner = requireNativeComponent<AdBannerProps>('AdView');
+
+// export const AdBannerComponent = Platform.select({
+//   ios: requireNativeComponent('AdView'),
+//   android: requireNativeComponent('AdView'),
+// });
+
 
 export const { CalendarModule } = NativeModules;

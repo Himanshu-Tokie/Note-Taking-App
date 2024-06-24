@@ -8,6 +8,7 @@ import Search from "../../Components/Header";
 import StaggedLabel from "../../Components/Staggered";
 import { SCREEN_CONSTANTS } from "../../Constants";
 import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
+import { NativeModules } from 'react-native';
 import { fetchLabelData } from "../../Firebase Utils";
 import { styles } from "./style";
 import { LabelProps, labelNotesDataType } from "./types";
@@ -65,6 +66,21 @@ function Label({ navigation, route, theme }:LabelProps) {
       });
     return () => unsubscribe();
   }, [uid]);
+
+const { AdInterstitialModule } = NativeModules;
+
+// Function to load interstitial ad
+const loadInterstitialAd = async (adUnitId:string) => {
+  try {
+    await AdInterstitialModule.loadInterstitialAd(adUnitId);
+    console.log('Interstitial ad loaded successfully.');
+  } catch (error) {
+    console.error('Failed to load interstitial ad:', error);
+  }
+};
+
+// Usage
+loadInterstitialAd('ca-app-pub-3940256099942544/1033173712'); // Replace with your ad unit ID
 
   const addNewNote = () => {
     navigation.navigate(SCREEN_CONSTANTS.Note, { note });

@@ -8,7 +8,7 @@ import {
   ImageBackground,
   SafeAreaView,
   Text,
-  View,
+  View
 } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import ImageModal from "react-native-image-modal";
@@ -26,9 +26,8 @@ import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
 import { colorSchemeState } from "../MainScreen/type";
 import { styles } from "./style";
 import { HomeProps, newDataType } from "./types";
-import NewModuleButton from "../../Components/TestModules";
-// import NewModuleButton from "../../Components/TestModules";
-// import { loadAd } from "../../Shared/Services/NativeModules";
+import AdBannerComponent from "../../Components/AdBanner";
+
 
 function Home({ theme }: HomeProps) {
   const [usedSpace, setUsedSpace] = useState(0);
@@ -45,7 +44,8 @@ function Home({ theme }: HomeProps) {
   const photoURL = user?.photoURL
     ? { uri: { uri: user.photoURL } }
     : { uri: defaultImage };
-
+    const adUnitIdAndroid = 'ca-app-pub-7847781440929990/3300965382';
+    const adUnitIdIOS = 'ca-app-pub-7847781440929990/5868871678';
   useEffect(() => {
     getLabel();
     if (user) {
@@ -101,7 +101,6 @@ function Home({ theme }: HomeProps) {
   };
   const fetchStorageInfo = useCallback(async () => {
     try {
-      console.log(1888);
       const freeDiskStorage = await DeviceInfo.getTotalDiskCapacity();
       const usedMemory = await DeviceInfo.getUsedMemory();
       setFreeSpace(freeDiskStorage);
@@ -116,13 +115,8 @@ function Home({ theme }: HomeProps) {
       fetchStorageInfo();
     }, [fetchStorageInfo])
   );
-  // useEffect(()=>{
-  //   loadAd('ca-app-pub-3940256099942544/9214589741').then(()=>
-  //     console.log('added ad')
-  // ).catch((e)=>console.log(e)
-  // )
+
     
-  // },[])
   const bytesToGB = (bytes: number) =>
     (bytes / (1024 * 1024 * 1024)).toFixed(2);
   if (user) {
@@ -184,22 +178,8 @@ function Home({ theme }: HomeProps) {
                   </View>
                 </View>
               </ImageBackground>
-              <NewModuleButton />
-              {/* <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              > */}
-                {/* <View
-                  id="adViewContainer"
-                  style={{ width: "100%", height: 100 }}
-                > */}
-                  {/* AdView will be inserted here */}
-                {/* </View> */}
-                {/* <Text>React Native App with AdView</Text> */}
-              {/* </View> */}
+              {/* <NewModuleButton /> */}
+              <AdBannerComponent adUnitIdAndroid={adUnitIdAndroid} adUnitIdIOS={adUnitIdIOS} />
             </View>
             {!label && <ActivityIndicator size="large" />}
             {label && (

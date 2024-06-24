@@ -4,13 +4,7 @@ import android.util.DisplayMetrics
 import android.util.Log
 import android.view.WindowManager
 import com.facebook.react.bridge.*
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.LoadAdError
-import com.google.android.gms.ads.MobileAds
-import com.google.android.gms.ads.RequestConfiguration
+import com.google.android.gms.ads.*
 import java.util.Arrays
 
 class AdViewModule(private val reactContext: ReactApplicationContext) : ReactContextBaseJavaModule(reactContext) {
@@ -26,13 +20,13 @@ class AdViewModule(private val reactContext: ReactApplicationContext) : ReactCon
     @ReactMethod
     fun loadBanner(adUnitId: String, promise: Promise) {
         val activity = currentActivity ?: return promise.reject("Activity not found")
-        val testDeviceIds = listOf("B3EEABB8EE11C2BE770B684D95219ECB")
+        val testDeviceIds = Arrays.asList("B3EEABB8EE11C2BE770B684D95219ECB")
         val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
         MobileAds.setRequestConfiguration(configuration)
         activity.runOnUiThread {
             val adSize = calculateAdSize()
             val adView = AdView(activity)
-            adView.setAdSize(adSize)  // Assign adSize to adView.adSize
+            adView.setAdSize(adSize)
             adView.adUnitId = adUnitId
             val adRequest = AdRequest.Builder().build()
             adView.loadAd(adRequest)
