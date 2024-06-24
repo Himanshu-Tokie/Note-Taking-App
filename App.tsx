@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { usePushNotification } from './src/Hooks/pushNotificationcustomHooks';
 import AuthNavigation from './src/Navigation/AuthNavigation';
 import { store } from './src/Store';
+import mobileAds from 'react-native-google-mobile-ads';
 
 export default function App() {
   const {
@@ -32,7 +33,11 @@ export default function App() {
     listenToNotifications();
   }, []);
 
-
+  mobileAds()
+  .initialize()
+  .then(adapterStatuses => {
+    console.log('Initialization complete!');
+  });
   return (
     <Provider store={store}>
       <AuthNavigation></AuthNavigation>

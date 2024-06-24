@@ -26,6 +26,7 @@ import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
 import { colorSchemeState } from "../MainScreen/type";
 import { styles } from "./style";
 import { HomeProps, newDataType } from "./types";
+import BannerAdComponent from "../../Components/ADBanner";
 
 function Home({ theme }: HomeProps) {
   const [usedSpace, setUsedSpace] = useState(0);
@@ -176,6 +177,7 @@ function Home({ theme }: HomeProps) {
                 </View>
               </ImageBackground>
             </View>
+            <BannerAdComponent />
             {!label && <ActivityIndicator size="large" />}
             {label && (
               <View style={styles.labels}>
