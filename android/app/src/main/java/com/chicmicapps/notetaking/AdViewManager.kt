@@ -4,11 +4,9 @@ import android.util.Log
 import com.facebook.react.uimanager.SimpleViewManager
 import com.facebook.react.uimanager.ThemedReactContext
 import com.facebook.react.uimanager.annotations.ReactProp
-import com.google.android.gms.ads.AdRequest
-import com.google.android.gms.ads.AdView
-import com.google.android.gms.ads.AdSize
-import com.google.android.gms.ads.AdListener
-import com.google.android.gms.ads.LoadAdError
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.identifier.AdvertisingIdClient
+import java.util.Arrays
 
 class AdViewManager : SimpleViewManager<AdView>() {
 
@@ -22,20 +20,24 @@ class AdViewManager : SimpleViewManager<AdView>() {
     }
 
     override fun createViewInstance(reactContext: ThemedReactContext): AdView {
+        MobileAds.initialize(reactContext)
         val adView = AdView(reactContext)
-        val adSize = AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(reactContext, 320)
-        adView.setAdSize(adSize)
-//        adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
-        val adRequest = AdRequest.Builder().build()
-        adView.loadAd(adRequest)
+        adView.setAdSize(AdSize.BANNER)
         return adView
     }
 
     @ReactProp(name = "adUnitId")
     fun setAdUnitId(view: AdView, adUnitId: String) {
         view.adUnitId = adUnitId
+//        Log.d(TAG, "AdUnitId set to: $adUnitId")
+        // Request test ads
+//        val testDeviceIds = listOf("YOUR_DEVICE_HASH")
+//        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
+//        MobileAds.setRequestConfiguration(configuration)
+        val adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context)
+        val deviceId = adInfo.id
+        Log.d("DeviceID", "Device ID: $deviceId")
         val adRequest = AdRequest.Builder().build()
-        view.loadAd(adRequest)
         view.adListener = object : AdListener() {
             override fun onAdLoaded() {
                 Log.d(TAG, "Ad loaded successfully")
@@ -43,7 +45,11 @@ class AdViewManager : SimpleViewManager<AdView>() {
 
             override fun onAdFailedToLoad(adError: LoadAdError) {
                 Log.d(TAG, "Ad failed to load: ${adError.message}")
+                // Log device hash for test ads
+                Log.d(TAG, "Use RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList(\"YOUR_DEVICE_HASH\")) to get test ads on this device.")
             }
         }
+
+        view.loadAd(adRequest)
     }
 }

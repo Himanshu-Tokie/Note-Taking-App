@@ -18,7 +18,7 @@ export const initializeAds = () => {
 
 // export const AdBannerIOS = requireNativeComponent<AdBannerIOSProps>('AdView');
 
-export const AdBannerComponent = requireNativeComponent<AdBannerProps>('BannerAdView');
+// export const AdBannerComponent = requireNativeComponent<AdBannerProps>('BannerAdView');
 
 // export const AdBannerComponent = Platform.select({
 //   ios: requireNativeComponent('AdView'),

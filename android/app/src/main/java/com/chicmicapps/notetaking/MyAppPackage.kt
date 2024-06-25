@@ -8,10 +8,9 @@ import com.facebook.react.uimanager.ViewManager
 
 class MyAppPackage : ReactPackage {
 
-    override fun createViewManagers(reactContext: ReactApplicationContext)=
-        listOf(
-            AdViewManager()
-        )
+    override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
+        return listOf(AdViewManager())
+    }
 
 
     override fun createNativeModules(
