@@ -57,3 +57,5 @@ class AdViewModule(private val reactContext: ReactApplicationContext) : ReactCon
         return AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(reactContext, adWidth)
     }
 }
+
+

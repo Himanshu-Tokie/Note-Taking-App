@@ -19,6 +19,7 @@ class MyAppPackage : ReactPackage {
         return listOf(
             CalendarModule(reactContext),
             AdsModule(reactContext),
+            InterstitialAdModule(reactContext)
 //            AdViewModule(reactContext),
 //            AdInterstitialModule(reactContext)
         )

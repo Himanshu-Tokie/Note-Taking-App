@@ -8,7 +8,7 @@ import {
   ImageBackground,
   SafeAreaView,
   Text,
-  View,
+  View
 } from "react-native";
 import DeviceInfo from "react-native-device-info";
 import ImageModal from "react-native-image-modal";
@@ -26,7 +26,6 @@ import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
 import { colorSchemeState } from "../MainScreen/type";
 import { styles } from "./style";
 import { HomeProps, newDataType } from "./types";
-import AdBannerComponent from "../../Components/AdBanner";
 // import { AdBannerComponent } from "../../Shared/Services/NativeModules";
 
 function Home({ theme }: HomeProps) {
@@ -44,8 +43,6 @@ function Home({ theme }: HomeProps) {
   const photoURL = user?.photoURL
     ? { uri: { uri: user.photoURL } }
     : { uri: defaultImage };
-  const adUnitIdAndroid = "ca-app-pub-3940256099942544/6300978111";
-  const adUnitIdIOS = "ca-app-pub-7847781440929990/5868871678";
   useEffect(() => {
     getLabel();
     if (user) {
@@ -179,16 +176,7 @@ function Home({ theme }: HomeProps) {
               </ImageBackground>
               {/* <NewModuleButton /> */}
             </View>
-              <View
-                style={{
-                  flex: 1,
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <Text>AdMob Example</Text>
-                <AdBannerComponent adUnitId={adUnitIdAndroid} />
-              </View>
+
             {!label && <ActivityIndicator size="large" />}
             {label && (
               <View style={styles.labels}>

@@ -11,11 +11,9 @@ import { addLabelProp, newDataType } from './types';
 
 function ADD_LABELS({theme}:addLabelProp) {
   const [notesData, setNotesData] = useState<newDataType|null>();
-  
   const user = auth().currentUser;
   const THEME = theme;
   let uid = user?.uid;
-
   useEffect(() => {
     const fetchData = async () => {
       try {
