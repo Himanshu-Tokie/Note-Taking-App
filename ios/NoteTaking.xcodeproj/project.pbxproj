@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* NoteTakingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NoteTakingTests.m */; };
+		1114F4552C2AAB130070B910 /* InterstitialAdModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1114F4542C2AAB130070B910 /* InterstitialAdModule.swift */; };
 		11C5D4AE2C25C24300A74DD7 /* CombinedModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C5D4AD2C25C24300A74DD7 /* CombinedModule.m */; };
 		11C694592C2938FB0073248C /* AdViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C694582C2938FB0073248C /* AdViewManager.swift */; };
 		11C6945B2C29391F0073248C /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C6945A2C29391F0073248C /* AdView.swift */; };
@@ -38,6 +39,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* NoteTakingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteTakingTests.m; sourceTree = "<group>"; };
 		0D18E4C59B86E229852F7F29 /* Pods_NoteTaking_NoteTakingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NoteTaking_NoteTakingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1114F4542C2AAB130070B910 /* InterstitialAdModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InterstitialAdModule.swift; path = NoteTaking/InterstitialAdModule.swift; sourceTree = "<group>"; };
 		1193B00F2BF20CAD0097C5BB /* NoteTaking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NoteTaking.entitlements; path = NoteTaking/NoteTaking.entitlements; sourceTree = "<group>"; };
 		11C5D4AD2C25C24300A74DD7 /* CombinedModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CombinedModule.m; path = NoteTaking/CombinedModule.m; sourceTree = "<group>"; };
 		11C694582C2938FB0073248C /* AdViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdViewManager.swift; path = NoteTaking/AdViewManager.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				11C5D4AD2C25C24300A74DD7 /* CombinedModule.m */,
 				11C694582C2938FB0073248C /* AdViewManager.swift */,
 				11C6945A2C29391F0073248C /* AdView.swift */,
+				1114F4542C2AAB130070B910 /* InterstitialAdModule.swift */,
 			);
 			name = NoteTaking;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				11C5D4AE2C25C24300A74DD7 /* CombinedModule.m in Sources */,
 				11F8F1DB2C257CFB00A8060E /* counter.swift in Sources */,
 				11C6945B2C29391F0073248C /* AdView.swift in Sources */,
+				1114F4552C2AAB130070B910 /* InterstitialAdModule.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				11C694592C2938FB0073248C /* AdViewManager.swift in Sources */,

@@ -8,17 +8,19 @@ import Search from "../../Components/Header";
 import StaggedLabel from "../../Components/Staggered";
 import { SCREEN_CONSTANTS } from "../../Constants";
 import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
-import { NativeModules } from 'react-native';
 import { fetchLabelData } from "../../Firebase Utils";
+import {
+  InterstitialAd
+} from "../../Shared/Services/NativeModules";
 import { styles } from "./style";
 import { LabelProps, labelNotesDataType } from "./types";
 
-function Label({ navigation, route, theme }:LabelProps) {
-  const [searchData, setSearchData] = useState<labelNotesDataType >([]);
+function Label({ navigation, route, theme }: LabelProps) {
+  const [searchData, setSearchData] = useState<labelNotesDataType>([]);
   const [notesData, setNotesData] = useState<labelNotesDataType>([]);
-  
-  const uid = route.params?.note?? '';
-  const label = route.params?.text ?? '';
+
+  const uid = route.params?.note ?? "";
+  const label = route.params?.text ?? "";
   const THEME = theme;
   const note = {
     uid,
@@ -40,7 +42,7 @@ function Label({ navigation, route, theme }:LabelProps) {
   };
 
   useEffect(() => {
-    fetchLabelData(uid,label,setSearchData,setNotesData); 
+    fetchLabelData(uid, label, setSearchData, setNotesData);
     const unsubscribe = firestore()
       .collection(STRINGS.FIREBASE.USER)
       .doc(uid)
@@ -67,20 +69,9 @@ function Label({ navigation, route, theme }:LabelProps) {
     return () => unsubscribe();
   }, [uid]);
 
-const { AdInterstitialModule } = NativeModules;
-
-// Function to load interstitial ad
-const loadInterstitialAd = async (adUnitId:string) => {
-  try {
-    await AdInterstitialModule.loadInterstitialAd(adUnitId);
-    console.log('Interstitial ad loaded successfully.');
-  } catch (error) {
-    console.error('Failed to load interstitial ad:', error);
-  }
-};
-
-// Usage
-loadInterstitialAd('ca-app-pub-3940256099942544/1033173712'); // Replace with your ad unit ID
+  useEffect(() => {
+    InterstitialAd("ca-app-pub-3940256099942544/1033173712");
+}, []);
 
   const addNewNote = () => {
     navigation.navigate(SCREEN_CONSTANTS.Note, { note });
@@ -99,12 +90,12 @@ loadInterstitialAd('ca-app-pub-3940256099942544/1033173712'); // Replace with yo
       </View>
       <StaggedLabel data={searchData} />
       <View style={styles.addNotes}>
-          <CustomButton
-            text={STRINGS.ADD_NEW_NOTES}
-            style={[styles.customButton]}
-            onPress={addNewNote}
-          />
-        </View>
+        <CustomButton
+          text={STRINGS.ADD_NEW_NOTES}
+          style={[styles.customButton]}
+          onPress={addNewNote}
+        />
+      </View>
     </SafeAreaView>
   );
 }

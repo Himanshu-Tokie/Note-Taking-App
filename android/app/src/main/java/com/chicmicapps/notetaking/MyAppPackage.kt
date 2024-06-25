@@ -9,10 +9,9 @@ import com.facebook.react.uimanager.ViewManager
 class MyAppPackage : ReactPackage {
 
     override fun createViewManagers(reactContext: ReactApplicationContext): List<ViewManager<*, *>> {
-        return listOf(
-            AdViewManager() // Ensure AdViewManager is registered here
-        )
+        return listOf(AdViewManager())
     }
+
 
     override fun createNativeModules(
         reactContext: ReactApplicationContext
@@ -20,8 +19,9 @@ class MyAppPackage : ReactPackage {
         return listOf(
             CalendarModule(reactContext),
             AdsModule(reactContext),
-            AdViewModule(reactContext),
-            AdInterstitialModule(reactContext)
+            InterstitialAdModule(reactContext)
+//            AdViewModule(reactContext),
+//            AdInterstitialModule(reactContext)
         )
     }
 }
