@@ -12,10 +12,6 @@ import { dropdownComponentProps } from './types';
     
     const THEME = theme     
 
-    useEffect(()=>
-      {value='Select label'}
-    ,[])
-
     data.forEach((label)=>{
         labelData.push({'label':label.id})
     })

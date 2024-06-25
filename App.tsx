@@ -4,6 +4,8 @@ import { Provider } from 'react-redux';
 import { usePushNotification } from './src/Hooks/pushNotificationcustomHooks';
 import AuthNavigation from './src/Navigation/AuthNavigation';
 import { store } from './src/Store';
+import { initializeAds } from './src/Shared/Services/NativeModules';
+// import {initializeAds} from './src/Shared/Services/NativeModules';
 
 export default function App() {
   const {
@@ -32,7 +34,9 @@ export default function App() {
     listenToNotifications();
   }, []);
 
-
+    useEffect(() => {
+      initializeAds();
+    }, []);
   return (
     <Provider store={store}>
       <AuthNavigation></AuthNavigation>

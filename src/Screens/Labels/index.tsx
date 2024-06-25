@@ -9,15 +9,18 @@ import StaggedLabel from "../../Components/Staggered";
 import { SCREEN_CONSTANTS } from "../../Constants";
 import { STRINGS, STRINGS_FIREBASE } from "../../Constants/Strings";
 import { fetchLabelData } from "../../Firebase Utils";
+import {
+  InterstitialAd
+} from "../../Shared/Services/NativeModules";
 import { styles } from "./style";
 import { LabelProps, labelNotesDataType } from "./types";
 
-function Label({ navigation, route, theme }:LabelProps) {
-  const [searchData, setSearchData] = useState<labelNotesDataType >([]);
+function Label({ navigation, route, theme }: LabelProps) {
+  const [searchData, setSearchData] = useState<labelNotesDataType>([]);
   const [notesData, setNotesData] = useState<labelNotesDataType>([]);
-  
-  const uid = route.params?.note?? '';
-  const label = route.params?.text ?? '';
+
+  const uid = route.params?.note ?? "";
+  const label = route.params?.text ?? "";
   const THEME = theme;
   const note = {
     uid,
@@ -39,7 +42,7 @@ function Label({ navigation, route, theme }:LabelProps) {
   };
 
   useEffect(() => {
-    fetchLabelData(uid,label,setSearchData,setNotesData); 
+    fetchLabelData(uid, label, setSearchData, setNotesData);
     const unsubscribe = firestore()
       .collection(STRINGS.FIREBASE.USER)
       .doc(uid)
@@ -66,6 +69,10 @@ function Label({ navigation, route, theme }:LabelProps) {
     return () => unsubscribe();
   }, [uid]);
 
+  useEffect(() => {
+    InterstitialAd("ca-app-pub-3940256099942544/1033173712");
+}, []);
+
   const addNewNote = () => {
     navigation.navigate(SCREEN_CONSTANTS.Note, { note });
   };
@@ -83,12 +90,12 @@ function Label({ navigation, route, theme }:LabelProps) {
       </View>
       <StaggedLabel data={searchData} />
       <View style={styles.addNotes}>
-          <CustomButton
-            text={STRINGS.ADD_NEW_NOTES}
-            style={[styles.customButton]}
-            onPress={addNewNote}
-          />
-        </View>
+        <CustomButton
+          text={STRINGS.ADD_NEW_NOTES}
+          style={[styles.customButton]}
+          onPress={addNewNote}
+        />
+      </View>
     </SafeAreaView>
   );
 }
