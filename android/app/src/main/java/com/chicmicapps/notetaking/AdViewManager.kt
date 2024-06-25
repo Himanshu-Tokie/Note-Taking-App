@@ -7,6 +7,10 @@ import com.facebook.react.uimanager.annotations.ReactProp
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.identifier.AdvertisingIdClient
 import java.util.Arrays
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class AdViewManager : SimpleViewManager<AdView>() {
 
@@ -29,27 +33,30 @@ class AdViewManager : SimpleViewManager<AdView>() {
     @ReactProp(name = "adUnitId")
     fun setAdUnitId(view: AdView, adUnitId: String) {
         view.adUnitId = adUnitId
-//        Log.d(TAG, "AdUnitId set to: $adUnitId")
-        // Request test ads
-//        val testDeviceIds = listOf("YOUR_DEVICE_HASH")
-//        val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
-//        MobileAds.setRequestConfiguration(configuration)
-        val adInfo = AdvertisingIdClient.getAdvertisingIdInfo(context)
-        val deviceId = adInfo.id
-        Log.d("DeviceID", "Device ID: $deviceId")
-        val adRequest = AdRequest.Builder().build()
-        view.adListener = object : AdListener() {
-            override fun onAdLoaded() {
-                Log.d(TAG, "Ad loaded successfully")
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                val adInfo = AdvertisingIdClient.getAdvertisingIdInfo(view.context)
+                val deviceId = adInfo.id
+                Log.d(TAG, "Device ID: $deviceId")
+                val testDeviceIds = listOf(deviceId)
+                val configuration = RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build()
+                MobileAds.setRequestConfiguration(configuration)
+                withContext(Dispatchers.Main) {
+                    val adRequest = AdRequest.Builder().build()
+                    view.adListener = object : AdListener() {
+                        override fun onAdLoaded() {
+                            Log.d(TAG, "Ad loaded successfully")
+                        }
 
-            override fun onAdFailedToLoad(adError: LoadAdError) {
-                Log.d(TAG, "Ad failed to load: ${adError.message}")
-                // Log device hash for test ads
-                Log.d(TAG, "Use RequestConfiguration.Builder().setTestDeviceIds(Arrays.asList(\"YOUR_DEVICE_HASH\")) to get test ads on this device.")
+                        override fun onAdFailedToLoad(adError: LoadAdError) {
+                            Log.d(TAG, "Ad failed to load: ${adError.message}")
+                        }
+                    }
+                    view.loadAd(adRequest)
+                }
+            } catch (e: Exception) {
+                Log.e(TAG, "Failed to get device ID", e)
             }
         }
-
-        view.loadAd(adRequest)
     }
 }
