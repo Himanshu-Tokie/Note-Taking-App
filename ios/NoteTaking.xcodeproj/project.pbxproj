@@ -8,13 +8,20 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* NoteTakingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NoteTakingTests.m */; };
+		1114F4552C2AAB130070B910 /* InterstitialAdModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1114F4542C2AAB130070B910 /* InterstitialAdModule.swift */; };
+		11C5D4AE2C25C24300A74DD7 /* CombinedModule.m in Sources */ = {isa = PBXBuildFile; fileRef = 11C5D4AD2C25C24300A74DD7 /* CombinedModule.m */; };
+		11C694592C2938FB0073248C /* AdViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C694582C2938FB0073248C /* AdViewManager.swift */; };
+		11C6945B2C29391F0073248C /* AdView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C6945A2C29391F0073248C /* AdView.swift */; };
+		11F8F1DB2C257CFB00A8060E /* counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F8F1DA2C257CFB00A8060E /* counter.swift */; };
+		11F8F1E02C2589A600A8060E /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = 11F8F1DF2C2589A600A8060E /* GoogleMobileAds */; };
+		11F8F1E22C258F9700A8060E /* RNAdMobModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11F8F1E12C258F9700A8060E /* RNAdMobModule.swift */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1E42B678058ED9FD0B1A1425 /* Pods_NoteTaking_NoteTakingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D18E4C59B86E229852F7F29 /* Pods_NoteTaking_NoteTakingTests.framework */; };
+		1CD6DD8327977DD9207E15DD /* Pods_NoteTaking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E4A0BDD0133EA532314EEAA /* Pods_NoteTaking.framework */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		90DBBE7E7898190A2F656F85 /* Pods_NoteTaking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2F170F283C05282806A0A25 /* Pods_NoteTaking.framework */; };
 		AD09048A2BDE6EFD00F24A84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AD0904892BDE6EFD00F24A84 /* GoogleService-Info.plist */; };
+		C349494E23903C499B74F67A /* Pods_NoteTaking_NoteTakingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796F23DBECE2133897068069 /* Pods_NoteTaking_NoteTakingTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,8 +38,15 @@
 		00E356EE1AD99517003FC87E /* NoteTakingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NoteTakingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* NoteTakingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NoteTakingTests.m; sourceTree = "<group>"; };
-		0D18E4C59B86E229852F7F29 /* Pods_NoteTaking_NoteTakingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NoteTaking_NoteTakingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E4A0BDD0133EA532314EEAA /* Pods_NoteTaking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NoteTaking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1114F4542C2AAB130070B910 /* InterstitialAdModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InterstitialAdModule.swift; path = NoteTaking/InterstitialAdModule.swift; sourceTree = "<group>"; };
 		1193B00F2BF20CAD0097C5BB /* NoteTaking.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = NoteTaking.entitlements; path = NoteTaking/NoteTaking.entitlements; sourceTree = "<group>"; };
+		11C5D4AD2C25C24300A74DD7 /* CombinedModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = CombinedModule.m; path = NoteTaking/CombinedModule.m; sourceTree = "<group>"; };
+		11C694582C2938FB0073248C /* AdViewManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AdViewManager.swift; path = NoteTaking/AdViewManager.swift; sourceTree = "<group>"; };
+		11C6945A2C29391F0073248C /* AdView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdView.swift; sourceTree = "<group>"; };
+		11F8F1D92C257CFB00A8060E /* NoteTaking-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NoteTaking-Bridging-Header.h"; sourceTree = "<group>"; };
+		11F8F1DA2C257CFB00A8060E /* counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = counter.swift; sourceTree = "<group>"; };
+		11F8F1E12C258F9700A8060E /* RNAdMobModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RNAdMobModule.swift; path = NoteTaking/RNAdMobModule.swift; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* NoteTaking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NoteTaking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = NoteTaking/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = NoteTaking/AppDelegate.mm; sourceTree = "<group>"; };
@@ -40,13 +54,13 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = NoteTaking/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = NoteTaking/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = NoteTaking/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		3B4392A12AC88292D35C810B /* Pods-NoteTaking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoteTaking.debug.xcconfig"; path = "Target Support Files/Pods-NoteTaking/Pods-NoteTaking.debug.xcconfig"; sourceTree = "<group>"; };
-		5709B34CF0A7D63546082F79 /* Pods-NoteTaking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoteTaking.release.xcconfig"; path = "Target Support Files/Pods-NoteTaking/Pods-NoteTaking.release.xcconfig"; sourceTree = "<group>"; };
-		5B7EB9410499542E8C5724F5 /* Pods-NoteTaking-NoteTakingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoteTaking-NoteTakingTests.debug.xcconfig"; path = "Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests.debug.xcconfig"; sourceTree = "<group>"; };
+		34A22291DF5E8E7115ED8E5A /* Pods-NoteTaking-NoteTakingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoteTaking-NoteTakingTests.release.xcconfig"; path = "Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests.release.xcconfig"; sourceTree = "<group>"; };
+		442A0D95625BA394D4157B7F /* Pods-NoteTaking-NoteTakingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoteTaking-NoteTakingTests.debug.xcconfig"; path = "Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5574630998CA702FB08329C0 /* Pods-NoteTaking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoteTaking.release.xcconfig"; path = "Target Support Files/Pods-NoteTaking/Pods-NoteTaking.release.xcconfig"; sourceTree = "<group>"; };
+		796F23DBECE2133897068069 /* Pods_NoteTaking_NoteTakingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NoteTaking_NoteTakingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = NoteTaking/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		89C6BE57DB24E9ADA2F236DE /* Pods-NoteTaking-NoteTakingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoteTaking-NoteTakingTests.release.xcconfig"; path = "Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests.release.xcconfig"; sourceTree = "<group>"; };
+		8EBA870DBA4E3885F3F9CDB8 /* Pods-NoteTaking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NoteTaking.debug.xcconfig"; path = "Target Support Files/Pods-NoteTaking/Pods-NoteTaking.debug.xcconfig"; sourceTree = "<group>"; };
 		AD0904892BDE6EFD00F24A84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		B2F170F283C05282806A0A25 /* Pods_NoteTaking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_NoteTaking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -55,7 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E42B678058ED9FD0B1A1425 /* Pods_NoteTaking_NoteTakingTests.framework in Frameworks */,
+				C349494E23903C499B74F67A /* Pods_NoteTaking_NoteTakingTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,7 +77,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				90DBBE7E7898190A2F656F85 /* Pods_NoteTaking.framework in Frameworks */,
+				11F8F1E02C2589A600A8060E /* GoogleMobileAds in Frameworks */,
+				1CD6DD8327977DD9207E15DD /* Pods_NoteTaking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -99,6 +114,13 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				11F8F1DA2C257CFB00A8060E /* counter.swift */,
+				11F8F1D92C257CFB00A8060E /* NoteTaking-Bridging-Header.h */,
+				11F8F1E12C258F9700A8060E /* RNAdMobModule.swift */,
+				11C5D4AD2C25C24300A74DD7 /* CombinedModule.m */,
+				11C694582C2938FB0073248C /* AdViewManager.swift */,
+				11C6945A2C29391F0073248C /* AdView.swift */,
+				1114F4542C2AAB130070B910 /* InterstitialAdModule.swift */,
 			);
 			name = NoteTaking;
 			sourceTree = "<group>";
@@ -107,8 +129,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				B2F170F283C05282806A0A25 /* Pods_NoteTaking.framework */,
-				0D18E4C59B86E229852F7F29 /* Pods_NoteTaking_NoteTakingTests.framework */,
+				0E4A0BDD0133EA532314EEAA /* Pods_NoteTaking.framework */,
+				796F23DBECE2133897068069 /* Pods_NoteTaking_NoteTakingTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -147,10 +169,10 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				3B4392A12AC88292D35C810B /* Pods-NoteTaking.debug.xcconfig */,
-				5709B34CF0A7D63546082F79 /* Pods-NoteTaking.release.xcconfig */,
-				5B7EB9410499542E8C5724F5 /* Pods-NoteTaking-NoteTakingTests.debug.xcconfig */,
-				89C6BE57DB24E9ADA2F236DE /* Pods-NoteTaking-NoteTakingTests.release.xcconfig */,
+				8EBA870DBA4E3885F3F9CDB8 /* Pods-NoteTaking.debug.xcconfig */,
+				5574630998CA702FB08329C0 /* Pods-NoteTaking.release.xcconfig */,
+				442A0D95625BA394D4157B7F /* Pods-NoteTaking-NoteTakingTests.debug.xcconfig */,
+				34A22291DF5E8E7115ED8E5A /* Pods-NoteTaking-NoteTakingTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -162,12 +184,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "NoteTakingTests" */;
 			buildPhases = (
-				A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */,
+				CF4F301CDEE876ECD38DB8D3 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */,
-				F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */,
+				2AF4155525201854F70CC384 /* [CP] Embed Pods Frameworks */,
+				6EB1237C8587D292DC013431 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -183,20 +205,23 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "NoteTaking" */;
 			buildPhases = (
-				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				FBC49F724E89015069CA5191 /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
-				E235C05ADACE081382539298 /* [CP] Copy Pods Resources */,
-				F8F9B589E8DA4728AC53302B /* [CP-User] [RNFB] Core Configuration */,
+				F0680B48B55162B8399361E5 /* [CP] Embed Pods Frameworks */,
+				78BC180B10EB6D1A213CFE4E /* [CP] Copy Pods Resources */,
+				FEB217BF89C90624065ED277 /* [CP-User] [RNFB] Core Configuration */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = NoteTaking;
+			packageProductDependencies = (
+				11F8F1DF2C2589A600A8060E /* GoogleMobileAds */,
+			);
 			productName = NoteTaking;
 			productReference = 13B07F961A680F5B00A75B9A /* NoteTaking.app */;
 			productType = "com.apple.product-type.application";
@@ -214,7 +239,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -227,6 +252,9 @@
 				Base,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
+			packageReferences = (
+				11F8F1DE2C2589A600A8060E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
+			);
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -274,24 +302,58 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */ = {
+		2AF4155525201854F70CC384 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		A55EABD7B0C7F3A422A6CC61 /* [CP] Check Pods Manifest.lock */ = {
+		6EB1237C8587D292DC013431 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		78BC180B10EB6D1A213CFE4E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CF4F301CDEE876ECD38DB8D3 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -313,7 +375,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */ = {
+		F0680B48B55162B8399361E5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FBC49F724E89015069CA5191 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -335,58 +414,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C59DA0FBD6956966B86A3779 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E235C05ADACE081382539298 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NoteTaking/Pods-NoteTaking-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NoteTaking-NoteTakingTests/Pods-NoteTaking-NoteTakingTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F8F9B589E8DA4728AC53302B /* [CP-User] [RNFB] Core Configuration */ = {
+		FEB217BF89C90624065ED277 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -414,8 +442,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11F8F1E22C258F9700A8060E /* RNAdMobModule.swift in Sources */,
+				11C5D4AE2C25C24300A74DD7 /* CombinedModule.m in Sources */,
+				11F8F1DB2C257CFB00A8060E /* counter.swift in Sources */,
+				11C6945B2C29391F0073248C /* AdView.swift in Sources */,
+				1114F4552C2AAB130070B910 /* InterstitialAdModule.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				11C694592C2938FB0073248C /* AdViewManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -432,8 +466,9 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-NoteTaking-NoteTakingTests.debug.xcconfig */;
+			baseConfigurationReference = 442A0D95625BA394D4157B7F /* Pods-NoteTaking-NoteTakingTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -459,8 +494,9 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-NoteTaking-NoteTakingTests.release.xcconfig */;
+			baseConfigurationReference = 34A22291DF5E8E7115ED8E5A /* Pods-NoteTaking-NoteTakingTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = NoteTakingTests/Info.plist;
@@ -483,7 +519,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-NoteTaking.debug.xcconfig */;
+			baseConfigurationReference = 8EBA870DBA4E3885F3F9CDB8 /* Pods-NoteTaking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -493,6 +529,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NoteTaking/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Note Taking";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -505,6 +542,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chicmicapps.notetaking;
 				PRODUCT_NAME = NoteTaking;
+				SWIFT_OBJC_BRIDGING_HEADER = "NoteTaking-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -513,7 +551,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-NoteTaking.release.xcconfig */;
+			baseConfigurationReference = 5574630998CA702FB08329C0 /* Pods-NoteTaking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -522,6 +560,7 @@
 				DEVELOPMENT_TEAM = LPRPC642LQ;
 				INFOPLIST_FILE = NoteTaking/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Note Taking";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -534,6 +573,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.chicmicapps.notetaking;
 				PRODUCT_NAME = NoteTaking;
+				SWIFT_OBJC_BRIDGING_HEADER = "NoteTaking-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -751,6 +791,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		11F8F1DE2C2589A600A8060E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 11.6.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		11F8F1DF2C2589A600A8060E /* GoogleMobileAds */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11F8F1DE2C2589A600A8060E /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
+			productName = GoogleMobileAds;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 83CBB9F71A601CBA00E9B192 /* Project object */;
 }

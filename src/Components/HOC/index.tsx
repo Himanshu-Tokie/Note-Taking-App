@@ -1,13 +1,21 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { DARK_THEME_COLOR, LIGHT_THEME_COLOR } from '../../Constants/Colors';
+import { DARK_THEME_COLOR, DEVICE_THEME, LIGHT_THEME_COLOR } from '../../Constants/Colors';
+import { themeState } from './types';
 
-const withTheme = (WrappedComponent) => (props) => {
-  const themeMode = useSelector((state) => state.theme.theme);
-  const theme = themeMode === 'light' ? LIGHT_THEME_COLOR : DARK_THEME_COLOR;
-  // console.log(theme,'HOC');
-  
-  return <WrappedComponent {...props} theme={theme} />;
-};
+export type themeType = typeof LIGHT_THEME_COLOR;
 
-export default withTheme;
+export interface WithThemeProps {
+  theme: themeType;
+}
+
+export default function withTheme<P extends WithThemeProps>(WrappedComponent: React.ComponentType<P>) {
+  const ComponentWithTheme: React.FC<Omit<P, 'theme'>> = (props) => {
+    const themeMode = useSelector((state: themeState) => state.theme.theme);
+    const theme = themeMode === DEVICE_THEME.LIGHT ? LIGHT_THEME_COLOR : DARK_THEME_COLOR;
+    return <WrappedComponent {...(props as P)} theme={theme} />;
+  };
+  return ComponentWithTheme;
+}
+
+

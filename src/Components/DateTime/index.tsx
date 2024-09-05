@@ -1,19 +1,23 @@
-import DateTimePicker from '@react-native-community/datetimepicker';
+// import DateTimePicker, { DateTimePickerEvent } from '@react-native-community/datetimepicker';
 import React, { useState } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import withTheme from '../HOC';
 import { styles } from './style';
+import { dateTimeProps } from './type';
 
-function DateTime({date, setDate,theme,dateRef}) {
-  const [mode, setMode] = useState('date');
+function DateTime({date, setDate,theme}:dateTimeProps) {
+  const [mode, setMode] = useState<"date"|"time">('date');
   const [show, setShow] = useState(false);
 
-  const onChange = (event, selectedDate) => {
-    setShow(false);
-    setDate(selectedDate);
-  };
+  const THEME = theme
+  
+  // const onChange = (event:DateTimePickerEvent,selectedDate:Date|undefined) => {
+  //   setShow(false);
+  //   if(selectedDate)
+  //   setDate(selectedDate);
+  // };
 
-  const showMode = currentMode => {
+  const showMode = (currentMode:'date'|'time') => {
     setShow(true);
     setMode(currentMode);
   };
@@ -25,7 +29,6 @@ function DateTime({date, setDate,theme,dateRef}) {
   const showTimepicker = () => {
     showMode('time');
   };
-  const THEME = theme
 
   return (
     <>
@@ -37,7 +40,7 @@ function DateTime({date, setDate,theme,dateRef}) {
           <View>
             <TouchableOpacity onPress={showDatepicker}>
               <Text style={[styles.text,{color:THEME.TEXT1}]}>
-                {date.toLocaleString().slice(0,9)}
+                {date.toLocaleString().slice(0,10)}
               </Text>
             </TouchableOpacity>
           </View>
@@ -49,20 +52,20 @@ function DateTime({date, setDate,theme,dateRef}) {
           <View>
             <TouchableOpacity onPress={showTimepicker}>
               <Text style={[styles.text,{color:THEME.TEXT1}]}>
-                {date.toLocaleString().slice(10)}
+                {date.toLocaleString().slice(11)}
               </Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
       {show && (
-        <DateTimePicker
-          testID="dateTimePicker"
-          value={date}
-          mode={mode}
-          is24Hour={true}
-          onChange={onChange}
-        />
+        // <DateTimePicker
+        //   testID="dateTimePicker"
+        //   value={date}
+        //   mode={mode}
+        //   is24Hour={true}
+        //   onChange={onChange}
+        // />
       )}
     </>
   );

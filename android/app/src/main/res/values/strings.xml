@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Note Taking</string>
+    <string name='admob_app_id'>ca-app-pub-7847781440929990~6623749830</string>
+    <string name='admob_banner_id'>ca-app-pub-3940256099942544/6300978111</string>
 </resources>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { RFValue } from 'react-native-responsive-fontsize'
-import ACADEMIC from '../Assets/Svg/academic.svg'
 import ADD from '../Assets/Svg/add.svg'
 import BACK from '../Assets/Svg/back.svg'
 import BELL from '../Assets/Svg/bell.svg'
@@ -14,11 +13,13 @@ import CHECKS_BLACK_DARK from '../Assets/Svg/check_black_dark.svg'
 import CHECKS_DARK from '../Assets/Svg/check_dark.svg'
 import CHECKS from '../Assets/Svg/checks.svg'
 import CROSS from '../Assets/Svg/cross-svgrepo-com.svg'
+import DELETE from '../Assets/Svg/delete.svg'
 import DAIRY from '../Assets/Svg/diary.svg'
 import DOC from '../Assets/Svg/doc.svg'
 import DOC_BLACK from '../Assets/Svg/doc_Black.svg'
 import DOC_BLACK_DARK from '../Assets/Svg/doc_black_dark.svg'
 import DOC_DARK from '../Assets/Svg/doc_dark.svg'
+import EDIT from '../Assets/Svg/edit.svg'
 import EYE from '../Assets/Svg/eye.svg'
 import EYE_CLOSE from '../Assets/Svg/eye_close.svg'
 import GOOGLE from '../Assets/Svg/google.svg'
@@ -35,8 +36,6 @@ import SETTING from '../Assets/Svg/setting.svg'
 import SETTING_BLACK from '../Assets/Svg/setting_black.svg'
 import SETTINGS_BLACK_DARK from '../Assets/Svg/setting_black_dark.svg'
 import SETTINGS_DARK from '../Assets/Svg/setting_dark.svg'
-import WORK from '../Assets/Svg/work.svg'
-
 const iconStyle = (
   width = 0,
   height = 0,
@@ -51,11 +50,10 @@ const iconStyle = (
 
 export const ICONS = {
   BELL: (...params) => <BELL {...iconStyle(...params)} />,
+  EDIT: (...params) => <EDIT {...iconStyle(...params)} />,
   DAIRY: (...params) => <DAIRY {...iconStyle(...params)} />,
-  ACADEMIC: (...params) => <ACADEMIC {...iconStyle(...params)} />,
   OTHERS: (...params) => <OTHERS {...iconStyle(...params)} />,
   PERSONAL: (...params) => <PERSONAL {...iconStyle(...params)} />,
-  WORK: (...params) => <WORK {...iconStyle(...params)} />,
   PIECHART: (...params) => <PIECHART {...iconStyle(...params)} />,
   CHECKS: (...params) => <CHECKS {...iconStyle(...params)} />,
   DOC: (...params) => <DOC {...iconStyle(...params)} />,
@@ -86,5 +84,5 @@ export const ICONS = {
   PIECHART_BLACK: (...params) => <PIECHART_BLACK {...iconStyle(...params)} />,
   CAMERA: (...params) => <CAMERA {...iconStyle(...params)} />,
   EYE_CLOSE: (...params) => <EYE_CLOSE {...iconStyle(...params)} />,
-
+  DELETE: (...params) => <DELETE {...iconStyle(...params)} />,
 }

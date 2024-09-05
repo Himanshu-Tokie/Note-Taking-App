@@ -5,35 +5,20 @@ import { useDispatch } from 'react-redux';
 import CustomButton from '../../Components/Button/customButton';
 import FormikTemplate from '../../Components/FormikTemplate';
 import withTheme from '../../Components/HOC';
-import { STRINGS } from '../../Constants/Strings';
-import { SignupSchema, signUpUser } from '../../Utils';
+import { PLATEFORM, STRINGS } from '../../Constants/Strings';
+import { createUser, SignupSchema, signUpUser } from '../../Utils';
 import { styles } from './style';
+import { SignUpProps, valuesTypes } from './types';
 
 // utils
-function SignUp({ navigation,theme }) {
+function SignUp({ navigation,theme }:SignUpProps) {
   const dispatch = useDispatch()
-  const signUp = async values => {
-    try {
-      let userCredentials = await auth().createUserWithEmailAndPassword(
-        values.email,
-        values.password,
-      );
-      await userCredentials.user.updateProfile({
-        displayName: values.firstName + ' ' + values.lastName,
-      });
-      // console.log(userCredentials,1)
-      signUpUser(userCredentials.user,'firebase',dispatch,navigation)
-    } catch (error) {
-      console.error('Error creating account:', error.code, error.message);
-    }
-  };
   const THEME = theme 
-
   return (
-    <>
+    
       <SafeAreaView style={[styles.container,{backgroundColor:THEME.BACKGROUND}]}>
         <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS === PLATEFORM.IOS ? 'padding' : 'height'}
         >
           <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.subContainer}>
@@ -44,10 +29,9 @@ function SignUp({ navigation,theme }) {
                   email: '',
                   password: '',
                   confirmPassword: '',
-                  number: '',
                 }}
                 validationSchema={SignupSchema}
-                onSubmit={signUp}>
+                onSubmit={(values)=>createUser(values,dispatch,navigation)}>
                 {({
                   handleSubmit,
                   touched,
@@ -98,14 +82,6 @@ function SignUp({ navigation,theme }) {
                       onBlur={() => setFieldTouched(STRINGS.CONFIRM_PASSWORD_SMALL)}
                       error={errors.confirmPassword}
                     />
-                    <FormikTemplate
-                      placeholder={STRINGS.PHONE_NUMBER}
-                      values={values.number}
-                      touched={touched.number}
-                      onChangeText={handleChange(STRINGS.PHONE_NUMBER_SMALL)}
-                      onBlur={() => setFieldTouched(STRINGS.PHONE_NUMBER_SMALL)}
-                      error={errors.number}
-                    />
                     <Text style={[styles.text,{color:THEME.TEXT1}]}>
                       {STRINGS.SIGN_UP_CONDITIONS}
                     </Text>
@@ -121,7 +97,7 @@ function SignUp({ navigation,theme }) {
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </>
+    
   );
 }
 

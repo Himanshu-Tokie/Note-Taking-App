@@ -1,72 +1,95 @@
-import { default as auth } from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { useNavigation } from '@react-navigation/native';
-import { useEffect, useState } from 'react';
-import AddLabel from '../../Components/AddLabel/addLabel';
-import withTheme from '../../Components/HOC';
-import MyTabBar from '../../Components/TabBar';
-import { SCREEN_CONSTANTS } from '../../Constants';
-import { STRINGS } from '../../Constants/Strings';
-import Extar1 from '../../Screens/AddLabels';
-import Home from '../../Screens/Home';
-import Note from '../../Screens/Note';
-import Extar2 from '../../Screens/Reminder';
-import Setting from '../../Screens/Setting';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { useNavigation } from "@react-navigation/native";
+import { useRealm } from "@realm/react";
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import AddLabel from "../../Components/AddLabel";
+import withTheme from "../../Components/HOC";
+import MyTabBar from "../../Components/TabBar";
+import { SCREEN_CONSTANTS } from "../../Constants";
+import { TOAST_STRINGS } from "../../Constants/Strings";
+import { useFirestoreToRealmSync } from "../../Hooks/firebase";
+import { Label } from "../../RealmDB";
+import ADD_LABELS from "../../Screens/AddLabels";
+import Home from "../../Screens/Home";
+import Note from "../../Screens/Note";
+import Reminder from "../../Screens/Reminder";
+import Setting from "../../Screens/Setting";
+import { RootState } from "../../Store";
+import { setLoading } from "../../Store/Loader";
+import { RootTabParamList } from "../../Types/navigation";
+import { syncFirestoreToRealm } from "../../Utils";
+import { toastInfo } from "../../Utils/toast";
+import { HomeNavigationProps } from "./types";
 
- function HomeNavigation({theme}) {
-  const parentNavigation = useNavigation();
-  const Tab = createBottomTabNavigator();
-  // const THEME = route.params.theme
+function HomeNavigation({ theme }: HomeNavigationProps) {
   const [show, setShow] = useState(false);
-  const [labelData, setLabelData] = useState([]);
-  const user = auth().currentUser;
+  const [labelData, setLabelData] = useState<any>();
+  const parentNavigation = useNavigation();
+  const Tab = createBottomTabNavigator<RootTabParamList>();
+  const user = useSelector((state: RootState) => state.common.user);
+  const isLoading = useSelector((state: RootState) => state.loader.isLoading);
+  const isConnected = useSelector(
+    (state: RootState) => state.network.isAvailable
+  );
   let uid = user?.uid;
+  const realm = useRealm();
   useEffect(() => {
-    const fetchLabelData = async () => {
-      try {
-        await firestore()
-          .collection(STRINGS.FIREBASE.USER)
-          .doc(uid)
-          .collection(STRINGS.FIREBASE.LABELS)
-          .orderBy('time_stamp', 'asc')
-          .get()
-          .then(labelData => setLabelData(labelData));
-      } catch (e) {
-        console.log(e, 12);
-      }
-    };
-    fetchLabelData();
-    const unsubscribe = firestore()
-    .collection(STRINGS.FIREBASE.USER)
-    .doc(uid)
-    .collection(STRINGS.FIREBASE.LABELS)
-    .orderBy('time_stamp', 'asc')
-    .onSnapshot(querySnapshot => {
-      setLabelData(querySnapshot)
-    });
-  
-  // Stop listening for updates when no longer required
-  return () => unsubscribe();
-  }, [uid]);
+    if (!isLoading) {
+      const labels = realm.objects<Label>("Label").sorted("timestamp", true);
+      const updateLabels = () => {
+        setLabelData([...labels]);
+      };
+      updateLabels();
+      labels.addListener(() => updateLabels());
+      return () => {
+        labels.removeListener(updateLabels);
+      };
+    }
+  }, [realm, isLoading]);
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state: RootState) => state.common.isLogedIn);
+  useEffect(() => {
+    if (isConnected) {
+      dispatch(setLoading(true));
+      syncFirestoreToRealm(user?.uid, realm)
+        .then(() => {
+          toastInfo(TOAST_STRINGS.SYNC_SUCCESS);
+          dispatch(setLoading(false));
+        })
+        .catch((e) => {
+          toastInfo(TOAST_STRINGS.SYNC_Failed);
+          dispatch(setLoading(false));
+        });
+    }
+  }, [isConnected, dispatch]);
+  useFirestoreToRealmSync(user?.uid, realm, isLoading, isConnected);
   return (
     <>
       <Tab.Navigator
         initialRouteName={SCREEN_CONSTANTS.Home}
-        tabBar={props => <MyTabBar {...props} parentNavigation={parentNavigation} setShow={setShow} labelData={labelData}/>}
-        screenOptions={{headerShown: false}}>
-        <Tab.Screen name={SCREEN_CONSTANTS.Home} component={Home} initialParams={{theme}}/>
-        <Tab.Screen name={SCREEN_CONSTANTS.Extra1} component={Extar1} initialParams={{theme}}/>
-        <Tab.Screen name={SCREEN_CONSTANTS.Note} component={Note} initialParams={{theme}}/>
+        tabBar={(props) => (
+          <MyTabBar
+            {...props}
+            parentNavigation={parentNavigation}
+            setShow={setShow}
+            labelData={labelData}
+          />
+        )}
+        screenOptions={{ headerShown: false }}
+      >
+        <Tab.Screen name={SCREEN_CONSTANTS.Home} component={Home} />
+        <Tab.Screen name={SCREEN_CONSTANTS.Extra1} component={ADD_LABELS} />
+        <Tab.Screen name={SCREEN_CONSTANTS.Note} component={Note} />
         <Tab.Screen
           name={SCREEN_CONSTANTS.Extra2}
-          component={Extar2}
-          initialParams={{parentNavigation,theme}}
+          component={Reminder}
+          initialParams={{ parentNavigation }}
         />
-        <Tab.Screen name={SCREEN_CONSTANTS.Setting} component={Setting} initialParams={{theme}}/>
+        <Tab.Screen name={SCREEN_CONSTANTS.Setting} component={Setting} />
       </Tab.Navigator>
       {show && <AddLabel uid={uid} setShow={setShow} show={show} />}
     </>
   );
 }
-export default withTheme(HomeNavigation)
+export default withTheme(HomeNavigation);

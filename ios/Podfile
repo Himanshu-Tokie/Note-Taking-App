@@ -39,5 +39,5 @@ target 'NoteTaking' do
       # :ccache_enabled => true
     )
   end
-  
+  pod 'Google-Mobile-Ads-SDK'
 end

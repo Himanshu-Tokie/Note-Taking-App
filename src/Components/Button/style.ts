@@ -32,3 +32,5 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export type Styles = typeof styles;

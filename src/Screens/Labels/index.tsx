@@ -1,131 +1,93 @@
-import firestore from '@react-native-firebase/firestore';
-import React, { useEffect, useState } from 'react';
-import { View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import CustomButton from '../../Components/Button/customButton';
-import withTheme from '../../Components/HOC';
-import Search from '../../Components/Header';
-import StaggedLabel from '../../Components/Staggered';
-import { SCREEN_CONSTANTS } from '../../Constants';
-import { STRINGS } from '../../Constants/Strings';
-import { styles } from './style';
+import { useRealm } from "@realm/react";
+import React, { useEffect, useState } from "react";
+import { View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useSelector } from "react-redux";
+import CustomButton from "../../Components/Button/customButton";
+import withTheme from "../../Components/HOC";
+import Search from "../../Components/Header";
+import StaggedLabel from "../../Components/Staggered";
+import { SCREEN_CONSTANTS } from "../../Constants";
+import { REALM, STRINGS } from "../../Constants/Strings";
+import { Note } from "../../RealmDB";
+import { InterstitialAd } from "../../Shared/Services/NativeModules";
+import { RootState } from "../../Store";
+import { styles } from "./style";
+import { LabelProps } from "./types";
 
-function Label({navigation, route, theme}) {
-  // console.log(route, 123321123)
-  const uid = route.params.note;
-  const label = route.params.text;
+function Label({ navigation, route, theme }: LabelProps) {
+  const [searchData, setSearchData] = useState<Note[]>();
+  const [notesData, setNotesData] = useState<Note[]>();
+  const user = useSelector((state: RootState) => state.common.user);
+  const isLoading = useSelector((state: RootState) => state.loader.isLoading);
+  const realm = useRealm();
+  const uid = user?.uid;
+  const labelDetails =
+    (route.params as { labelDetails?: { labelId: string; labelName: string } })
+      ?.labelDetails ?? {};
   const THEME = theme;
-  const [searchData, setSearchData] = useState([]);
-  const [notesData, setNotesData] = useState([]);
-  console.log('label Page');
-  const note = {
-    uid,
-    label,
-  };
-
-  const search = e => {
+  const search = (e: string) => {
     let text = e.toLowerCase();
-    let filteredData = notesData.filter(item => {
-      return (
-        item.data.toLowerCase().match(text) ||
-        item.title.toLowerCase().match(text)
-      );
-    });
-    // console.log(filteredData);
-    setSearchData(filteredData);
-  };
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const data = await firestore()
-          .collection(STRINGS.FIREBASE.USER)
-          .doc(uid)
-          .collection(STRINGS.FIREBASE.NOTES)
-          .where('label', '==', label)
-          .orderBy('time_stamp', 'asc')
-          .get();
-
-        const newData = []; // Temporary array to accumulate data
-
-        data.forEach(doc => {
-          console.log(doc);
-          
-          newData.push({
-            title: doc.data().title,
-            data: doc.data().content,
-            noteId: doc.id,
-            id: uid,
-            label: label,
-            ImageUrl:doc.data().url??[],
-          });
-        });
-
-        setNotesData(newData);
-        setSearchData(newData);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      }
-    };
-
-    fetchData(); // Fetch initial data
-
-    // Set up listener for real-time updates
-    const unsubscribe = firestore()
-      .collection(STRINGS.FIREBASE.USER)
-      .doc(uid)
-      .collection(STRINGS.FIREBASE.NOTES)
-      .where('label', '==', label)
-      .orderBy('time_stamp', 'asc')
-      .onSnapshot(querySnapshot => {
-        console.log(querySnapshot,'querySnapshot');
-        
-        const newData = []; // Temporary array to accumulate data
-        querySnapshot.forEach(doc => {
-          console.log(doc.data().url,67);
-          newData.push({
-            title: doc.data().title,
-            data: doc.data().content,
-            noteId: doc.id,
-            ImageUrl:doc.data().url,
-            id: uid,
-            label: label,
-          });
-        });
-
-        setNotesData(newData);
-        setSearchData(newData);
+    if (notesData) {
+      let filteredData = notesData.filter((item) => {
+        return (
+          item.content?.toLowerCase().match(text) ||
+          item.title?.toLowerCase().match(text)
+        );
       });
-
-    // Stop listening for updates when no longer required
-    return () => unsubscribe();
-  }, [uid]);
+      setSearchData(filteredData);
+    }
+  };
+  useEffect(() => {
+    InterstitialAd("ca-app-pub-3940256099942544/1033173712");
+  }, []);
+  useEffect(() => {
+    setSearchData(notesData);
+  }, [notesData]);
+  // useLabelsById(labelDetails.labelId,realm,setNotesData,isLoading)
+  useEffect(() => {
+    if (!isLoading) {
+      const notes = realm
+        .objects<Note>("Note")
+        .filtered("label == $0", labelDetails.labelId)
+        .filtered("status != $0", REALM.STATUS.DELETE)
+        .sorted("timestamp", true);
+      const updateLabels = () => {
+        setNotesData([...notes]);
+      };
+      updateLabels();
+      notes.addListener(() => updateLabels());
+      return () => {
+        notes.removeListener(updateLabels);
+      };
+    }
+  }, [realm, isLoading]);
 
   const addNewNote = () => {
-    navigation.navigate(SCREEN_CONSTANTS.Note, {note});
+    navigation.navigate(SCREEN_CONSTANTS.Note, { labelDetails });
   };
+
   return (
-    <>
-      <SafeAreaView
-        style={[styles.container, {backgroundColor: THEME.BACKGROUND}]}>
-        <View>
-          <Search
-            onChangeText={search}
-            setSearchData={setSearchData}
-            notesData={notesData}
-            headerText={label}
-          />
-        </View>
-        <StaggedLabel data={searchData} />
-        <View style={styles.addNotes}>
-          <CustomButton
-            text="+  Add New Notes"
-            style={[styles.customButton]}
-            onPress={addNewNote}
-          />
-        </View>
-      </SafeAreaView>
-    </>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: THEME.BACKGROUND }]}
+    >
+      <View>
+        <Search
+          onChangeText={search}
+          // handleSetInittialOnBlur={() => setSearchData(notesData)}
+          notesData={notesData}
+          headerText={labelDetails.labelName}
+        />
+      </View>
+      <StaggedLabel data={notesData} labelDetails={labelDetails} />
+      <View style={styles.addNotes}>
+        <CustomButton
+          text={STRINGS.ADD_NEW_NOTES}
+          style={[styles.customButton]}
+          onPress={addNewNote}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 
